@@ -8,6 +8,11 @@ ul,ol {
   list-style: none;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+}
+
 
 body {
   margin: 0;
@@ -19,6 +24,7 @@ body {
 
 .App {
   margin: 50px auto;
+  padding: 25px;
   max-width: 1080px;
   background-color: lightblue;
   border-radius: 20px;
@@ -82,4 +88,74 @@ header {
   font-weight: 700;
   font-size: 32px;
   line-height: 39px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.sneakers {
+  margin-top: 30px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: flex-start; */
+  align-items: center;
+  gap: 40px;
+}
+
+.sneakers-item {
+  border: 1px solid #BDBDBD;
+  border-radius: 40px;
+  max-width: 210px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  background-color: #F3F3F3;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.item {
+  width: 133px;
+  height: 112px;
+}
+
+.sneakers-item-info {
+  cursor: pointer;
+}
+
+.sneakers-item-price-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.sneakers-item-price-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.sneakers-item-price-title {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 14px;
+  color: #BDBDBD;
+  text-transform: uppercase;
+}
+
+.sneakers-item-price {
+  font-weight: 700;
+}
+
+.plus {
+  cursor: pointer;
+  width: 11px;
+  height: 11px;
 }
