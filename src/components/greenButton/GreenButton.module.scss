@@ -1,0 +1,30 @@
+.greenButton {
+  position: relative;
+  width: 325px;
+  height: 55px;
+  padding: 20px 0px;
+  margin-top: 25px;
+  background-color: #9DD458;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  transition: background 0.1s ease-in-out;
+
+    &:hover {
+      background-color: lighten(#9DD458, 5%);
+    }
+    &:active {
+      background-color: darken(#9DD458, 5%);
+    }
+
+    & img {
+      position: absolute;
+      right: 40px;
+      transition: transform 0.15s ease-in-out;
+
+        & img:hover {
+          transform: translateX(5px);
+        }
+    }
+}

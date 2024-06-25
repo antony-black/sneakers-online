@@ -1,0 +1,87 @@
+.sneakersItem {
+  cursor: pointer;
+  border: 1px solid #f3f3f3;
+  border-radius: 40px;
+  max-width: 210px;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 14px;
+  background-color: #F3F3F3;
+  font-size: 14px;
+  line-height: 17px;
+  -webkit-transition: -webkit-box-shadow 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  transition: -webkit-box-shadow 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, -webkit-box-shadow 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+}
+
+.sneakersItem:hover {
+  -webkit-box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.06);
+          box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.06);
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+}
+
+.sneakersItem .favorite {
+  position: absolute;
+  cursor: pointer;
+}
+
+.sneakersItem .favorite .unliked {
+  width: 16px;
+  height: 16px;
+}
+
+.sneakersItem .item {
+  width: 133px;
+  height: 112px;
+}
+
+.sneakersItem .sneakersItemPriceInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.sneakersItem .sneakersItemPriceInfo .sneakersItemPriceDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.sneakersItem .sneakersItemPriceInfo .sneakersItemPriceDetails .sneakersItemPriceTitle {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 14px;
+  color: #BDBDBD;
+  text-transform: uppercase;
+}
+
+.sneakersItem .sneakersItemPriceInfo .sneakersItemPriceDetails .sneakersItemPrice {
+  font-weight: 700;
+}
+
+.sneakersItem .sneakersItemPriceInfo .plus {
+  width: 11px;
+  height: 11px;
+}

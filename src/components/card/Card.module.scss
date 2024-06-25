@@ -1,0 +1,64 @@
+.sneakersItem {
+  cursor: pointer;
+  border: 1px solid #f3f3f3;
+  border-radius: 40px;
+  max-width: 210px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  background-color: #F3F3F3;
+  font-size: 14px;
+  line-height: 17px;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .favorite {
+    position: absolute;
+    cursor: pointer;
+
+      .unliked {
+        width: 16px;
+        height: 16px;
+      }
+  }
+
+  .item {
+    width: 133px;
+    height: 112px;
+  }
+
+  .sneakersItemPriceInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+      .sneakersItemPriceDetails {
+        display: flex;
+        flex-direction: column;
+
+        .sneakersItemPriceTitle {
+          font-weight: 500;
+          font-size: 11px;
+          line-height: 14px;
+          color: #BDBDBD;
+          text-transform: uppercase;
+        }
+
+        .sneakersItemPrice {
+          font-weight: 700;
+        }
+      }
+    
+      .plus {
+        width: 11px;
+        height: 11px;
+      }
+  }
+}

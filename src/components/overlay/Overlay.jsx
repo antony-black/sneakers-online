@@ -1,37 +1,45 @@
+import GreenButton from "../greenButton/GreenButton";
+import styles from "./Overlay.module.scss";
+
 export default function Overlay() {
   return (
-    <div className="overlay">
-      <div className="drawer">
-        <h2>Cart</h2>
-        <div className="cart-items">
-          <div className="cart-item">
+    <div className={styles.overlay}>
+      <div className={styles.drawer}>
+        <div className={styles.cartHeaderContainer}>
+          <h2>Cart</h2>
+          <img
+            width={20}
+            height={20}
+            src="../../../source/icons/close.svg"
+            alt="close"
+          />
+        </div>
+        <div className={styles.cartItems}>
+          <div className={styles.cartItem}>
             <img width={70} height={70} src="../source/sneakers/item-1.jpg" />
-            <div className="cart-item-about">
+            <div className={styles.cartItemAbout}>
               <p>Male sneakers Nike Blazer Mid Suede</p>
-              <p className="cart-item-price">270 $</p>
+              <p className={styles.cartItemPrice}>270 $</p>
             </div>
-            <div className="cart-remove">
+            <div className={styles.cartRemove}>
               <img src="../source/icons/remove-btn.svg" alt="remove" />
             </div>
           </div>
         </div>
-        <div className="cart-total">
+        <div className={styles.cartTotal}>
           <ul>
-            <li className="cart-total-item">
+            <li className={styles.cartTotalItem}>
               <span>Total:</span>
-              <div className="dash"></div>
+              <div className={styles.dash}></div>
               <b>234 $</b>
             </li>
-            <li className="cart-total-item">
+            <li className={styles.cartTotalItem}>
               <span>Tax 5%:</span>
-              <div className="dash"></div>
+              <div className={styles.dash}></div>
               <b>11.5 $</b>
             </li>
           </ul>
-          <button className="greenButton">
-            Checkout
-            <img src="../source/icons/arrow.svg" alt="arrow" />
-          </button>
+          <GreenButton>Checkout</GreenButton>
         </div>
       </div>
     </div>
