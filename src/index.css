@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
 ul,ol {
@@ -9,6 +10,7 @@ ul,ol {
 }
 
 button {
+  cursor: pointer;
   background-color: transparent;
   border: none;
 }
@@ -16,13 +18,34 @@ button {
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #e7f6ff;
 }
 
+.greenButton {
+  position: relative;
+  width: 325px;
+  height: 55px;
+  padding: 20px 0px;
+  margin-top: 25px;
+  background-color: #9DD458;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  transition: background 0.1s ease-in-out;
+}
+
+.greenButton:hover {
+  background-color: lighten(#9DD458, 5%);
+}
+.greenButton:active {
+  background-color: darken(#9DD458, 5%);
+}
+
 .App {
+  /* position: relative; */
   margin: 50px auto;
   padding: 25px;
   max-width: 1080px;
@@ -83,8 +106,39 @@ header {
   padding: 0px 15px;
 }
 
-.title {
+.header-container {
   margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searching-container {
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 0px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.searching-container img {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.searching-container input {
+  max-width: 250px;
+  padding: 15px;
+  border: none;
+}
+
+.searching-container input:focus {
+  outline: none;
+}
+
+.title {
   font-weight: 700;
   font-size: 32px;
   line-height: 39px;
@@ -101,33 +155,39 @@ header {
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: flex-start; */
   align-items: center;
   gap: 40px;
 }
 
 .sneakers-item {
-  border: 1px solid #BDBDBD;
+  cursor: pointer;
+  border: 1px solid #f3f3f3;
   border-radius: 40px;
   max-width: 210px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   gap: 14px;
   background-color: #F3F3F3;
   font-size: 14px;
   line-height: 17px;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.sneakers-item:hover {
+  box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.favorite {
+  position: absolute;
+  cursor: pointer;
 }
 
 .item {
   width: 133px;
   height: 112px;
-}
-
-.sneakers-item-info {
-  cursor: pointer;
 }
 
 .sneakers-item-price-info {
@@ -155,7 +215,99 @@ header {
 }
 
 .plus {
-  cursor: pointer;
   width: 11px;
   height: 11px;
 }
+
+.overlay {
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.drawer {
+  position: absolute;
+  width: 420;
+  height: 100%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: red;
+  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+
+.cart-items {
+  margin-top: 30px;
+  overflow: auto;
+  flex: 1;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 325px;
+  padding: 20px;
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cart-item-about {
+  max-width: 150px;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.cart-item-price {
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.cart-remove {
+  cursor: pointer;
+  margin-left: 10px;
+  opacity: 0.5;
+  transition: 0.15s ease-in-out;
+}
+
+.cart-remove:hover {
+  opacity: 1;
+}
+
+.cart-total {
+  font-size: 16px;
+}
+
+.cart-total-item {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.dash {
+  position: relative;
+  top: -4px;
+  width: 167px;
+  height: 1px;
+  flex: 1;
+  border-top: 1px dashed #dfdfdf;
+}
+
+.greenButton img {
+  position: absolute;
+  right: 40px;
+  transition: transform 0.15s ease-in-out;
+}
+.greenButton img:hover {
+  transform: translateX(5px);
+}
+
