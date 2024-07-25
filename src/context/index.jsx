@@ -1,62 +1,62 @@
-// import { createContext, useEffect, useState } from "react";
-// import useFetch from "../hooks/useFetch";
+import { createContext, useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
-// export const GlobalContext = createContext(null);
+export const GlobalContext = createContext(null);
 
-// export default function GlobalState({ children }) {
-//   const [cartItems, setCartItems] = useState([]);
-//   const [isCartOpened, setCartOpen] = useState(false);
-//   const [sneakers, setSneakers] = useState([]);
-//   const { data, pending, error } = useFetch(
-//     "https://669babc5276e45187d3624eb.mockapi.io/items",
-//     {}
-//   );
-//   const goods = [
-//     {
-//       id: 1,
-//       title: "Male sneakers, Nike Blazer Mid Suede",
-//       price: 270,
-//       image: "source/sneakers/item-1.jpg",
-//     },
-//     {
-//       id: 2,
-//       title: "Male sneakers, Nike Air Max 270",
-//       price: 370,
-//       image: "source/sneakers/item-2.jpg",
-//     },
-//   ];
+export default function GlobalState({ children }) {
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpened, setCartOpen] = useState(false);
+  const [sneakers, setSneakers] = useState([]);
+  const [isAdded, setAdded] = useState({});
+  const { data, pending, error } = useFetch(
+    "https://66a114477053166bcabdec9c.mockapi.io/items",
+    {}
+  );
 
-// useEffect(() => {
-//   if (data) {
-//     setSneakers(data);
-//   }
-// }, [data]);
+  useEffect(() => {
+    if (data) {
+      setSneakers(data);
+    }
+  }, [data]);
 
-//   const addToCart = (item) => {
-//     if (!cartItems.some((cartItem) => cartItem.id === item.id)) {
-//       return [...prevItems, item];
-//     } else {
-//       return prevItems;
-//     }
-//   };
+  const removeFromCart = (item) => {
+    const updatedCartItems = cartItems.filter(
+      (cartItem) => cartItem.id !== item.id
+    );
+    setCartItems(updatedCartItems);
+    setAdded((prev) => ({ ...prev, [item.id]: false }));
+  };
 
-//   return (
-//     <GlobalContext.Provider
-//       value={{
-//         isCartOpened,
-//         setCartOpen,
-//         cartItems,
-//         setCartItems,
-//         addToCart,
-//         sneakers,
-//         setSneakers,
-//         data,
-//         pending,
-//         error,
-//         goods,
-//       }}
-//     >
-//       {children}
-//     </GlobalContext.Provider>
-//   );
-// }
+  const addToCart = (item) => {
+    setCartItems((prev) => [...prev, item]);
+    setAdded((prev) => ({ ...prev, [item.id]: true }));
+  };
+
+  const handleCart = (item) => {
+    !cartItems.some((cartItem) => cartItem.id === item.id)
+      ? addToCart(item)
+      : removeFromCart(item);
+  };
+
+  return (
+    <GlobalContext.Provider
+      value={{
+        isCartOpened,
+        setCartOpen,
+        cartItems,
+        setCartItems,
+        handleCart,
+        removeFromCart,
+        sneakers,
+        setSneakers,
+        isAdded,
+        setAdded,
+        data,
+        pending,
+        error,
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+  );
+}

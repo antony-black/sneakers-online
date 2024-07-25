@@ -1,15 +1,13 @@
-import { useState } from "react";
+import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./Card.module.scss";
-import { isElementOfType } from "react-dom/test-utils";
 
-export default function Card({ item, handleCart }) {
-  // const { addToCart } = useGlobalState();
-  const [localIsAdded, setLocalIsAdded] = useState(false);
+export default function Card({ item }) {
+  const { handleCart, isAdded, setAdded } = useGlobalState();
 
-  const onAdd = (item) => {
-    setLocalIsAdded(!localIsAdded);
-    handleCart(item);
-  };
+  // const onAdd = (item) => {
+  //   setAdded(!isAdded);
+  //   handleCart(item);
+  // };
 
   return (
     <div className={styles.sneakersItem}>
@@ -31,10 +29,13 @@ export default function Card({ item, handleCart }) {
           <p className={styles.sneakersItemPriceTitle}>Price:</p>
           <p className={styles.sneakersItemPrice}>{`${item.price}$`}</p>
         </div>
-        <button className="plus" onClick={() => onAdd(item)}>
+        {/* <button className="plus" onClick={() => onAdd(item)}> */}
+        <button className="plus" onClick={() => handleCart(item)}>
           <img
             src={
-              !localIsAdded ? "source/icons/plus.svg" : "source/icons/check.svg"
+              !isAdded[item.id]
+                ? "source/icons/plus.svg"
+                : "source/icons/check.svg"
             }
             alt="plus-button"
           />

@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import useFetch from "./hooks/useFetch";
+import useGlobalState from "./hooks/useGlobalState";
 import Card from "./components/card/Card";
 import Overlay from "./components/overlay/Overlay";
 import Header from "./components/header/Header";
-import { compile } from "sass";
 
 // const goods = [
 //   {
@@ -82,47 +80,12 @@ import { compile } from "sass";
 
 function App() {
   // !!!implement Error and rework pending
-  const [cartItems, setCartItems] = useState([]);
-  const [isCartOpened, setCartOpen] = useState(false);
-  const [sneakers, setSneakers] = useState([]);
-  const { data, pending, error } = useFetch(
-    "https://66a114477053166bcabdec9c.mockapi.io/items",
-    {}
-  );
-
-  useEffect(() => {
-    if (data) {
-      setSneakers(data);
-    }
-  }, [data]);
-
-  const removeFromCart = (item) => {
-    const updatedCartItems = cartItems.filter(
-      (cartItem) => cartItem.id !== item.id
-    );
-    setCartItems(updatedCartItems);
-  };
-
-  const addToCart = (item) => {
-    setCartItems((prev) => [...prev, item]);
-  };
-
-  const handleCart = (item) => {
-    !cartItems.some((cartItem) => cartItem.id === item.id)
-      ? addToCart(item)
-      : removeFromCart(item);
-  };
+  const { sneakers, pending } = useGlobalState();
 
   return (
     <div className="App">
-      <Overlay
-        isCartOpened={isCartOpened}
-        setCartOpen={setCartOpen}
-        cartItems={cartItems}
-        // removeFromCart={removeFromCart}
-        handleCart={handleCart}
-      />
-      <Header setCartOpen={setCartOpen} />
+      <Overlay />
+      <Header />
       <div className="content">
         <div className="header-container">
           <h1 className="title">All sneakers</h1>
@@ -133,10 +96,7 @@ function App() {
         </div>
         <div className="sneakers">
           {sneakers.map(
-            (item) =>
-              !pending && (
-                <Card key={item.id} item={item} handleCart={handleCart} />
-              )
+            (item) => !pending && <Card key={item.id} item={item} />
           )}
         </div>
       </div>

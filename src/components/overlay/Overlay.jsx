@@ -1,15 +1,10 @@
+import useGlobalState from "../../hooks/useGlobalState";
 import GreenButton from "../greenButton/GreenButton";
 import styles from "./Overlay.module.scss";
 
-export default function Overlay({
-  isCartOpened,
-  setCartOpen,
-  cartItems,
-  // removeFromCart,
-  handleCart,
-}) {
-  // const { isCartOpened, setCartOpen, cartItems, setCartItems } =
-  //   useGlobalState();
+export default function Overlay() {
+  const { isCartOpened, setCartOpen, cartItems, removeFromCart } =
+    useGlobalState();
   return (
     isCartOpened && (
       <div className={styles.overlay}>
@@ -32,8 +27,7 @@ export default function Overlay({
                 </div>
                 <div
                   className={styles.cartRemove}
-                  // onClick={() => removeFromCart(item)}
-                  onClick={() => handleCart(item)}
+                  onClick={() => removeFromCart(item)}
                 >
                   <img src="../source/icons/remove-btn.svg" alt="remove" />
                 </div>
