@@ -25,11 +25,13 @@ export default function GlobalState({ children }) {
     );
     setCartItems(updatedCartItems);
     setAdded((prev) => ({ ...prev, [item.id]: false }));
+    console.log(item.id, isAdded);
   };
 
   const addToCart = (item) => {
     setCartItems((prev) => [...prev, item]);
     setAdded((prev) => ({ ...prev, [item.id]: true }));
+    console.log(item.id, isAdded);
   };
 
   const handleCart = (item) => {
