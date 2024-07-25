@@ -1,8 +1,8 @@
-import useGlobalState from "../../hooks/useGlobalState";
+// import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./Header.module.scss";
 
-export default function Header() {
-  const { setCartOpen } = useGlobalState();
+export default function Header({ setCartOpen }) {
+  // const { setCartOpen } = useGlobalState();
   return (
     <header>
       <div className={styles.about}>

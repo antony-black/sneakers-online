@@ -1,9 +1,15 @@
-import useGlobalState from "../../hooks/useGlobalState";
 import GreenButton from "../greenButton/GreenButton";
 import styles from "./Overlay.module.scss";
 
-export default function Overlay() {
-  const { isCartOpened, setCartOpen } = useGlobalState();
+export default function Overlay({
+  isCartOpened,
+  setCartOpen,
+  cartItems,
+  // removeFromCart,
+  handleCart,
+}) {
+  // const { isCartOpened, setCartOpen, cartItems, setCartItems } =
+  //   useGlobalState();
   return (
     isCartOpened && (
       <div className={styles.overlay}>
@@ -17,16 +23,22 @@ export default function Overlay() {
             />
           </div>
           <div className={styles.cartItems}>
-            <div className={styles.cartItem}>
-              <img width={70} height={70} src="../source/sneakers/item-1.jpg" />
-              <div className={styles.cartItemAbout}>
-                <p>Male sneakers Nike Blazer Mid Suede</p>
-                <p className={styles.cartItemPrice}>270 $</p>
+            {cartItems.map((item) => (
+              <div key={item.image} className={styles.cartItem}>
+                <img width={70} height={70} src={item.image} />
+                <div className={styles.cartItemAbout}>
+                  <p>{item.title}</p>
+                  <p>{item.price}</p>
+                </div>
+                <div
+                  className={styles.cartRemove}
+                  // onClick={() => removeFromCart(item)}
+                  onClick={() => handleCart(item)}
+                >
+                  <img src="../source/icons/remove-btn.svg" alt="remove" />
+                </div>
               </div>
-              <div className={styles.cartRemove}>
-                <img src="../source/icons/remove-btn.svg" alt="remove" />
-              </div>
-            </div>
+            ))}
           </div>
           <div className={styles.cartTotal}>
             <ul>

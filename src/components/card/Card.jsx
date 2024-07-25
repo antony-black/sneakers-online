@@ -1,11 +1,14 @@
 import { useState } from "react";
 import styles from "./Card.module.scss";
+import { isElementOfType } from "react-dom/test-utils";
 
-export default function Card(props) {
-  const [isAdded, setAdded] = useState(false);
+export default function Card({ item, handleCart }) {
+  // const { addToCart } = useGlobalState();
+  const [localIsAdded, setLocalIsAdded] = useState(false);
 
-  const onAdd = () => {
-    setAdded(!isAdded);
+  const onAdd = (item) => {
+    setLocalIsAdded(!localIsAdded);
+    handleCart(item);
   };
 
   return (
@@ -17,21 +20,22 @@ export default function Card(props) {
           alt="unliked"
         />
       </div>
-      <img className={styles.item} src={props.image} alt="sneakers" />
+      <img className={styles.item} src={item.image} alt="sneakers" />
       <div className="sneakers-item-info">
         <a>
-          <p>{props.title}</p>
+          <p>{item.title}</p>
         </a>
       </div>
       <div className={styles.sneakersItemPriceInfo}>
         <div className={styles.sneakersItemPriceDetails}>
           <p className={styles.sneakersItemPriceTitle}>Price:</p>
-          <p className={styles.sneakersItemPrice}>{`${props.price}$`}</p>
+          <p className={styles.sneakersItemPrice}>{`${item.price}$`}</p>
         </div>
-        <button className="plus" onClick={onAdd}>
-          {/* {console.log(isAdded)} */}
+        <button className="plus" onClick={() => onAdd(item)}>
           <img
-            src={!isAdded ? "source/icons/plus.svg" : "source/icons/check.svg"}
+            src={
+              !localIsAdded ? "source/icons/plus.svg" : "source/icons/check.svg"
+            }
             alt="plus-button"
           />
         </button>
