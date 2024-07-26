@@ -9,6 +9,7 @@ export default function GlobalState({ children }) {
   const [sneakers, setSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
   const [isAdded, setAdded] = useState({});
+  const [total, setTotal] = useState(0);
   const { data, pending, error } = useFetch(
     "https://66a114477053166bcabdec9c.mockapi.io/items",
     {}
@@ -55,6 +56,16 @@ export default function GlobalState({ children }) {
     }
   };
 
+  useEffect(() => {
+    const getTotalSum = () => {
+      const prices = cartItems.map((item) => item.price);
+      const totalPrice = prices.reduce((total, num) => total + num, 0);
+      setTotal(totalPrice);
+    };
+
+    getTotalSum();
+  }, [cartItems, setCartItems]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -74,6 +85,8 @@ export default function GlobalState({ children }) {
         searchingInput,
         setSearchingInput,
         handleInputChange,
+        total,
+        setTotal,
       }}
     >
       {children}

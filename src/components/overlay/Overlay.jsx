@@ -1,10 +1,17 @@
+import { useEffect, useState } from "react";
 import useGlobalState from "../../hooks/useGlobalState";
 import GreenButton from "../greenButton/GreenButton";
 import styles from "./Overlay.module.scss";
 
 export default function Overlay() {
-  const { isCartOpened, setCartOpen, cartItems, removeFromCart } =
+  const { isCartOpened, setCartOpen, cartItems, removeFromCart, total } =
     useGlobalState();
+  const [tax, setTax] = useState(0);
+
+  useEffect(() => {
+    setTax(total * 0.05);
+  }, [total]);
+
   return (
     isCartOpened && (
       <div className={styles.overlay}>
@@ -39,12 +46,12 @@ export default function Overlay() {
               <li className={styles.cartTotalItem}>
                 <span>Total:</span>
                 <div className={styles.dash}></div>
-                <b>234 $</b>
+                <b>{total}$</b>
               </li>
               <li className={styles.cartTotalItem}>
                 <span>Tax 5%:</span>
                 <div className={styles.dash}></div>
-                <b>11.5 $</b>
+                <b>{tax} $</b>
               </li>
             </ul>
             <GreenButton>Checkout</GreenButton>

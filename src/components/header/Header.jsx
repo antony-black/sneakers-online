@@ -2,7 +2,7 @@ import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./Header.module.scss";
 
 export default function Header() {
-  const { setCartOpen } = useGlobalState();
+  const { setCartOpen, total } = useGlobalState();
   return (
     <header>
       <div className={styles.about}>
@@ -15,7 +15,7 @@ export default function Header() {
       <ul className={styles.utils}>
         <li className={styles.utilsItem} onClick={() => setCartOpen(true)}>
           <img src="source/icons/cart.svg" alt="cart" />
-          <span>1205 $</span>
+          <span>{total} $</span>
         </li>
         <li className={styles.utilsItem}>
           <img src="source/icons/profile.svg" alt="profile" />
