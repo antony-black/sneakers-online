@@ -2,13 +2,7 @@ import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./Card.module.scss";
 
 export default function Card({ item }) {
-  const { handleCart, isAdded, setAdded } = useGlobalState();
-
-  // const onAdd = (item) => {
-  //   setAdded(!isAdded);
-  //   handleCart(item);
-  // };
-
+  const { handleCart, isAdded } = useGlobalState();
   return (
     <div className={styles.sneakersItem}>
       <div className={styles.favorite}>
@@ -29,7 +23,6 @@ export default function Card({ item }) {
           <p className={styles.sneakersItemPriceTitle}>Price:</p>
           <p className={styles.sneakersItemPrice}>{`${item.price}$`}</p>
         </div>
-        {/* <button className="plus" onClick={() => onAdd(item)}> */}
         <button className="plus" onClick={() => handleCart(item)}>
           <img
             src={

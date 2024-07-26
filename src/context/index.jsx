@@ -7,15 +7,18 @@ export default function GlobalState({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpened, setCartOpen] = useState(false);
   const [sneakers, setSneakers] = useState([]);
+  const [originalSneakers, setOriginalSneakers] = useState([]);
   const [isAdded, setAdded] = useState({});
   const { data, pending, error } = useFetch(
     "https://66a114477053166bcabdec9c.mockapi.io/items",
     {}
   );
+  const [searchingInput, setSearchingInput] = useState("");
 
   useEffect(() => {
     if (data) {
       setSneakers(data);
+      setOriginalSneakers(data);
     }
   }, [data]);
 
@@ -25,19 +28,31 @@ export default function GlobalState({ children }) {
     );
     setCartItems(updatedCartItems);
     setAdded((prev) => ({ ...prev, [item.id]: false }));
-    console.log(item.id, isAdded);
   };
 
   const addToCart = (item) => {
     setCartItems((prev) => [...prev, item]);
     setAdded((prev) => ({ ...prev, [item.id]: true }));
-    console.log(item.id, isAdded);
   };
 
   const handleCart = (item) => {
     !cartItems.some((cartItem) => cartItem.id === item.id)
       ? addToCart(item)
       : removeFromCart(item);
+  };
+
+  const handleInputChange = (event) => {
+    const value = event.target.value.toLowerCase();
+    setSearchingInput(value);
+
+    if (value !== "") {
+      const filtered = sneakers.filter((item) =>
+        item.title.toLowerCase().includes(value)
+      );
+      setSneakers(filtered);
+    } else {
+      setSneakers(originalSneakers);
+    }
   };
 
   return (
@@ -56,6 +71,9 @@ export default function GlobalState({ children }) {
         data,
         pending,
         error,
+        searchingInput,
+        setSearchingInput,
+        handleInputChange,
       }}
     >
       {children}

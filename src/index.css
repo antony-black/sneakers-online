@@ -2,10 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-ul,ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -14,7 +15,6 @@ button {
   background-color: transparent;
   border: none;
 }
-
 
 body {
   margin: 0;
@@ -94,6 +94,15 @@ header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 40px;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  color: red;
+  letter-spacing: 2px;
+}

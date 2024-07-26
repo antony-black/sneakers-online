@@ -2,6 +2,8 @@ import useGlobalState from "./hooks/useGlobalState";
 import Card from "./components/card/Card";
 import Overlay from "./components/overlay/Overlay";
 import Header from "./components/header/Header";
+import Loader from "./components/loader/Loader";
+import "./index.css";
 
 // const goods = [
 //   {
@@ -80,7 +82,8 @@ import Header from "./components/header/Header";
 
 function App() {
   // !!!implement Error and rework pending
-  const { sneakers, pending } = useGlobalState();
+  const { sneakers, pending, searchingInput, handleInputChange } =
+    useGlobalState();
 
   return (
     <div className="App">
@@ -91,12 +94,19 @@ function App() {
           <h1 className="title">All sneakers</h1>
           <div className="searching-container">
             <img src="../source/icons/search.svg" alt="search" />
-            <input name="serching" placeholder="Searching..." />
+            <input
+              value={searchingInput}
+              onChange={handleInputChange}
+              name="serching"
+              placeholder="Searching..."
+            />
           </div>
         </div>
         <div className="sneakers">
-          {sneakers.map(
-            (item) => !pending && <Card key={item.id} item={item} />
+          {pending ? (
+            <Loader />
+          ) : (
+            sneakers.map((item) => <Card key={item.id} item={item} />)
           )}
         </div>
       </div>
