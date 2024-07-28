@@ -91,7 +91,11 @@ function App() {
       <Header />
       <div className="content">
         <div className="header-container">
-          <h1 className="title">All sneakers</h1>
+          <h1 className="title">
+            {searchingInput !== ""
+              ? `Searching result: ${searchingInput}`
+              : "All sneakers"}
+          </h1>
           <div className="searching-container">
             <img src="../source/icons/search.svg" alt="search" />
             <input
