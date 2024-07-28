@@ -82,8 +82,13 @@ import "./index.css";
 
 function App() {
   // !!!implement Error and rework pending
-  const { sneakers, pending, searchingInput, handleInputChange } =
-    useGlobalState();
+  const {
+    sneakers,
+    pending,
+    searchingInput,
+    cleanSearchInput,
+    handleInputChange,
+  } = useGlobalState();
 
   return (
     <div className="App">
@@ -104,6 +109,13 @@ function App() {
               name="serching"
               placeholder="Searching..."
             />
+            {searchingInput !== "" && (
+              <img
+                src="../source/icons/close.svg"
+                alt="search"
+                onClick={cleanSearchInput}
+              />
+            )}
           </div>
         </div>
         <div className="sneakers">

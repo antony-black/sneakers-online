@@ -56,6 +56,11 @@ export default function GlobalState({ children }) {
     }
   };
 
+  const cleanSearchInput = () => {
+    setSearchingInput("");
+    setSneakers(originalSneakers);
+  };
+
   useEffect(() => {
     const getTotalSum = () => {
       const prices = cartItems.map((item) => item.price);
@@ -85,6 +90,7 @@ export default function GlobalState({ children }) {
         searchingInput,
         setSearchingInput,
         handleInputChange,
+        cleanSearchInput,
         total,
         setTotal,
       }}
