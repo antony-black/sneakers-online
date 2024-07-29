@@ -98,7 +98,7 @@ function App() {
         <div className="header-container">
           <h1 className="title">
             {searchingInput !== ""
-              ? `Searching result: ${searchingInput}`
+              ? `Searching request: ${searchingInput}`
               : "All sneakers"}
           </h1>
           <div className="searching-container">

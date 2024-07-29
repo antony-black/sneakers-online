@@ -17,14 +17,30 @@
     &:active {
       background-color: darken(#9DD458, 5%);
     }
+}
 
-    & img {
-      position: absolute;
-      right: 40px;
-      transition: transform 0.15s ease-in-out;
+.arrow {
+  img {
+    position: absolute;
+    right: 40px;
+    transition: transform 0.15s ease-in-out;
 
-        & img:hover {
-          transform: translateX(5px);
-        }
-    }
+      img:hover {
+        transform: translateX(5px);
+      }
+  }
+
+
+}
+
+.arrowBack {
+  img {
+    position: absolute;
+    left: 40px;
+    transition: transform 0.15s ease-in-out;
+
+      img:hover {
+        transform: translateX(5px);
+      }
+  }
 }
