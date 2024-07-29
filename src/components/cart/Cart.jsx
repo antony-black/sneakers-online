@@ -10,8 +10,9 @@ export default function Cart() {
   useEffect(() => {
     setTax(total * 0.05);
   }, [total]);
+
   return (
-    <div>
+    <div className={styles.cart}>
       <div className={styles.cartHeaderContainer}>
         <h2>Cart</h2>
         <img
@@ -23,16 +24,16 @@ export default function Cart() {
       <div className={styles.cartItems}>
         {cartItems.map((item) => (
           <div key={item.image} className={styles.cartItem}>
-            <img width={70} height={70} src={item.image} />
+            <img width={70} height={70} src={item.image} alt={item.title} />
             <div className={styles.cartItemAbout}>
               <p>{item.title}</p>
-              <p>{item.price}</p>
+              <p className={styles.cartItemPrice}>{item.price}$</p>
             </div>
             <div
               className={styles.cartRemove}
               onClick={() => removeFromCart(item)}
             >
-              <img src="../source/icons/remove-btn.svg" alt="remove" />
+              <img src="../../../source/icons/remove-btn.svg" alt="remove" />
             </div>
           </div>
         ))}
@@ -47,7 +48,7 @@ export default function Cart() {
           <li className={styles.cartTotalItem}>
             <span>Tax 5%:</span>
             <div className={styles.dash}></div>
-            <b>{tax} $</b>
+            <b>{tax}$</b>
           </li>
         </ul>
         <GreenButton>Checkout</GreenButton>
