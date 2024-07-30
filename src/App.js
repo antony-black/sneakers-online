@@ -83,8 +83,8 @@ import "./index.css";
 function App() {
   // !!!implement Error and rework pending
   const {
-    sneakers,
-    pending,
+    allSneakers,
+    sneakersLoading,
     searchingInput,
     cleanSearchInput,
     handleInputChange,
@@ -119,10 +119,10 @@ function App() {
           </div>
         </div>
         <div className="sneakers">
-          {pending ? (
+          {sneakersLoading ? (
             <Loader />
           ) : (
-            sneakers.map((item) => <Card key={item.id} item={item} />)
+            allSneakers.map((item) => <Card key={item.id} item={item} />)
           )}
         </div>
       </div>

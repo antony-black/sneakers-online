@@ -7,45 +7,39 @@ export const GlobalContext = createContext(null);
 export default function GlobalState({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpened, setCartOpen] = useState(false);
-  const [sneakers, setSneakers] = useState([]);
+  const [allSneakers, setAllSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
   const [isAdded, setAdded] = useState({});
   const [total, setTotal] = useState(0);
-  const { data, pending, error } = useFetch(
-    "https://66a114477053166bcabdec9c.mockapi.io/items",
-    {}
-  );
+  const {
+    data: sneakers,
+    pending: sneakersLoading,
+    error: sneakersError,
+  } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/items", {});
+  const {
+    data: cartSneakers,
+    pending: cartSneakersLoading,
+    error: cartSneakersError,
+  } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/cart", {});
   const [searchingInput, setSearchingInput] = useState("");
 
   useEffect(() => {
-    if (data) {
-      setSneakers(data);
-      setOriginalSneakers(data);
+    if (sneakers) {
+      setAllSneakers(sneakers);
+      setOriginalSneakers(sneakers);
     }
-  }, [data]);
-
-  const getCartItems = async () => {
-    try {
-      const response = await axios.get(
-        "https://66a114477053166bcabdec9c.mockapi.io/cart"
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching cart items:", error);
-      return [];
-    }
-  };
+  }, [sneakers]);
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      const items = await getCartItems();
-      setCartItems(Array.isArray(items) ? items : []);
-    };
-    fetchCartItems();
-  }, []);
+    if (cartSneakers) {
+      setCartItems(cartSneakers);
+    }
+  }, [cartSneakers]);
 
-  const removeFromCart = (item) => {
-    axios.delete(`https://66a114477053166bcabdec9c.mockapi.io/cart/${item.id}`);
+  const removeFromCart = async (item) => {
+    await axios.delete(
+      `https://66a114477053166bcabdec9c.mockapi.io/cart/${item.id}`
+    );
     const updatedCartItems = cartItems.filter(
       (cartItem) => cartItem.id !== item.id
     );
@@ -53,8 +47,8 @@ export default function GlobalState({ children }) {
     setAdded((prev) => ({ ...prev, [item.id]: false }));
   };
 
-  const addToCart = (item) => {
-    axios.post("https://66a114477053166bcabdec9c.mockapi.io/cart", item);
+  const addToCart = async (item) => {
+    await axios.post("https://66a114477053166bcabdec9c.mockapi.io/cart", item);
     setCartItems((prev) => [...prev, item]);
     setAdded((prev) => ({ ...prev, [item.id]: true }));
   };
@@ -73,15 +67,15 @@ export default function GlobalState({ children }) {
       const filtered = sneakers.filter((item) =>
         item.title.toLowerCase().includes(value)
       );
-      setSneakers(filtered);
+      setAllSneakers(filtered);
     } else {
-      setSneakers(originalSneakers);
+      setAllSneakers(originalSneakers);
     }
   };
 
   const cleanSearchInput = () => {
     setSearchingInput("");
-    setSneakers(originalSneakers);
+    setAllSneakers(originalSneakers);
   };
 
   useEffect(() => {
@@ -103,13 +97,13 @@ export default function GlobalState({ children }) {
         setCartItems,
         handleCart,
         removeFromCart,
-        sneakers,
-        setSneakers,
+        allSneakers,
+        setAllSneakers,
         isAdded,
         setAdded,
-        data,
-        pending,
-        error,
+        sneakers,
+        sneakersLoading,
+        sneakersError,
         searchingInput,
         setSearchingInput,
         handleInputChange,
