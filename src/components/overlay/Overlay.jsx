@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useGlobalState from "../../hooks/useGlobalState";
-import GreenButton from "../greenButton/GreenButton";
 import CartEmpty from "../cartEmpty/CartEmpty";
 import Cart from "../cart/Cart";
 import styles from "./Overlay.module.scss";

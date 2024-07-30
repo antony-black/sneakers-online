@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 
@@ -23,7 +24,28 @@ export default function GlobalState({ children }) {
     }
   }, [data]);
 
+  const getCartItems = async () => {
+    try {
+      const response = await axios.get(
+        "https://66a114477053166bcabdec9c.mockapi.io/cart"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      const items = await getCartItems();
+      setCartItems(Array.isArray(items) ? items : []);
+    };
+    fetchCartItems();
+  }, []);
+
   const removeFromCart = (item) => {
+    axios.delete(`https://66a114477053166bcabdec9c.mockapi.io/cart/${item.id}`);
     const updatedCartItems = cartItems.filter(
       (cartItem) => cartItem.id !== item.id
     );
@@ -32,6 +54,7 @@ export default function GlobalState({ children }) {
   };
 
   const addToCart = (item) => {
+    axios.post("https://66a114477053166bcabdec9c.mockapi.io/cart", item);
     setCartItems((prev) => [...prev, item]);
     setAdded((prev) => ({ ...prev, [item.id]: true }));
   };
