@@ -10,6 +10,7 @@ export default function GlobalState({ children }) {
   const [allSneakers, setAllSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
   const [isAdded, setAdded] = useState({});
+  const [searchingInput, setSearchingInput] = useState("");
   const [total, setTotal] = useState(0);
   const {
     data: sneakers,
@@ -21,17 +22,16 @@ export default function GlobalState({ children }) {
     pending: cartSneakersLoading,
     error: cartSneakersError,
   } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/cart", {});
-  const [searchingInput, setSearchingInput] = useState("");
 
   useEffect(() => {
-    if (sneakers) {
+    if (!!sneakers) {
       setAllSneakers(sneakers);
       setOriginalSneakers(sneakers);
     }
   }, [sneakers]);
 
   useEffect(() => {
-    if (cartSneakers) {
+    if (!!cartSneakers) {
       setCartItems(cartSneakers);
     }
   }, [cartSneakers]);
@@ -86,7 +86,7 @@ export default function GlobalState({ children }) {
     };
 
     getTotalSum();
-  }, [cartItems, setCartItems]);
+  }, [cartItems]);
 
   return (
     <GlobalContext.Provider
