@@ -12,6 +12,8 @@ export default function GlobalState({ children }) {
   const [isAdded, setAdded] = useState({});
   const [searchingInput, setSearchingInput] = useState("");
   const [total, setTotal] = useState(0);
+  const [isFavorite, setFavorite] = useState({});
+  const [favoriteList, setFavoriteList] = useState([]);
   const {
     data: sneakers,
     pending: sneakersLoading,
@@ -59,6 +61,27 @@ export default function GlobalState({ children }) {
       : removeFromCart(item);
   };
 
+  const addToFavorites = (item) => {
+    setFavoriteList((prev) => [...prev, item]);
+    setFavorite((prev) => ({ ...prev, [item.id]: true }));
+  };
+
+  const removeFromFavorites = (item) => {
+    const updatedFavoriteItems = favoriteList.filter(
+      (favItem) => favItem.id !== item.id
+    );
+    setFavoriteList(updatedFavoriteItems);
+    setFavorite((prev) => ({ ...prev, [item.id]: false }));
+  };
+
+  const handleFavorites = (item) => {
+    !favoriteList.some((favItem) => favItem.id === item.id)
+      ? addToFavorites(item)
+      : removeFromFavorites(item);
+    console.log(favoriteList);
+    // setFavorite((prev) => ({ ...prev, [item.id]: !prev[item.id] }));
+  };
+
   const handleInputChange = (event) => {
     const value = event.target.value.toLowerCase();
     setSearchingInput(value);
@@ -91,6 +114,7 @@ export default function GlobalState({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        handleFavorites,
         isCartOpened,
         setCartOpen,
         cartItems,
@@ -101,6 +125,7 @@ export default function GlobalState({ children }) {
         setAllSneakers,
         isAdded,
         setAdded,
+        isFavorite,
         sneakers,
         sneakersLoading,
         sneakersError,
