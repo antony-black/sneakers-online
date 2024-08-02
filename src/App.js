@@ -8,9 +8,6 @@ import "./index.css";
 
 function App() {
   // !!!implement Error and rework pending
-  // const { searchingInput, cleanSearchInput, handleInputChange } =
-  //   useGlobalState();
-
   return (
     <div className="App">
       <Overlay />

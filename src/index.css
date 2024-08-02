@@ -35,59 +35,6 @@ body {
 }
 
 .content {
-  margin-top: 20px;
-  padding: 0px 15px;
-}
-
-.header-container {
   margin-top: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.searching-container {
-  border: 1px solid #f3f3f3;
-  border-radius: 10px;
-  background-color: #ffffff;
-  padding: 0px 10px;
-  display: flex;
-  align-items: center;
-}
-
-.searching-container img {
-  cursor: pointer;
-  width: 15px;
-  height: 15px;
-}
-
-.searching-container input {
-  max-width: 250px;
-  padding: 15px;
-  border: none;
-}
-
-.searching-container input:focus {
-  outline: none;
-}
-
-.title {
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 39px;
-}
-
-.title {
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 39px;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  color: red;
-  letter-spacing: 2px;
+  padding: 0px 15px;
 }
