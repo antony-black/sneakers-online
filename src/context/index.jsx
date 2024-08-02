@@ -112,6 +112,7 @@ export default function GlobalState({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        favorites,
         isFavoriteAdded,
         handleFavorites,
         isCartOpened,

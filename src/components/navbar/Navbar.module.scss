@@ -1,4 +1,10 @@
-.about {
+nav {
+  padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .about {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,4 +55,6 @@
 
 .utils * {
   cursor: pointer;
+}
+
 }

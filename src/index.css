@@ -28,19 +28,14 @@ body {
   margin: 50px auto;
   padding: 25px;
   max-width: 1080px;
+  min-height: 100vh;
   background-color: lightblue;
   border-radius: 20px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-header {
-  padding: 5px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .content {
+  margin-top: 20px;
   padding: 0px 15px;
 }
 
@@ -86,16 +81,6 @@ header {
   font-weight: 700;
   font-size: 32px;
   line-height: 39px;
-}
-
-.sneakers {
-  margin-top: 30px;
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
 }
 
 .loading {

@@ -1,0 +1,36 @@
+.favoritesContainer {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  margin-top: 80px;
+
+  .favorites {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+    width: 100%;
+  }
+
+  .favoritesPopUp {
+    width: 450px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: transparent;
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+    margin: 0px auto;
+
+      .favoritesPopUpText{
+        font-size: 50px;
+        color: coral;
+        text-align: center;
+        text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+      }
+  }
+}
+
