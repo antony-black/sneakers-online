@@ -2,7 +2,9 @@ import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./Card.module.scss";
 
 export default function Card({ item }) {
-  const { handleCart, isAdded, isFavorite, handleFavorites } = useGlobalState();
+  const { handleCart, isAdded, isFavoriteAdded, handleFavorites } =
+    useGlobalState();
+
   return (
     <div className={styles.sneakersItem}>
       <div className={styles.favorite}>
@@ -10,7 +12,7 @@ export default function Card({ item }) {
           className={styles.heart}
           onClick={() => handleFavorites(item)}
           src={
-            !isFavorite[item.id]
+            !isFavoriteAdded[item.id]
               ? "../source/icons/heart.svg"
               : "../source/icons/heart-active.svg"
           }

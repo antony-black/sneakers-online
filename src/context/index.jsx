@@ -12,8 +12,8 @@ export default function GlobalState({ children }) {
   const [isAdded, setAdded] = useState({});
   const [searchingInput, setSearchingInput] = useState("");
   const [total, setTotal] = useState(0);
-  const [isFavorite, setFavorite] = useState({});
-  const [favoriteList, setFavoriteList] = useState([]);
+  const [isFavoriteAdded, setFavoriteAdd] = useState({});
+  const [favorites, setFavorites] = useState([]);
   const {
     data: sneakers,
     pending: sneakersLoading,
@@ -62,24 +62,22 @@ export default function GlobalState({ children }) {
   };
 
   const addToFavorites = (item) => {
-    setFavoriteList((prev) => [...prev, item]);
-    setFavorite((prev) => ({ ...prev, [item.id]: true }));
+    setFavorites((prev) => [...prev, item]);
+    setFavoriteAdd((prev) => ({ ...prev, [item.id]: true }));
   };
 
   const removeFromFavorites = (item) => {
-    const updatedFavoriteItems = favoriteList.filter(
+    const updatedFavorites = favorites.filter(
       (favItem) => favItem.id !== item.id
     );
-    setFavoriteList(updatedFavoriteItems);
-    setFavorite((prev) => ({ ...prev, [item.id]: false }));
+    setFavorites(updatedFavorites);
+    setFavoriteAdd((prev) => ({ ...prev, [item.id]: false }));
   };
 
   const handleFavorites = (item) => {
-    !favoriteList.some((favItem) => favItem.id === item.id)
+    !favorites.some((favItem) => favItem.id === item.id)
       ? addToFavorites(item)
       : removeFromFavorites(item);
-    console.log(favoriteList);
-    // setFavorite((prev) => ({ ...prev, [item.id]: !prev[item.id] }));
   };
 
   const handleInputChange = (event) => {
@@ -114,6 +112,7 @@ export default function GlobalState({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        isFavoriteAdded,
         handleFavorites,
         isCartOpened,
         setCartOpen,
@@ -125,7 +124,6 @@ export default function GlobalState({ children }) {
         setAllSneakers,
         isAdded,
         setAdded,
-        isFavorite,
         sneakers,
         sneakersLoading,
         sneakersError,
