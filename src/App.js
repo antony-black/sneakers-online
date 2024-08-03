@@ -1,8 +1,7 @@
-import useGlobalState from "./hooks/useGlobalState";
 import { Routes, Route } from "react-router-dom";
 import Overlay from "./components/overlay/Overlay";
 import Home from "./pages/home/Home";
-import Favorites from "./pages/favorites/Favorite";
+import Favorites from "./pages/favorites/Favorites";
 import Navbar from "./components/navbar/Navbar";
 import "./index.css";
 
