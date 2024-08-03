@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
-  const { setCartOpen, total } = useGlobalState();
+  const { setCartOpen, total, favorites } = useGlobalState();
   return (
     <nav>
       <div className={styles.about}>
@@ -20,7 +20,14 @@ export default function Navbar() {
         </li>
         <li className={styles.utilsItem}>
           <NavLink to={"/favorites"}>
-            <img src="source/icons/heart.svg" alt="favorites" />
+            <img
+              src={
+                favorites.length > 0
+                  ? "source/icons/heart-active.svg"
+                  : "source/icons/heart.svg"
+              }
+              alt="favorites"
+            />
             Favorites
           </NavLink>
         </li>
