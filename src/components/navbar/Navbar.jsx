@@ -19,7 +19,7 @@ export default function Navbar() {
           <span>{total} $</span>
         </li>
         <li className={styles.utilsItem}>
-          <NavLink to={"/favorites"}>
+          <NavLink to={"/favorites"} className={styles.favoriteLink}>
             <img
               src={
                 favorites.length > 0

@@ -30,13 +30,16 @@ export default function GlobalState({ children }) {
       setAllSneakers(sneakers);
       setOriginalSneakers(sneakers);
     }
-  }, [sneakers]);
-
-  useEffect(() => {
     if (!!cartSneakers) {
       setCartItems(cartSneakers);
     }
-  }, [cartSneakers]);
+  }, [sneakers, cartSneakers]);
+
+  // useEffect(() => {
+  //   if (!!cartSneakers) {
+  //     setCartItems(cartSneakers);
+  //   }
+  // }, [cartSneakers]);
 
   const removeFromCart = async (item) => {
     await axios.delete(

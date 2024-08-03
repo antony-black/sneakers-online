@@ -53,8 +53,15 @@ nav {
   }
 }
 
-.utils * {
-  cursor: pointer;
-}
+  .utils * {
+    cursor: pointer;
+  }
+
+  .favoriteLink {
+          text-decoration: none;
+          &:visited {
+              color: inherit;
+            }
+      }
 
 }
