@@ -24,6 +24,11 @@ export default function GlobalState({ children }) {
     pending: cartSneakersLoading,
     error: cartSneakersError,
   } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/cart", {});
+  const {
+    data: favoriteSneakers,
+    pending: favoriteSneakersLoading,
+    error: favoriteSneakersError,
+  } = useFetch("http://localhost:3002/favorites", {});
 
   useEffect(() => {
     if (!!sneakers) {
@@ -33,13 +38,10 @@ export default function GlobalState({ children }) {
     if (!!cartSneakers) {
       setCartItems(cartSneakers);
     }
-  }, [sneakers, cartSneakers]);
-
-  // useEffect(() => {
-  //   if (!!cartSneakers) {
-  //     setCartItems(cartSneakers);
-  //   }
-  // }, [cartSneakers]);
+    if (!!favoriteSneakers) {
+      setFavorites(favoriteSneakers);
+    }
+  }, [sneakers, cartSneakers, favoriteSneakers]);
 
   const removeFromCart = async (item) => {
     await axios.delete(
@@ -64,12 +66,14 @@ export default function GlobalState({ children }) {
       : removeFromCart(item);
   };
 
-  const addToFavorites = (item) => {
+  const addToFavorites = async (item) => {
+    await axios.post("http://localhost:3002/favorites", item);
     setFavorites((prev) => [...prev, item]);
     setFavoriteAdd((prev) => ({ ...prev, [item.id]: true }));
   };
 
-  const removeFromFavorites = (item) => {
+  const removeFromFavorites = async (item) => {
+    await axios.delete(`http://localhost:3002/favorites/${item.id}`);
     const updatedFavorites = favorites.filter(
       (favItem) => favItem.id !== item.id
     );
