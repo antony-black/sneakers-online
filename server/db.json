@@ -73,18 +73,5 @@
       "image": "source/sneakers/item-12.jpg"
     }
   ],
-  "favorites": [
-    {
-      "id": 1,
-      "title": "Male sneakers, Nike Blazer Mid Suede",
-      "price": 270,
-      "image": "source/sneakers/item-1.jpg"
-    },
-    {
-      "id": 2,
-      "title": "Male sneakers, Nike Air Max 270",
-      "price": 370,
-      "image": "source/sneakers/item-2.jpg"
-    }
-  ]
+  "favorites": []
 }

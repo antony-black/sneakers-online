@@ -40,6 +40,10 @@ export default function GlobalState({ children }) {
     }
     if (!!favoriteSneakers) {
       setFavorites(favoriteSneakers);
+
+      favoriteSneakers.forEach((item) =>
+        setFavoriteAdd((prev) => ({ ...prev, [item.id]: true }))
+      );
     }
   }, [sneakers, cartSneakers, favoriteSneakers]);
 
