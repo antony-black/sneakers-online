@@ -71,9 +71,11 @@ export default function GlobalState({ children }) {
   };
 
   const addToFavorites = async (item) => {
-    await axios.post("http://localhost:3002/favorites", item);
-    setFavorites((prev) => [...prev, item]);
-    setFavoriteAdd((prev) => ({ ...prev, [item.id]: true }));
+    const { data } = await axios.post("http://localhost:3002/favorites", item);
+    console.log(data);
+
+    setFavorites((prev) => [...prev, data]);
+    setFavoriteAdd((prev) => ({ ...prev, [data.id]: true }));
   };
 
   const removeFromFavorites = async (item) => {
