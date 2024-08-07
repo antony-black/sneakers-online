@@ -48,20 +48,31 @@ export default function GlobalState({ children }) {
   }, [sneakers, cartSneakers, favoriteSneakers]);
 
   const removeFromCart = async (item) => {
-    await axios.delete(
-      `https://66a114477053166bcabdec9c.mockapi.io/cart/${item.id}`
-    );
-    const updatedCartItems = cartItems.filter(
-      (cartItem) => cartItem.id !== item.id
-    );
-    setCartItems(updatedCartItems);
-    setAdded((prev) => ({ ...prev, [item.id]: false }));
+    try {
+      await axios.delete(
+        `https://66a114477053166bcabdec9c.mockapi.io/cart/${item.id}`
+      );
+      const updatedCartItems = cartItems.filter(
+        (cartItem) => cartItem.id !== item.id
+      );
+      setCartItems(updatedCartItems);
+      setAdded((prev) => ({ ...prev, [item.id]: false }));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const addToCart = async (item) => {
-    await axios.post("https://66a114477053166bcabdec9c.mockapi.io/cart", item);
-    setCartItems((prev) => [...prev, item]);
-    setAdded((prev) => ({ ...prev, [item.id]: true }));
+    try {
+      await axios.post(
+        "https://66a114477053166bcabdec9c.mockapi.io/cart",
+        item
+      );
+      setCartItems((prev) => [...prev, item]);
+      setAdded((prev) => ({ ...prev, [item.id]: true }));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const handleCart = (item) => {
@@ -71,20 +82,31 @@ export default function GlobalState({ children }) {
   };
 
   const addToFavorites = async (item) => {
-    const { data } = await axios.post("http://localhost:3002/favorites", item);
-    console.log(data);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3002/favorites",
+        item
+      );
+      console.log(data);
 
-    setFavorites((prev) => [...prev, data]);
-    setFavoriteAdd((prev) => ({ ...prev, [data.id]: true }));
+      setFavorites((prev) => [...prev, data]);
+      setFavoriteAdd((prev) => ({ ...prev, [data.id]: true }));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const removeFromFavorites = async (item) => {
-    await axios.delete(`http://localhost:3002/favorites/${item.id}`);
-    const updatedFavorites = favorites.filter(
-      (favItem) => favItem.id !== item.id
-    );
-    setFavorites(updatedFavorites);
-    setFavoriteAdd((prev) => ({ ...prev, [item.id]: false }));
+    try {
+      await axios.delete(`http://localhost:3002/favorites/${item.id}`);
+      const updatedFavorites = favorites.filter(
+        (favItem) => favItem.id !== item.id
+      );
+      setFavorites(updatedFavorites);
+      setFavoriteAdd((prev) => ({ ...prev, [item.id]: false }));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const handleFavorites = (item) => {
