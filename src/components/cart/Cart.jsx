@@ -22,7 +22,6 @@ export default function Cart() {
   }, [total]);
 
   const handleOrder = async () => {
-    console.log("handleOrder");
     cartItems.forEach(
       async (item) =>
         await axios.post("http://localhost:3002/orders_processed", item)

@@ -5,12 +5,7 @@ import Cart from "../cart/Cart";
 import styles from "./Overlay.module.scss";
 
 export default function Overlay() {
-  const { isCartOpened, cartItems, total } = useGlobalState();
-  const [tax, setTax] = useState(0);
-
-  useEffect(() => {
-    setTax(total * 0.05);
-  }, [total]);
+  const { isCartOpened, cartItems } = useGlobalState();
 
   return (
     isCartOpened && (
