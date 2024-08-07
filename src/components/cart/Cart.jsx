@@ -1,17 +1,39 @@
 import { useEffect, useState } from "react";
 import GreenButton from "../greenButton/GreenButton";
 import useGlobalState from "../../hooks/useGlobalState";
+import OrderProcessed from "../orderProcessed/OrderProcessed";
 import styles from "./Cart.module.scss";
+import axios from "axios";
 
 export default function Cart() {
-  const { setCartOpen, cartItems, removeFromCart, total } = useGlobalState();
+  const {
+    setCartOpen,
+    cartItems,
+    setCartItems,
+    removeFromCart,
+    total,
+    processedOrder,
+    setProcessedOrder,
+  } = useGlobalState();
   const [tax, setTax] = useState(0);
 
   useEffect(() => {
     setTax(total * 0.05);
   }, [total]);
 
-  return (
+  const handleOrder = async () => {
+    console.log("handleOrder");
+    cartItems.forEach(
+      async (item) =>
+        await axios.post("http://localhost:3002/orders_processed", item)
+    );
+    setCartItems([]);
+    setProcessedOrder(cartItems);
+  };
+
+  return processedOrder.length > 0 ? (
+    <OrderProcessed />
+  ) : (
     <div className={styles.cart}>
       <div className={styles.cartHeaderContainer}>
         <h2>Cart</h2>
@@ -51,7 +73,7 @@ export default function Cart() {
             <b>{tax}$</b>
           </li>
         </ul>
-        <GreenButton>Checkout</GreenButton>
+        <GreenButton onClick={handleOrder}>Place an order</GreenButton>
       </div>
     </div>
   );

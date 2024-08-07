@@ -6,6 +6,7 @@ export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
   const [cartItems, setCartItems] = useState([]);
+  const [processedOrder, setProcessedOrder] = useState([]);
   const [isCartOpened, setCartOpen] = useState(false);
   const [allSneakers, setAllSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
@@ -68,6 +69,7 @@ export default function GlobalState({ children }) {
         "https://66a114477053166bcabdec9c.mockapi.io/cart",
         item
       );
+
       setCartItems((prev) => [...prev, item]);
       setAdded((prev) => ({ ...prev, [item.id]: true }));
     } catch (err) {
@@ -87,7 +89,7 @@ export default function GlobalState({ children }) {
         "http://localhost:3002/favorites",
         item
       );
-      console.log(data);
+      // console.log(data);
 
       setFavorites((prev) => [...prev, data]);
       setFavoriteAdd((prev) => ({ ...prev, [data.id]: true }));
@@ -147,6 +149,8 @@ export default function GlobalState({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        processedOrder,
+        setProcessedOrder,
         favorites,
         isFavoriteAdded,
         handleFavorites,
