@@ -13,19 +13,12 @@ export default function Navbar() {
         </div>
       </div>
       <ul className={styles.utils}>
-        <li className={styles.utilsItem} onClick={() => setCartOpen(true)}>
+        <li className={styles.utilsItem}>
           <img src="source/icons/cart.svg" alt="cart" />
-          <span>{total} $</span>
+          <span>Total 0$</span>
         </li>
         <li className={styles.utilsItem}>
-          <img
-            src={
-              favorites.length > 0
-                ? "source/icons/heart-active.svg"
-                : "source/icons/heart.svg"
-            }
-            alt="favorites"
-          />
+          <img src="source/icons/heart.svg" alt="favorites" />
           Favorites
         </li>
         <li className={styles.utilsItem}>
