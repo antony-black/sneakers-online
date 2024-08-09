@@ -9,7 +9,7 @@ function App() {
   // !!!implement Error and rework pending
   return (
     <div className="App">
-      <Overlay />
+      {/* <Overlay /> */}
       <Navbar />
       <div className="content">
         <Routes>
