@@ -1,8 +1,10 @@
 import useGlobalState from "../../hooks/useGlobalState";
+import { useState, useEffect } from "react";
 import styles from "./Searching.module.scss";
 
 export default function Searching() {
-  const { searchingValue, setSearchingValue } = useGlobalState();
+  const [searchingValue, setSearchingValue] = useState("");
+  const { originSneakers, setFilteredSneakers } = useGlobalState();
 
   const handleSerchingValue = (e) => {
     const value = e.target.value;
@@ -12,6 +14,21 @@ export default function Searching() {
   const cleanSearchingField = () => {
     setSearchingValue("");
   };
+
+  useEffect(() => {
+    const getFilteredSneakers = () => {
+      const updatedSneakers = originSneakers.filter((sneakersItem) => {
+        const title = sneakersItem.title.toLowerCase();
+        const value = searchingValue.toLowerCase();
+
+        return title.includes(value);
+      });
+
+      setFilteredSneakers(updatedSneakers);
+    };
+
+    getFilteredSneakers();
+  }, [searchingValue, originSneakers]);
 
   return (
     <div className={styles.headerContainer}>

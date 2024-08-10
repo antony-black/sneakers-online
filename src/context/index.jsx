@@ -6,7 +6,6 @@ export const GlobalContext = createContext(null);
 export default function GlobalState({ children }) {
   const [originSneakers, setOriginSneakers] = useState([]);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
-  const [searchingValue, setSearchingValue] = useState("");
 
   const {
     data: sneakers,
@@ -20,29 +19,14 @@ export default function GlobalState({ children }) {
     }
   }, [sneakers]);
 
-  useEffect(() => {
-    const getFilteredSneakers = () => {
-      const updatedSneakers = originSneakers.filter((sneakersItem) => {
-        const title = sneakersItem.title.toLowerCase();
-        const value = searchingValue.toLowerCase();
-
-        return title.includes(value);
-      });
-
-      setFilteredSneakers(updatedSneakers);
-    };
-
-    getFilteredSneakers();
-  }, [searchingValue, originSneakers]);
-
   return (
     <GlobalContext.Provider
       value={{
+        setFilteredSneakers,
+        originSneakers,
         filteredSneakers,
         pendingSneakers,
         errorMsgSneakers,
-        searchingValue,
-        setSearchingValue,
       }}
     >
       {children}
