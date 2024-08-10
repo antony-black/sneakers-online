@@ -5,7 +5,7 @@ import Searching from "../../components/searching/Searching";
 import styles from "./Home.module.scss";
 
 export default function Home() {
-  const { originSneakers, pendingSneakers, errorMsgSneakers } =
+  const { filteredSneakers, pendingSneakers, errorMsgSneakers } =
     useGlobalState();
 
   const createLoadingShadow = () => {
@@ -20,7 +20,7 @@ export default function Home() {
         ) : null}
         {pendingSneakers
           ? createLoadingShadow()
-          : originSneakers.map((sneakersPair) => (
+          : filteredSneakers.map((sneakersPair) => (
               <Card key={sneakersPair.image} sneakersPair={sneakersPair} />
             ))}
       </div>
