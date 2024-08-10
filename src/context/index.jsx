@@ -1,7 +1,29 @@
 import { createContext, useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
-  return <GlobalContext.Provider value={{}}>{children}</GlobalContext.Provider>;
+  const [originSneakers, setOriginSneakers] = useState([]);
+  const {
+    data: sneakers,
+    pending: pendingSneakers,
+    errorMsg: errorMsgSneakers,
+  } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/items", {});
+
+  useEffect(() => {
+    if (!!sneakers) {
+      setOriginSneakers(sneakers);
+    }
+  }, [sneakers]);
+
+  return (
+    <GlobalContext.Provider
+      value={{
+        originSneakers,
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+  );
 }
