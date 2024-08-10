@@ -2,8 +2,18 @@ import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./Searching.module.scss";
 
 export default function Searching() {
-  const { searchingValue, handleSerchingValue, cleanSearchingField } =
-    useGlobalState();
+  // const { searchingValue, handleSerchingValue, cleanSearchingField } =
+  //   useGlobalState();
+  const { searchingValue, setSearchingValue } = useGlobalState();
+
+  const handleSerchingValue = (e) => {
+    const value = e.target.value;
+    setSearchingValue(value);
+  };
+
+  const cleanSearchingField = () => {
+    setSearchingValue("");
+  };
 
   return (
     <div className={styles.headerContainer}>

@@ -20,15 +20,6 @@ export default function GlobalState({ children }) {
     }
   }, [sneakers]);
 
-  const handleSerchingValue = (e) => {
-    const value = e.target.value;
-    setSearchingValue(value);
-  };
-
-  const cleanSearchingField = () => {
-    setSearchingValue("");
-  };
-
   useEffect(() => {
     const getFilteredSneakers = () => {
       const updatedSneakers = originSneakers.filter((sneakersItem) => {
@@ -52,8 +43,7 @@ export default function GlobalState({ children }) {
         pendingSneakers,
         errorMsgSneakers,
         searchingValue,
-        handleSerchingValue,
-        cleanSearchingField,
+        setSearchingValue,
       }}
     >
       {children}
