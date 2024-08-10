@@ -15,6 +15,9 @@ export default function Home() {
     <>
       <Searching />
       <div className={styles.allSneakers}>
+        {errorMsgSneakers ? (
+          <div className="error-msg">{`${errorMsgSneakers}!!!`}</div>
+        ) : null}
         {pendingSneakers
           ? createLoadingShadow()
           : originSneakers.map((sneakersPair) => (
