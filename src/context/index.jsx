@@ -38,7 +38,6 @@ export default function GlobalState({ children }) {
   return (
     <GlobalContext.Provider
       value={{
-        originSneakers,
         filteredSneakers,
         pendingSneakers,
         errorMsgSneakers,

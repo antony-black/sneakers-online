@@ -18,11 +18,15 @@ export default function Home() {
         {errorMsgSneakers ? (
           <div className="error-msg">{`${errorMsgSneakers}!!!`}</div>
         ) : null}
-        {pendingSneakers
-          ? createLoadingShadow()
-          : filteredSneakers.map((sneakersPair) => (
-              <Card key={sneakersPair.image} sneakersPair={sneakersPair} />
-            ))}
+        {pendingSneakers ? (
+          createLoadingShadow()
+        ) : filteredSneakers?.length > 0 ? (
+          filteredSneakers.map((sneakersPair) => (
+            <Card key={sneakersPair.image} sneakersPair={sneakersPair} />
+          ))
+        ) : (
+          <div className={styles.nothing}>Nothing found.</div>
+        )}
       </div>
     </>
   );
