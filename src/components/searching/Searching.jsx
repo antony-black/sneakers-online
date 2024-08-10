@@ -2,12 +2,19 @@ import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./Searching.module.scss";
 
 export default function Searching() {
+  const { searchingValue, handleSerchingValue } = useGlobalState();
+
   return (
     <div className={styles.headerContainer}>
       <h1 className={styles.title}>All sneakers</h1>
       <div className={styles.searchingContainer}>
         <img src="../source/icons/search.svg" alt="search" />
-        <input name="serching" placeholder="Searching..." />
+        <input
+          value={searchingValue}
+          onChange={handleSerchingValue}
+          name="serching"
+          placeholder="Searching..."
+        />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
   const [originSneakers, setOriginSneakers] = useState([]);
+  const [searchingValue, setSearchingValue] = useState("");
   const {
     data: sneakers,
     pending: pendingSneakers,
@@ -17,12 +18,19 @@ export default function GlobalState({ children }) {
     }
   }, [sneakers]);
 
+  const handleSerchingValue = (e) => {
+    const value = e.target.value;
+    setSearchingValue(value);
+  };
+
   return (
     <GlobalContext.Provider
       value={{
         originSneakers,
         pendingSneakers,
         errorMsgSneakers,
+        searchingValue,
+        handleSerchingValue,
       }}
     >
       {children}
