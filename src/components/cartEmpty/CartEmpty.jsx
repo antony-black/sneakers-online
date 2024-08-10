@@ -4,7 +4,6 @@ import styles from "./CartEmpty.module.scss";
 import style from "../greenButton/GreenButton.module.scss";
 
 export default function CartEmpty() {
-  const { setCartOpen } = useGlobalState();
   return (
     <div className={styles.cartEmpty}>
       <div className={styles.content}>
@@ -12,10 +11,7 @@ export default function CartEmpty() {
         <h2>Your cart is empty</h2>
         <p>Add some items to your cart to start shopping!</p>
       </div>
-      <GreenButton
-        className={style.arrowBack}
-        onClick={() => setCartOpen(false)}
-      >
+      <GreenButton className={style.arrowBack}>
         Go back
         <img src="../source/icons/arrow-back.svg" alt="arrow" />
       </GreenButton>
