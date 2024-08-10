@@ -13,10 +13,10 @@ export default function Home() {
   return (
     <>
       <Searching />
-      <div className={styles.sneakers}>
+      <div className={styles.allSneakers}>
         {originSneakers?.length > 0 &&
-          originSneakers.map((sneakers) => (
-            <Card key={sneakers.image} sneakers={sneakers} />
+          originSneakers.map((sneakersPair) => (
+            <Card key={sneakersPair.image} sneakersPair={sneakersPair} />
           ))}
       </div>
     </>
