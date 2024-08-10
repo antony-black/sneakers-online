@@ -2,7 +2,8 @@ import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./Searching.module.scss";
 
 export default function Searching() {
-  const { searchingValue, handleSerchingValue } = useGlobalState();
+  const { searchingValue, handleSerchingValue, cleanSearchingField } =
+    useGlobalState();
 
   return (
     <div className={styles.headerContainer}>
@@ -15,6 +16,13 @@ export default function Searching() {
           name="serching"
           placeholder="Searching..."
         />
+        {!!searchingValue && (
+          <img
+            src="../source/icons/close.svg"
+            alt="clean"
+            onClick={cleanSearchingField}
+          />
+        )}
       </div>
     </div>
   );
