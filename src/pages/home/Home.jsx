@@ -5,7 +5,8 @@ import Searching from "../../components/searching/Searching";
 import styles from "./Home.module.scss";
 
 export default function Home() {
-  const { originSneakers } = useGlobalState();
+  const { originSneakers, pendingSneakers, errorMsgSneakers } =
+    useGlobalState();
 
   const createLoadingShadow = () => {
     return [...Array(12)].map((_, index) => <Loader key={index} />);
@@ -14,10 +15,11 @@ export default function Home() {
     <>
       <Searching />
       <div className={styles.allSneakers}>
-        {originSneakers?.length > 0 &&
-          originSneakers.map((sneakersPair) => (
-            <Card key={sneakersPair.image} sneakersPair={sneakersPair} />
-          ))}
+        {pendingSneakers
+          ? createLoadingShadow()
+          : originSneakers.map((sneakersPair) => (
+              <Card key={sneakersPair.image} sneakersPair={sneakersPair} />
+            ))}
       </div>
     </>
   );
