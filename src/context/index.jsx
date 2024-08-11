@@ -6,6 +6,8 @@ export const GlobalContext = createContext(null);
 export default function GlobalState({ children }) {
   const [originSneakers, setOriginSneakers] = useState([]);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
+  const [isCartOpened, setCartOpen] = useState(false);
+  // const [isAdded, setAdded] = useState({});
 
   const {
     data: sneakers,
@@ -19,6 +21,12 @@ export default function GlobalState({ children }) {
     }
   }, [sneakers]);
 
+  const handleCart = () => {
+    setCartOpen(!isCartOpened);
+  };
+
+  // const handleAdding = () => {};
+
   return (
     <GlobalContext.Provider
       value={{
@@ -27,6 +35,8 @@ export default function GlobalState({ children }) {
         filteredSneakers,
         pendingSneakers,
         errorMsgSneakers,
+        isCartOpened,
+        handleCart,
       }}
     >
       {children}

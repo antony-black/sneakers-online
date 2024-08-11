@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
+  const { handleCart } = useGlobalState();
   return (
     <nav>
       <div className={styles.about}>
@@ -13,7 +14,7 @@ export default function Navbar() {
         </div>
       </div>
       <ul className={styles.utils}>
-        <li className={styles.utilsItem}>
+        <li className={styles.utilsItem} onClick={handleCart}>
           <img src="source/icons/cart.svg" alt="cart" />
           <span>Total 0$</span>
         </li>

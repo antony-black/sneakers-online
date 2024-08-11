@@ -6,11 +6,17 @@ import styles from "./Cart.module.scss";
 import axios from "axios";
 
 export default function Cart() {
+  const { handleCart } = useGlobalState();
+
   return (
     <div className={styles.cart}>
       <div className={styles.cartHeaderContainer}>
         <h2>Cart</h2>
-        <img src="../../../source/icons/close.svg" alt="close" />
+        <img
+          src="../../../source/icons/close.svg"
+          alt="close"
+          onClick={handleCart}
+        />
       </div>
       <div className={styles.cartItems}></div>
       <div className={styles.cartTotal}>
