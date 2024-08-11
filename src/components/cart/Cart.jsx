@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import GreenButton from "../greenButton/GreenButton";
 import useGlobalState from "../../hooks/useGlobalState";
 import OrderProcessed from "../orderProcessed/OrderProcessed";
+import Card from "../card/Card";
 import styles from "./Cart.module.scss";
 import axios from "axios";
 
 export default function Cart() {
-  const { handleCart } = useGlobalState();
+  const { handleCart, removeFromCart, cartItems } = useGlobalState();
 
   return (
     <div className={styles.cart}>
@@ -18,7 +19,23 @@ export default function Cart() {
           onClick={handleCart}
         />
       </div>
-      <div className={styles.cartItems}></div>
+      <div className={styles.cartItems}>
+        {cartItems.map((item) => (
+          <div key={item.image} className={styles.cartItem}>
+            <img width={70} height={70} src={item.image} alt={item.title} />
+            <div className={styles.cartItemAbout}>
+              <p>{item.title}</p>
+              <p className={styles.cartItemPrice}>{item.price}$</p>
+            </div>
+            <div
+              className={styles.cartRemove}
+              onClick={() => removeFromCart(item.id)}
+            >
+              <img src="../source/icons/remove-btn.svg" alt="remove" />
+            </div>
+          </div>
+        ))}
+      </div>
       <div className={styles.cartTotal}>
         <ul>
           <li className={styles.cartTotalItem}>
