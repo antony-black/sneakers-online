@@ -22,7 +22,7 @@ export default function Home() {
           createLoadingShadow()
         ) : filteredSneakers?.length > 0 ? (
           filteredSneakers.map((sneakersPair) => (
-            <Card key={sneakersPair.image} sneakersPair={sneakersPair} />
+            <Card key={sneakersPair.image} sneakersPair={sneakersPair} added />
           ))
         ) : (
           <div className={styles.nothing}>Nothing found.</div>

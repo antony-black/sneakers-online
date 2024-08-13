@@ -21,7 +21,7 @@ export default function Cart() {
       </div>
       <div className={styles.cartItems}>
         {cartItems.map((item) => (
-          <div key={item.image} className={styles.cartItem}>
+          <div key={item.id} className={styles.cartItem}>
             <img width={70} height={70} src={item.image} alt={item.title} />
             <div className={styles.cartItemAbout}>
               <p>{item.title}</p>

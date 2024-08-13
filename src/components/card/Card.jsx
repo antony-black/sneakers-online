@@ -4,12 +4,12 @@ import styles from "./Card.module.scss";
 import axios from "axios";
 
 export default function Card({ sneakersPair }) {
-  const { addToCart } = useGlobalState();
-  const [isAdded, setAdded] = useState(false);
+  const { addToCart, isAdded } = useGlobalState();
+  // const [isAdded, setAdded] = useState(false);
 
-  const onClickPlus = () => {
-    setAdded(!isAdded);
-  };
+  // const onClickPlus = () => {
+  //   setAdded(!isAdded);
+  // };
 
   return (
     <div className={styles.sneakersItem}>
@@ -33,10 +33,14 @@ export default function Card({ sneakersPair }) {
         </div>
         <button className="plus" onClick={() => addToCart(sneakersPair)}>
           <img
-            src={!isAdded ? "source/icons/plus.svg" : "source/icons/check.svg"}
+            src={
+              !isAdded[sneakersPair.image]
+                ? "source/icons/plus.svg"
+                : "source/icons/check.svg"
+            }
             // src="source/icons/plus.svg"
             alt="plus-button"
-            onClick={onClickPlus}
+            // onClick={onClickPlus}
           />
         </button>
       </div>

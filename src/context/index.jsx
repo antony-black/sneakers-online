@@ -9,7 +9,13 @@ export default function GlobalState({ children }) {
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [isCartOpened, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [isAdded, setAdded] = useState(false);
 
+  const {
+    data: cartSneakers,
+    pending: cartPendingSneakers,
+    errorMsg: cartErrorMsgSneakers,
+  } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/cart", {});
   const {
     data: sneakers,
     pending: pendingSneakers,
@@ -17,10 +23,14 @@ export default function GlobalState({ children }) {
   } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/items", {});
 
   useEffect(() => {
+    if (!!cartSneakers) {
+      setCartItems(cartSneakers);
+    }
+
     if (!!sneakers) {
       setOriginSneakers(sneakers);
     }
-  }, [sneakers]);
+  }, [cartSneakers, sneakers]);
 
   const handleCart = () => {
     setCartOpen(!isCartOpened);
@@ -33,13 +43,14 @@ export default function GlobalState({ children }) {
         sneakersPair
       );
       setCartItems((prev) => [...prev, data]);
+      setAdded((prev) => ({ ...prev, [sneakersPair.image]: true }));
       console.log("add");
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  const removeFromCart = async (id) => {
+  const removeFromCart = async (sneakersPair, id) => {
     try {
       await axios.delete(
         `https://66a114477053166bcabdec9c.mockapi.io/cart/${id}`
@@ -48,6 +59,7 @@ export default function GlobalState({ children }) {
         (cartItem) => cartItem.id !== id
       );
       setCartItems(updatedCartItems);
+      setAdded((prev) => ({ ...prev, [sneakersPair.image]: false }));
       console.log("remove");
     } catch (err) {
       console.log(err.message);
@@ -71,6 +83,7 @@ export default function GlobalState({ children }) {
         cartItems,
         addToCart,
         removeFromCart,
+        isAdded,
       }}
     >
       {children}
