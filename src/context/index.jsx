@@ -9,6 +9,7 @@ export default function GlobalState({ children }) {
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [isCartOpened, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [total, setTotal] = useState(0);
   const [isAdded, setAdded] = useState(false);
 
   const {
@@ -50,7 +51,7 @@ export default function GlobalState({ children }) {
     }
   };
 
-  const removeFromCart = async (sneakersPair, id) => {
+  const removeFromCart = async (id) => {
     try {
       await axios.delete(
         `https://66a114477053166bcabdec9c.mockapi.io/cart/${id}`
@@ -59,16 +60,21 @@ export default function GlobalState({ children }) {
         (cartItem) => cartItem.id !== id
       );
       setCartItems(updatedCartItems);
-      setAdded((prev) => ({ ...prev, [sneakersPair.image]: false }));
+      // setAdded((prev) => ({ ...prev, [sneakersPair.image]: false }));
       console.log("remove");
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  // const handleAddingToCart = (sneakersPair) => {
-  //   !cartItems.some((cartItem) => cartItem.image === sneakersPair.image);
-  // };
+  useEffect(() => {
+    const getTotalCart = () => {
+      return cartItems?.length > 0
+        ? cartItems.reduce((total, item) => total + item.price, 0)
+        : 0;
+    };
+    setTotal(getTotalCart());
+  }, [cartItems]);
 
   return (
     <GlobalContext.Provider
@@ -83,6 +89,7 @@ export default function GlobalState({ children }) {
         cartItems,
         addToCart,
         removeFromCart,
+        total,
         isAdded,
       }}
     >

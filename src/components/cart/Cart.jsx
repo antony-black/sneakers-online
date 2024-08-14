@@ -7,8 +7,11 @@ import styles from "./Cart.module.scss";
 import axios from "axios";
 
 export default function Cart() {
-  const { handleCart, removeFromCart, cartItems } = useGlobalState();
+  const { handleCart, removeFromCart, cartItems, total } = useGlobalState();
 
+  const calculateTax = () => {
+    return (total / 100) * 5;
+  };
   return (
     <div className={styles.cart}>
       <div className={styles.cartHeaderContainer}>
@@ -41,12 +44,12 @@ export default function Cart() {
           <li className={styles.cartTotalItem}>
             <span>Total:</span>
             <div className={styles.dash}></div>
-            <b>0$</b>
+            <b>{total}$</b>
           </li>
           <li className={styles.cartTotalItem}>
             <span>Tax 5%:</span>
             <div className={styles.dash}></div>
-            <b>0$</b>
+            <b>{calculateTax()}$</b>
           </li>
         </ul>
         <GreenButton>Place an order</GreenButton>
