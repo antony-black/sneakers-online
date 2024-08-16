@@ -1,5 +1,5 @@
 import useGlobalState from "../../hooks/useGlobalState";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Card.module.scss";
 import axios from "axios";
 

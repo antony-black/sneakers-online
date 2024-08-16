@@ -36,6 +36,9 @@ export default function GlobalState({ children }) {
     }
     if (!!favSneakers) {
       setFavorites(favSneakers);
+      favorites.forEach((favItem) =>
+        setIsFavorite((prev) => ({ ...prev, [favItem.image]: true }))
+      );
     }
 
     if (!!sneakers) {
