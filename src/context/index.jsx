@@ -20,6 +20,11 @@ export default function GlobalState({ children }) {
     errorMsg: cartErrorMsgSneakers,
   } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/cart", {});
   const {
+    data: favSneakers,
+    pending: favPendingSneakers,
+    errorMsg: favErrorMsgSneakers,
+  } = useFetch("https://66bd909f74dfc195586ce2f4.mockapi.io/favorites", {});
+  const {
     data: sneakers,
     pending: pendingSneakers,
     errorMsg: errorMsgSneakers,
@@ -29,11 +34,14 @@ export default function GlobalState({ children }) {
     if (!!cartSneakers) {
       setCartItems(cartSneakers);
     }
+    if (!!favSneakers) {
+      setFavorites(favSneakers);
+    }
 
     if (!!sneakers) {
       setOriginSneakers(sneakers);
     }
-  }, [cartSneakers, sneakers]);
+  }, [cartSneakers, favSneakers, sneakers]);
 
   const handleCart = () => {
     setCartOpen(!isCartOpened);
