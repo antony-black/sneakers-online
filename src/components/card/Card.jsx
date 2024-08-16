@@ -4,7 +4,7 @@ import styles from "./Card.module.scss";
 import axios from "axios";
 
 export default function Card({ sneakersPair }) {
-  const { addToCart, isAdded } = useGlobalState();
+  const { addToCart, isAdded, isFavorite, handleFavorites } = useGlobalState();
   // const [isAdded, setAdded] = useState(false);
 
   // const onClickPlus = () => {
@@ -13,13 +13,20 @@ export default function Card({ sneakersPair }) {
 
   return (
     <div className={styles.sneakersItem}>
-      <div className={styles.favorite}>
+      <button
+        className={styles.favorite}
+        onClick={() => handleFavorites(sneakersPair)}
+      >
         <img
           className={styles.heart}
-          src="../source/icons/heart.svg"
+          src={
+            !isFavorite[sneakersPair.image]
+              ? "../source/icons/heart.svg"
+              : "../source/icons/heart-active.svg"
+          }
           alt="heart"
         />
-      </div>
+      </button>
       <img className={styles.item} src={sneakersPair.image} alt="sneakers" />
       <div className="sneakers-item-info">
         <a>

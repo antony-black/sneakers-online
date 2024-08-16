@@ -21,7 +21,9 @@ export default function Favorites() {
       </div>
       <div className={styles.favorites}>
         {favorites?.length > 0 ? (
-          favorites.map((favItem) => <Card key={favItem.id} item={favItem} />)
+          favorites.map((favItem) => (
+            <Card key={favItem.id} sneakersPair={favItem} />
+          ))
         ) : (
           <div className={styles.favoritesPopUp}>
             <p className={styles.favoritesPopUpText}>{`Nothing added yet:)`}</p>
