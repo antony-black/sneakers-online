@@ -33,6 +33,9 @@ export default function GlobalState({ children }) {
   useEffect(() => {
     if (!!cartSneakers) {
       setCartItems(cartSneakers);
+      cartItems.forEach((cartItem) =>
+        setAdded((prev) => ({ ...prev, [cartItem.image]: true }))
+      );
     }
     if (!!favSneakers) {
       setFavorites(favSneakers);
