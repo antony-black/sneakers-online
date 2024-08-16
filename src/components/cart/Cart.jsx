@@ -7,10 +7,42 @@ import styles from "./Cart.module.scss";
 import axios from "axios";
 
 export default function Cart() {
-  const { handleCart, removeFromCart, cartItems, total } = useGlobalState();
+  const { handleCart, removeFromCart, cartItems, setCartItems, total } =
+    useGlobalState();
 
   const calculateTax = () => {
     return (total / 100) * 5;
+  };
+
+  //* send cartItems to orders/ maybe be better to create a loop
+  //* delete cartItems from the cart and backend side
+  //* change isAdded indicator
+  //* add the pending for order processing in the cart
+
+  const sendOrder = async () => {
+    try {
+      // cartItems.forEach(async (cartItem) => {
+      //   const { id, ...rest } = cartItem;
+
+      //   await axios.post(
+      //     "https://66bd909f74dfc195586ce2f4.mockapi.io/orders",
+      //     rest
+      //   );
+      // });
+      for (const cartItem of cartItems) {
+        const { id, ...rest } = cartItem;
+        await axios.delete(
+          `https://66a114477053166bcabdec9c.mockapi.io/cart/${id}`
+        );
+        await axios.post(
+          "https://66bd909f74dfc195586ce2f4.mockapi.io/orders",
+          rest
+        );
+      }
+      setCartItems([]);
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   return (
     <div className={styles.cart}>
@@ -52,7 +84,7 @@ export default function Cart() {
             <b>{calculateTax()}$</b>
           </li>
         </ul>
-        <GreenButton>Place an order</GreenButton>
+        <GreenButton onClick={sendOrder}>Place an order</GreenButton>
       </div>
     </div>
   );

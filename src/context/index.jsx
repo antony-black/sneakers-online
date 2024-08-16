@@ -37,6 +37,7 @@ export default function GlobalState({ children }) {
         setAdded((prev) => ({ ...prev, [cartItem.image]: true }))
       );
     }
+
     if (!!favSneakers) {
       setFavorites(favSneakers);
       favorites.forEach((favItem) =>
@@ -61,7 +62,6 @@ export default function GlobalState({ children }) {
       );
       setCartItems((prev) => [...prev, data]);
       setAdded((prev) => ({ ...prev, [sneakersPair.image]: true }));
-      console.log("add");
     } catch (err) {
       console.log(err.message);
     }
@@ -83,7 +83,6 @@ export default function GlobalState({ children }) {
       );
       setCartItems(updatedCartItems);
       setAdded((prev) => ({ ...prev, [sneakersPair.image]: false }));
-      console.log("remove");
     } catch (err) {
       console.log(err.message);
     }
@@ -159,6 +158,7 @@ export default function GlobalState({ children }) {
         isCartOpened,
         handleCart,
         cartItems,
+        setCartItems,
         handleAdding,
         removeFromCart,
         total,
