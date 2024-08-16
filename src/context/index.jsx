@@ -8,9 +8,9 @@ export default function GlobalState({ children }) {
   const [originSneakers, setOriginSneakers] = useState([]);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [isCartOpened, setCartOpen] = useState(false);
+  const [isAdded, setAdded] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
-  const [isAdded, setAdded] = useState(false);
   const [isFavorite, setIsFavorite] = useState({});
   const [favorites, setFavorites] = useState([]);
 
@@ -64,20 +64,33 @@ export default function GlobalState({ children }) {
     }
   };
 
-  const removeFromCart = async (id) => {
+  const removeFromCart = async (sneakersPair) => {
     try {
+      const { data: cartItemsList } = await axios.get(
+        "https://66a114477053166bcabdec9c.mockapi.io/cart"
+      );
+      const cartItemToRemove = cartItemsList.find(
+        (addedItem) => addedItem.image === sneakersPair.image
+      );
       await axios.delete(
-        `https://66a114477053166bcabdec9c.mockapi.io/cart/${id}`
+        `https://66a114477053166bcabdec9c.mockapi.io/cart/${cartItemToRemove.id}`
       );
       const updatedCartItems = cartItems.filter(
-        (cartItem) => cartItem.id !== id
+        (cartItem) => cartItem.id !== cartItemToRemove.id
       );
       setCartItems(updatedCartItems);
-      // setAdded((prev) => ({ ...prev, [sneakersPair.image]: false }));
+      setAdded((prev) => ({ ...prev, [sneakersPair.image]: false }));
       console.log("remove");
     } catch (err) {
       console.log(err.message);
     }
+  };
+
+  const handleAdding = (sneakersPair) => {
+    const isCartItemsAdded = !cartItems.some(
+      (cartItem) => cartItem.image === sneakersPair.image
+    );
+    isCartItemsAdded ? addToCart(sneakersPair) : removeFromCart(sneakersPair);
   };
 
   const addToFavorites = async (sneakersPair) => {
@@ -99,14 +112,14 @@ export default function GlobalState({ children }) {
         "https://66bd909f74dfc195586ce2f4.mockapi.io/favorites"
       );
       const favoriteToRemove = favoritesList.find(
-        (item) => item.image === sneakersPair.image
+        (favItem) => favItem.image === sneakersPair.image
       );
 
       await axios.delete(
         `https://66bd909f74dfc195586ce2f4.mockapi.io/favorites/${favoriteToRemove.id}`
       );
       setFavorites((prev) =>
-        prev.filter((item) => item.id !== favoriteToRemove.id)
+        prev.filter((favItem) => favItem.id !== favoriteToRemove.id)
       );
       setIsFavorite((prev) => ({ ...prev, [sneakersPair.image]: false }));
     } catch (err) {
@@ -116,7 +129,7 @@ export default function GlobalState({ children }) {
 
   const handleFavorites = (sneakersPair) => {
     const isFavoriteAdded = !favorites.some(
-      (item) => item.image === sneakersPair.image
+      (favItem) => favItem.image === sneakersPair.image
     );
     isFavoriteAdded
       ? addToFavorites(sneakersPair)
@@ -143,12 +156,11 @@ export default function GlobalState({ children }) {
         isCartOpened,
         handleCart,
         cartItems,
-        addToCart,
+        handleAdding,
         removeFromCart,
         total,
         isAdded,
         handleFavorites,
-        addToFavorites,
         favorites,
         isFavorite,
       }}

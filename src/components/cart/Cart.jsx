@@ -32,7 +32,7 @@ export default function Cart() {
             </div>
             <div
               className={styles.cartRemove}
-              onClick={() => removeFromCart(item.id)}
+              onClick={() => removeFromCart(item)}
             >
               <img src="../source/icons/remove-btn.svg" alt="remove" />
             </div>

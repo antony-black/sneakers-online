@@ -4,7 +4,8 @@ import styles from "./Card.module.scss";
 import axios from "axios";
 
 export default function Card({ sneakersPair }) {
-  const { addToCart, isAdded, isFavorite, handleFavorites } = useGlobalState();
+  const { addToCart, isAdded, handleAdding, isFavorite, handleFavorites } =
+    useGlobalState();
   // const [isAdded, setAdded] = useState(false);
 
   // const onClickPlus = () => {
@@ -38,7 +39,7 @@ export default function Card({ sneakersPair }) {
           <p className={styles.sneakersItemPriceTitle}>Price:</p>
           <p className={styles.sneakersItemPrice}>{sneakersPair.price}</p>
         </div>
-        <button className="plus" onClick={() => addToCart(sneakersPair)}>
+        <button className="plus" onClick={() => handleAdding(sneakersPair)}>
           <img
             src={
               !isAdded[sneakersPair.image]
