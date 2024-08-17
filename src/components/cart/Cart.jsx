@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GreenButton from "../greenButton/GreenButton";
 import useGlobalState from "../../hooks/useGlobalState";
-import OrderProcessed from "../orderProcessed/OrderProcessed";
-import Card from "../card/Card";
 import ItemsInfo from "../ItemsInfo/ItemsInfo";
 import styles from "./Cart.module.scss";
 import axios from "axios";
@@ -15,51 +13,43 @@ export default function Cart() {
     setCartItems,
     total,
     setAdded,
+    isOrderCompleted,
+    setOrderCompleted,
   } = useGlobalState();
-  const [isOrderPending, setOrderPending] = useState(false);
+  const [isOrderProcessing, setOrderProcessing] = useState(false);
+  const [orderId, setOrderId] = useState(0);
 
   const calculateTax = () => {
     return (total / 100) * 5;
   };
 
-  //* send cartItems to orders/ maybe be better to create a loop +
-  //* delete cartItems from the cart and backend side +
-  //* change isAdded indicator +
-  //* add the pending for order processing in the cart: disabling the button
-  // * add "Your order is sent!" picture
-  // * create component "Info" or smth like that to reuse it with "GreenButton" (look at Figma)
-
   const sendOrder = async () => {
     try {
-      // cartItems.forEach(async (cartItem) => {
-      //   const { id, ...rest } = cartItem;
+      setOrderProcessing(true);
+      const { data } = await axios.post(
+        "https://66bd909f74dfc195586ce2f4.mockapi.io/orders",
+        {
+          orderedItems: cartItems,
+        }
+      );
+      setOrderId(data.id);
 
-      //   await axios.post(
-      //     "https://66bd909f74dfc195586ce2f4.mockapi.io/orders",
-      //     rest
-      //   );
-      // });
-      setOrderPending(true);
       for (const cartItem of cartItems) {
-        const { id, ...rest } = cartItem;
-        await axios.post(
-          "https://66bd909f74dfc195586ce2f4.mockapi.io/orders",
-          rest
-        );
+        const { id } = cartItem;
         await axios.delete(
           `https://66a114477053166bcabdec9c.mockapi.io/cart/${id}`
         );
         setCartItems((prev) => prev.filter((item) => item.id !== cartItem.id));
         setAdded((prev) => ({ ...prev, [cartItem.image]: false }));
       }
-      // setCartItems([]);
+      setOrderCompleted(true);
     } catch (err) {
-      console.log(
+      console.error(
         err.message,
-        "There is the issue with the processing your order!"
+        "There is an issue with the processing of your order!"
       );
     } finally {
-      setOrderPending(false);
+      setOrderProcessing(false);
     }
   };
   return cartItems.length > 0 ? (
@@ -102,16 +92,26 @@ export default function Cart() {
             <b>{calculateTax()}$</b>
           </li>
         </ul>
-        <GreenButton disabling={isOrderPending} onClick={sendOrder}>
+        <GreenButton disabling={isOrderProcessing} onClick={sendOrder}>
           Place an order
         </GreenButton>
       </div>
     </div>
   ) : (
     <ItemsInfo
-      title="Your cart is empty"
-      text="Add some items to your cart to start shopping!"
-      image="/source/cart/box.jpg"
+      title={
+        !isOrderCompleted ? "Your cart is empty" : "Your order is complete."
+      }
+      text={
+        !isOrderCompleted
+          ? "Add some items to your cart to start shopping!"
+          : `The order number is ${orderId}.It's rushing be passed to the post-service!`
+      }
+      image={
+        !isOrderCompleted
+          ? "/source/cart/box.svg"
+          : "/source/cart/order_is_processed.svg"
+      }
     />
   );
 }

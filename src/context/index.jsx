@@ -13,6 +13,7 @@ export default function GlobalState({ children }) {
   const [total, setTotal] = useState(0);
   const [isFavorite, setIsFavorite] = useState({});
   const [favorites, setFavorites] = useState([]);
+  const [isOrderCompleted, setOrderCompleted] = useState(false);
 
   const {
     data: cartSneakers,
@@ -52,6 +53,7 @@ export default function GlobalState({ children }) {
 
   const handleCart = () => {
     setCartOpen(!isCartOpened);
+    setOrderCompleted(false);
   };
 
   const addToCart = async (sneakersPair) => {
@@ -167,6 +169,8 @@ export default function GlobalState({ children }) {
         handleFavorites,
         favorites,
         isFavorite,
+        isOrderCompleted,
+        setOrderCompleted,
       }}
     >
       {children}
