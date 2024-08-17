@@ -1,8 +1,17 @@
 import styles from "./GreenButton.module.scss";
 
-export default function GreenButton({ children, onClick, className }) {
+export default function GreenButton({
+  children,
+  onClick,
+  className,
+  disabling,
+}) {
   return (
-    <button className={`${styles.greenButton} ${className}`} onClick={onClick}>
+    <button
+      disabled={disabling}
+      className={`${styles.greenButton} ${className}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

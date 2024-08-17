@@ -163,6 +163,7 @@ export default function GlobalState({ children }) {
         removeFromCart,
         total,
         isAdded,
+        setAdded,
         handleFavorites,
         favorites,
         isFavorite,

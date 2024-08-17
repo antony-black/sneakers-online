@@ -11,7 +11,8 @@ export default function Overlay() {
     !!isCartOpened && (
       <div className={styles.overlay}>
         <div className={styles.drawer}>
-          {cartItems.length > 0 ? <Cart /> : <CartEmpty />}
+          {/* {cartItems.length > 0 ? <Cart /> : <CartEmpty />} */}
+          <Cart />
         </div>
       </div>
     )
