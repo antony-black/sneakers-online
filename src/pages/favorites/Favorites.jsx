@@ -1,6 +1,7 @@
 import useGlobalState from "../../hooks/useGlobalState";
 import { NavLink } from "react-router-dom";
 import Card from "../../components/card/Card";
+import ItemsInfo from "../../components/ItemsInfo/ItemsInfo";
 import styles from "./Favorite.module.scss";
 
 export default function Favorites() {
@@ -25,9 +26,13 @@ export default function Favorites() {
             <Card key={favItem.id} sneakersPair={favItem} />
           ))
         ) : (
-          <div className={styles.favoritesPopUp}>
-            <p className={styles.favoritesPopUpText}>{`Nothing added yet:)`}</p>
-          </div>
+          <ItemsInfo
+            className={styles.itemsInfo}
+            title="No favorites."
+            text="You nothing added yet"
+            image="/source/cart/fav_sad_emodzy.svg"
+            // onClick={}
+          />
         )}
       </div>
     </div>

@@ -45,24 +45,12 @@
     width: 100%;
   }
 
-  .favoritesPopUp {
-    width: 450px;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    border: transparent;
-    border-radius: 20px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+  .itemsInfo {
     margin: 0px auto;
 
-      .favoritesPopUpText{
-        font-size: 50px;
-        color: coral;
-        text-align: center;
-        text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
-      }
+      p {
+        color: crimson;
+      } 
   }
 }
 

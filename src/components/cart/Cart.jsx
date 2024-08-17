@@ -112,6 +112,7 @@ export default function Cart() {
           ? "/source/cart/box.svg"
           : "/source/cart/order_is_processed.svg"
       }
+      onClick={handleCart}
     />
   );
 }
