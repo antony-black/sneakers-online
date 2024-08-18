@@ -1,5 +1,4 @@
 import GreenButton from "../greenButton/GreenButton";
-import useGlobalState from "../../hooks/useGlobalState";
 import styles from "./ItemsInfo.module.scss";
 import style from "../greenButton/GreenButton.module.scss";
 
