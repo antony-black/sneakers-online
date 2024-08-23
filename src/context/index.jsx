@@ -17,13 +17,13 @@ export default function GlobalState({ children }) {
 
   const {
     data: cartSneakers,
-    pending: cartPendingSneakers,
-    errorMsg: cartErrorMsgSneakers,
+    pending: cartPending,
+    errorMsg: cartErrorMsg,
   } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/cart", {});
   const {
     data: favSneakers,
-    pending: favPendingSneakers,
-    errorMsg: favErrorMsgSneakers,
+    pending: favPending,
+    errorMsg: favErrorMsg,
   } = useFetch("https://66bd909f74dfc195586ce2f4.mockapi.io/favorites", {});
   const {
     data: sneakers,

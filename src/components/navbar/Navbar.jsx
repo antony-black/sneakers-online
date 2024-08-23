@@ -34,8 +34,10 @@ export default function Navbar() {
           </NavLink>
         </li>
         <li className={styles.utilsItem}>
-          <img src="source/icons/profile.svg" alt="profile" />
-          <span>User</span>
+          <NavLink to={"/orders"} className={styles.navLink}>
+            <img src="source/icons/orders.svg" alt="orders" />
+            <span>Orders</span>
+          </NavLink>
         </li>
       </ul>
     </nav>
