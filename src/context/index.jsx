@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
-import { HandleCardService } from "../services/HandleCardService";
 import { API_URLS } from "../config/config";
 
 export const GlobalContext = createContext(null);
@@ -56,43 +55,6 @@ export default function GlobalState({ children }) {
     setCartOpen(!isCartOpened);
     setOrderCompleted(false);
   };
-  const handleAdding = (sneakersPair) => {
-    const isCartItemsAdded = !cartItems.some(
-      (cartItem) => cartItem.image === sneakersPair.image
-    );
-    isCartItemsAdded
-      ? HandleCardService.addTo(
-          sneakersPair,
-          API_URLS.cart,
-          setCartItems,
-          setAdded
-        )
-      : HandleCardService.removeFrom(
-          sneakersPair,
-          API_URLS.cart,
-          setCartItems,
-          setAdded
-        );
-  };
-
-  const handleFavorites = (sneakersPair) => {
-    const isFavoriteAdded = !favorites.some(
-      (favItem) => favItem.image === sneakersPair.image
-    );
-    isFavoriteAdded
-      ? HandleCardService.addTo(
-          sneakersPair,
-          API_URLS.favorites,
-          setFavorites,
-          setIsFavorite
-        )
-      : HandleCardService.removeFrom(
-          sneakersPair,
-          API_URLS.favorites,
-          setFavorites,
-          setIsFavorite
-        );
-  };
 
   useEffect(() => {
     const getTotalCart = () => {
@@ -115,14 +77,13 @@ export default function GlobalState({ children }) {
         setCartItems,
         cartItems,
         handleCart,
-        handleAdding,
         isAdded,
         setAdded,
-        handleAdding,
         total,
-        handleFavorites,
         favorites,
         isFavorite,
+        setFavorites,
+        setIsFavorite,
         isOrderCompleted,
         setOrderCompleted,
       }}

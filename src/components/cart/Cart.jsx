@@ -3,12 +3,13 @@ import { useState } from "react";
 import useGlobalState from "../../hooks/useGlobalState";
 import ItemsInfo from "../ItemsInfo/ItemsInfo";
 import GreenButton from "../greenButton/GreenButton";
+import { HandleCardService } from "../../services/HandleCardService";
+import { API_URLS } from "../../config/config";
 import styles from "./Cart.module.scss";
 
 export default function Cart() {
   const {
     handleCart,
-    handleAdding,
     cartItems,
     setCartItems,
     total,
@@ -72,7 +73,14 @@ export default function Cart() {
             </div>
             <div
               className={styles.cartRemove}
-              onClick={() => handleAdding(item)}
+              onClick={() =>
+                HandleCardService.removeFrom(
+                  item,
+                  API_URLS.cart,
+                  setCartItems,
+                  setAdded
+                )
+              }
             >
               <img src="../source/icons/remove-btn.svg" alt="remove" />
             </div>

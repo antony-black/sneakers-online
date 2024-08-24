@@ -38,4 +38,19 @@ export const HandleCardService = {
       );
     }
   },
+
+  manageItem(itemObject, items, url, setToItemsArray, setIsAdded) {
+    const isCartItemsAdded = !items.some(
+      (cartItem) => cartItem.image === itemObject.image
+    );
+
+    isCartItemsAdded
+      ? HandleCardService.addTo(itemObject, url, setToItemsArray, setIsAdded)
+      : HandleCardService.removeFrom(
+          itemObject,
+          url,
+          setToItemsArray,
+          setIsAdded
+        );
+  },
 };

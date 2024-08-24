@@ -1,17 +1,33 @@
 import useGlobalState from "../../hooks/useGlobalState";
-import { useEffect, useState } from "react";
+import { HandleCardService } from "../../services/HandleCardService";
+import { API_URLS } from "../../config/config";
 import styles from "./Card.module.scss";
-import axios from "axios";
 
 export default function Card({ sneakersPair }) {
-  const { isAdded, handleAdding, isFavorite, handleFavorites } =
-    useGlobalState();
+  const {
+    isAdded,
+    setAdded,
+    cartItems,
+    setCartItems,
+    favorites,
+    setFavorites,
+    setIsFavorite,
+    isFavorite,
+  } = useGlobalState();
 
   return (
     <div className={styles.sneakersItem}>
       <button
         className={styles.favorite}
-        onClick={() => handleFavorites(sneakersPair)}
+        onClick={() =>
+          HandleCardService.manageItem(
+            sneakersPair,
+            favorites,
+            API_URLS.favorites,
+            setFavorites,
+            setIsFavorite
+          )
+        }
       >
         <img
           className={styles.heart}
@@ -34,7 +50,18 @@ export default function Card({ sneakersPair }) {
           <p className={styles.sneakersItemPriceTitle}>Price:</p>
           <p className={styles.sneakersItemPrice}>{sneakersPair.price}</p>
         </div>
-        <button className="plus" onClick={() => handleAdding(sneakersPair)}>
+        <button
+          className="plus"
+          onClick={() =>
+            HandleCardService.manageItem(
+              sneakersPair,
+              cartItems,
+              API_URLS.cart,
+              setCartItems,
+              setAdded
+            )
+          }
+        >
           <img
             src={
               !isAdded[sneakersPair.image]
