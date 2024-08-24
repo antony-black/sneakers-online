@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { HandleCardService } from "../services/HandleCardService";
+import { API_URLS } from "../config/config";
 
 export const GlobalContext = createContext(null);
 
@@ -19,17 +20,17 @@ export default function GlobalState({ children }) {
     data: cartSneakers,
     pending: cartPending,
     errorMsg: cartErrorMsg,
-  } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/cart", {});
+  } = useFetch(API_URLS.cart, {});
   const {
     data: favSneakers,
     pending: favPending,
     errorMsg: favErrorMsg,
-  } = useFetch("https://66bd909f74dfc195586ce2f4.mockapi.io/favorites", {});
+  } = useFetch(API_URLS.favorites, {});
   const {
     data: sneakers,
     pending: pendingSneakers,
     errorMsg: errorMsgSneakers,
-  } = useFetch("https://66a114477053166bcabdec9c.mockapi.io/items", {});
+  } = useFetch(API_URLS.items, {});
 
   useEffect(() => {
     if (!!cartSneakers) {
@@ -55,23 +56,25 @@ export default function GlobalState({ children }) {
     setCartOpen(!isCartOpened);
     setOrderCompleted(false);
   };
-
-  const cartUrl = "https://66a114477053166bcabdec9c.mockapi.io/cart";
   const handleAdding = (sneakersPair) => {
     const isCartItemsAdded = !cartItems.some(
       (cartItem) => cartItem.image === sneakersPair.image
     );
     isCartItemsAdded
-      ? HandleCardService.addTo(sneakersPair, cartUrl, setCartItems, setAdded)
+      ? HandleCardService.addTo(
+          sneakersPair,
+          API_URLS.cart,
+          setCartItems,
+          setAdded
+        )
       : HandleCardService.removeFrom(
           sneakersPair,
-          cartUrl,
+          API_URLS.cart,
           setCartItems,
           setAdded
         );
   };
 
-  const favUrl = "https://66bd909f74dfc195586ce2f4.mockapi.io/favorites";
   const handleFavorites = (sneakersPair) => {
     const isFavoriteAdded = !favorites.some(
       (favItem) => favItem.image === sneakersPair.image
@@ -79,13 +82,13 @@ export default function GlobalState({ children }) {
     isFavoriteAdded
       ? HandleCardService.addTo(
           sneakersPair,
-          favUrl,
+          API_URLS.favorites,
           setFavorites,
           setIsFavorite
         )
       : HandleCardService.removeFrom(
           sneakersPair,
-          favUrl,
+          API_URLS.favorites,
           setFavorites,
           setIsFavorite
         );
