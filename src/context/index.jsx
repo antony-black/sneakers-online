@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
 import axios from "axios";
+import useFetch from "../hooks/useFetch";
+import { HandleCardService } from "../services/HandleAddingService";
 
 export const GlobalContext = createContext(null);
 
@@ -56,18 +57,19 @@ export default function GlobalState({ children }) {
     setOrderCompleted(false);
   };
 
-  const addToCart = async (sneakersPair) => {
-    try {
-      const { data } = await axios.post(
-        "https://66a114477053166bcabdec9c.mockapi.io/cart",
-        sneakersPair
-      );
-      setCartItems((prev) => [...prev, data]);
-      setAdded((prev) => ({ ...prev, [sneakersPair.image]: true }));
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
+  // const addToCart = async (sneakersPair) => {
+  //   try {
+  //     const { data } = await axios.post(
+  //       "https://66a114477053166bcabdec9c.mockapi.io/cart",
+  //       sneakersPair
+  //     );
+  //     setCartItems((prev) => [...prev, data]);
+  //     setAdded((prev) => ({ ...prev, [sneakersPair.image]: true }));
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
+  //* sneakersPair, url, setToArray(), setIsAdded(),
 
   const removeFromCart = async (sneakersPair) => {
     try {
@@ -89,26 +91,28 @@ export default function GlobalState({ children }) {
       console.log(err.message);
     }
   };
-
+  const cartUrl = "https://66a114477053166bcabdec9c.mockapi.io/cart";
   const handleAdding = (sneakersPair) => {
     const isCartItemsAdded = !cartItems.some(
       (cartItem) => cartItem.image === sneakersPair.image
     );
-    isCartItemsAdded ? addToCart(sneakersPair) : removeFromCart(sneakersPair);
+    isCartItemsAdded
+      ? HandleCardService.addTo(sneakersPair, cartUrl, setCartItems, setAdded)
+      : removeFromCart(sneakersPair);
   };
 
-  const addToFavorites = async (sneakersPair) => {
-    try {
-      const { data } = await axios.post(
-        "https://66bd909f74dfc195586ce2f4.mockapi.io/favorites",
-        sneakersPair
-      );
-      setFavorites((prev) => [...prev, data]);
-      setIsFavorite((prev) => ({ ...prev, [sneakersPair.image]: true }));
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
+  // const addToFavorites = async (sneakersPair) => {
+  //   try {
+  //     const { data } = await axios.post(
+  //       "https://66bd909f74dfc195586ce2f4.mockapi.io/favorites",
+  //       sneakersPair
+  //     );
+  //     setFavorites((prev) => [...prev, data]);
+  //     setIsFavorite((prev) => ({ ...prev, [sneakersPair.image]: true }));
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
 
   const removeFromFavorites = async (sneakersPair) => {
     try {
@@ -130,13 +134,18 @@ export default function GlobalState({ children }) {
       console.log(err.message);
     }
   };
-
+  const favUrl = "https://66bd909f74dfc195586ce2f4.mockapi.io/favorites";
   const handleFavorites = (sneakersPair) => {
     const isFavoriteAdded = !favorites.some(
       (favItem) => favItem.image === sneakersPair.image
     );
     isFavoriteAdded
-      ? addToFavorites(sneakersPair)
+      ? HandleCardService.addTo(
+          sneakersPair,
+          favUrl,
+          setFavorites,
+          setIsFavorite
+        )
       : removeFromFavorites(sneakersPair);
   };
 
