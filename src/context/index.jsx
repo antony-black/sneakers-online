@@ -56,15 +56,6 @@ export default function GlobalState({ children }) {
     setOrderCompleted(false);
   };
 
-  useEffect(() => {
-    const getTotalCart = () => {
-      return cartItems?.length > 0
-        ? cartItems.reduce((total, item) => total + item.price, 0)
-        : 0;
-    };
-    setTotal(getTotalCart());
-  }, [cartItems]);
-
   return (
     <GlobalContext.Provider
       value={{
@@ -79,7 +70,6 @@ export default function GlobalState({ children }) {
         handleCart,
         isAdded,
         setAdded,
-        total,
         favorites,
         isFavorite,
         setFavorites,

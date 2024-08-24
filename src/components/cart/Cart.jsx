@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import useGlobalState from "../../hooks/useGlobalState";
+import useTotal from "../../hooks/useTotal";
 import ItemsInfo from "../ItemsInfo/ItemsInfo";
 import GreenButton from "../greenButton/GreenButton";
 import { HandleCardService } from "../../services/HandleCardService";
@@ -12,13 +13,13 @@ export default function Cart() {
     handleCart,
     cartItems,
     setCartItems,
-    total,
     setAdded,
     isOrderCompleted,
     setOrderCompleted,
   } = useGlobalState();
   const [isOrderProcessing, setOrderProcessing] = useState(false);
   const [orderId, setOrderId] = useState(0);
+  const [total] = useTotal();
 
   const calculateTax = () => {
     return (total / 100) * 5;

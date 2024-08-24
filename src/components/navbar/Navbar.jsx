@@ -1,9 +1,11 @@
 import useGlobalState from "../../hooks/useGlobalState";
 import { NavLink } from "react-router-dom";
+import useTotal from "../../hooks/useTotal";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
-  const { handleCart, total, favorites } = useGlobalState();
+  const { handleCart, favorites } = useGlobalState();
+  const [total] = useTotal();
   return (
     <nav>
       <div className={styles.about}>
