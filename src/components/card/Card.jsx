@@ -15,19 +15,30 @@ export default function Card({ sneakersPair }) {
     isFavorite,
   } = useGlobalState();
 
+  const handleFavorites = (sneakersPair) => {
+    HandleCardService.manageItem(
+      sneakersPair,
+      favorites,
+      API_URLS.favorites,
+      setFavorites,
+      setIsFavorite
+    );
+  };
+  const handleCart = (sneakersPair) => {
+    HandleCardService.manageItem(
+      sneakersPair,
+      cartItems,
+      API_URLS.cart,
+      setCartItems,
+      setAdded
+    );
+  };
+
   return (
     <div className={styles.sneakersItem}>
       <button
         className={styles.favorite}
-        onClick={() =>
-          HandleCardService.manageItem(
-            sneakersPair,
-            favorites,
-            API_URLS.favorites,
-            setFavorites,
-            setIsFavorite
-          )
-        }
+        onClick={() => handleFavorites(sneakersPair)}
       >
         <img
           className={styles.heart}
@@ -50,18 +61,7 @@ export default function Card({ sneakersPair }) {
           <p className={styles.sneakersItemPriceTitle}>Price:</p>
           <p className={styles.sneakersItemPrice}>{sneakersPair.price}</p>
         </div>
-        <button
-          className="plus"
-          onClick={() =>
-            HandleCardService.manageItem(
-              sneakersPair,
-              cartItems,
-              API_URLS.cart,
-              setCartItems,
-              setAdded
-            )
-          }
-        >
+        <button className="plus" onClick={() => handleCart(sneakersPair)}>
           <img
             src={
               !isAdded[sneakersPair.image]

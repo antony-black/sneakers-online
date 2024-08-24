@@ -5,12 +5,12 @@ import { API_URLS } from "../config/config";
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
+  //* TO DO: refactor states
   const [originSneakers, setOriginSneakers] = useState([]);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [isCartOpened, setCartOpen] = useState(false);
   const [isAdded, setAdded] = useState({});
   const [cartItems, setCartItems] = useState([]);
-  const [total, setTotal] = useState(0);
   const [isFavorite, setIsFavorite] = useState({});
   const [favorites, setFavorites] = useState([]);
   const [isOrderCompleted, setOrderCompleted] = useState(false);
