@@ -1,14 +1,14 @@
+import axios from "axios";
 import { useState } from "react";
-import GreenButton from "../greenButton/GreenButton";
 import useGlobalState from "../../hooks/useGlobalState";
 import ItemsInfo from "../ItemsInfo/ItemsInfo";
+import GreenButton from "../greenButton/GreenButton";
 import styles from "./Cart.module.scss";
-import axios from "axios";
 
 export default function Cart() {
   const {
     handleCart,
-    removeFromCart,
+    handleAdding,
     cartItems,
     setCartItems,
     total,
@@ -72,7 +72,7 @@ export default function Cart() {
             </div>
             <div
               className={styles.cartRemove}
-              onClick={() => removeFromCart(item)}
+              onClick={() => handleAdding(item)}
             >
               <img src="../source/icons/remove-btn.svg" alt="remove" />
             </div>

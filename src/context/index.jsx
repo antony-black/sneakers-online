@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
 import useFetch from "../hooks/useFetch";
-import { HandleCardService } from "../services/HandleAddingService";
+import { HandleCardService } from "../services/HandleCardService";
 
 export const GlobalContext = createContext(null);
 
@@ -57,40 +56,6 @@ export default function GlobalState({ children }) {
     setOrderCompleted(false);
   };
 
-  // const addToCart = async (sneakersPair) => {
-  //   try {
-  //     const { data } = await axios.post(
-  //       "https://66a114477053166bcabdec9c.mockapi.io/cart",
-  //       sneakersPair
-  //     );
-  //     setCartItems((prev) => [...prev, data]);
-  //     setAdded((prev) => ({ ...prev, [sneakersPair.image]: true }));
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
-  //* sneakersPair, url, setToArray(), setIsAdded(),
-
-  const removeFromCart = async (sneakersPair) => {
-    try {
-      const { data: cartItemsList } = await axios.get(
-        "https://66a114477053166bcabdec9c.mockapi.io/cart"
-      );
-      const cartItemToRemove = cartItemsList.find(
-        (addedItem) => addedItem.image === sneakersPair.image
-      );
-      await axios.delete(
-        `https://66a114477053166bcabdec9c.mockapi.io/cart/${cartItemToRemove.id}`
-      );
-      const updatedCartItems = cartItems.filter(
-        (cartItem) => cartItem.id !== cartItemToRemove.id
-      );
-      setCartItems(updatedCartItems);
-      setAdded((prev) => ({ ...prev, [sneakersPair.image]: false }));
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
   const cartUrl = "https://66a114477053166bcabdec9c.mockapi.io/cart";
   const handleAdding = (sneakersPair) => {
     const isCartItemsAdded = !cartItems.some(
@@ -98,42 +63,14 @@ export default function GlobalState({ children }) {
     );
     isCartItemsAdded
       ? HandleCardService.addTo(sneakersPair, cartUrl, setCartItems, setAdded)
-      : removeFromCart(sneakersPair);
+      : HandleCardService.removeFrom(
+          sneakersPair,
+          cartUrl,
+          setCartItems,
+          setAdded
+        );
   };
 
-  // const addToFavorites = async (sneakersPair) => {
-  //   try {
-  //     const { data } = await axios.post(
-  //       "https://66bd909f74dfc195586ce2f4.mockapi.io/favorites",
-  //       sneakersPair
-  //     );
-  //     setFavorites((prev) => [...prev, data]);
-  //     setIsFavorite((prev) => ({ ...prev, [sneakersPair.image]: true }));
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
-
-  const removeFromFavorites = async (sneakersPair) => {
-    try {
-      const { data: favoritesList } = await axios.get(
-        "https://66bd909f74dfc195586ce2f4.mockapi.io/favorites"
-      );
-      const favoriteToRemove = favoritesList.find(
-        (favItem) => favItem.image === sneakersPair.image
-      );
-
-      await axios.delete(
-        `https://66bd909f74dfc195586ce2f4.mockapi.io/favorites/${favoriteToRemove.id}`
-      );
-      setFavorites((prev) =>
-        prev.filter((favItem) => favItem.id !== favoriteToRemove.id)
-      );
-      setIsFavorite((prev) => ({ ...prev, [sneakersPair.image]: false }));
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
   const favUrl = "https://66bd909f74dfc195586ce2f4.mockapi.io/favorites";
   const handleFavorites = (sneakersPair) => {
     const isFavoriteAdded = !favorites.some(
@@ -146,7 +83,12 @@ export default function GlobalState({ children }) {
           setFavorites,
           setIsFavorite
         )
-      : removeFromFavorites(sneakersPair);
+      : HandleCardService.removeFrom(
+          sneakersPair,
+          favUrl,
+          setFavorites,
+          setIsFavorite
+        );
   };
 
   useEffect(() => {
@@ -173,7 +115,7 @@ export default function GlobalState({ children }) {
         handleAdding,
         isAdded,
         setAdded,
-        removeFromCart,
+        handleAdding,
         total,
         handleFavorites,
         favorites,

@@ -18,6 +18,7 @@ export default function Orders() {
     errorMsg: myOrdersErrorMsg,
   } = useFetch("https://66bd909f74dfc195586ce2f4.mockapi.io/orders", {});
 
+  //* !CHECK
   // const parseOrderedItems = (orders) => {
   //   return orders.flatMap((order) =>
   //     order.orderedItems.map((item) => ({
@@ -25,15 +26,6 @@ export default function Orders() {
   //       orderId: order.id,
   //     }))
   //   );
-  // };
-
-  // const parseOrderedItems = (orderedItems) => {
-  //   return orderedItems.map((item) => ({
-  //     id: item.id,
-  //     title: item.title,
-  //     price: item.price,
-  //     image: item.image,
-  //   }));
   // };
 
   useEffect(() => {
@@ -63,17 +55,3 @@ export default function Orders() {
     </div>
   );
 }
-// orders.length > 0 ? (
-//   orders.map((order) => (
-//     <Card
-//       key={order.id}
-//       sneakersPair={order.orderedItems.map((item) => item)}
-//     />
-//   ))
-
-// orders.length > 0 ? (
-//   orders.map((order) =>
-//     order.orderedItems.map((item) => (
-//       <Card key={item.id} sneakersPair={item} />
-//     ))
-//   )
