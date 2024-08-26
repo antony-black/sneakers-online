@@ -41,7 +41,6 @@ export default function Card({ sneakersPair }) {
         onClick={() => handleFavorites(sneakersPair)}
       >
         <img
-          className={styles.heart}
           src={
             !isFavorite[sneakersPair.image]
               ? "../source/icons/heart.svg"
