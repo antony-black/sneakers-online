@@ -4,21 +4,12 @@ import styles from "./Overlay.module.scss";
 
 export default function Overlay() {
   const { isCartOpened } = useGlobalState();
-  console.log("isCartOpened >>>>", isCartOpened);
 
   return (
-    <div className={!isCartOpened ? styles.overlay : styles.overlayShow}>
-      <div className={!isCartOpened ? styles.drawer : styles.drawerShow}>
+    <div className={`${styles.overlay} ${isCartOpened ? styles.show : ""}`}>
+      <div className={`${styles.drawer} ${isCartOpened ? styles.show : ""}`}>
         <Cart />
       </div>
     </div>
   );
-
-  // !!isCartOpened && (
-  //   <div className={styles.overlay}>
-  //     <div className={isCartOpened ? styles.drawer : styles.drawerShow}>
-  //       <Cart />
-  //     </div>
-  //   </div>
-  // )
 }
