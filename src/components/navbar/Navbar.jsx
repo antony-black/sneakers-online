@@ -8,11 +8,11 @@ export default function Navbar() {
   const [total] = useTotal();
   return (
     <nav>
-      <div className={styles.about}>
+      <div className={styles.logo}>
         <NavLink to={"/"} className={styles.navLink}>
           <img src="source/logo.svg" alt="logo" />
-          <div className={styles.aboutInfo}>
-            <h3>REACT SNEAKERS</h3>
+          <div className={styles.logoTitle}>
+            <h3>SNEAKERS ONLINE</h3>
             <p>The Best Sneakers Store</p>
           </div>
         </NavLink>
