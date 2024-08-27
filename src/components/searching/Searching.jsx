@@ -2,9 +2,9 @@ import useGlobalState from "../../hooks/useGlobalState";
 import { useState, useEffect } from "react";
 import styles from "./Searching.module.scss";
 
-export default function Searching() {
+export default function Searching({ setFilteredSneakers }) {
   const [searchingValue, setSearchingValue] = useState("");
-  const { originSneakers, setFilteredSneakers } = useGlobalState();
+  const { originSneakers } = useGlobalState();
 
   const handleSerchingValue = (e) => {
     const value = e.target.value;

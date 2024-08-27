@@ -7,12 +7,12 @@ export const GlobalContext = createContext(null);
 export default function GlobalState({ children }) {
   //* TO DO: refactor states
   const [originSneakers, setOriginSneakers] = useState([]);
-  const [filteredSneakers, setFilteredSneakers] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+
   const [isCartOpened, setCartOpen] = useState(false);
   const [isAdded, setAdded] = useState({});
-  const [cartItems, setCartItems] = useState([]);
   const [isFavorite, setIsFavorite] = useState({});
-  const [favorites, setFavorites] = useState([]);
   const [isOrderCompleted, setOrderCompleted] = useState(false);
 
   const {
@@ -60,8 +60,6 @@ export default function GlobalState({ children }) {
     <GlobalContext.Provider
       value={{
         originSneakers,
-        setFilteredSneakers,
-        filteredSneakers,
         pendingSneakers,
         errorMsgSneakers,
         isCartOpened,
