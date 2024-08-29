@@ -5,21 +5,19 @@ import { API_URLS } from "../../config/config";
 import styles from "./Card.module.scss";
 
 export default function Card({ sneakersPair }) {
-  const {
-    isAdded,
-    setAdded,
-    cartItems,
-    setCartItems,
-    favorites,
-    setFavorites,
-  } = useGlobalState();
+  const { cartItems, setCartItems, favorites, setFavorites } = useGlobalState();
+  const [isAdded, setAdded] = useState({});
   const [isFavorite, setIsFavorite] = useState({});
 
   useEffect(() => {
+    cartItems.forEach((cartItem) =>
+      setAdded((prev) => ({ ...prev, [cartItem.image]: true }))
+    );
+
     favorites.forEach((favItem) =>
       setIsFavorite((prev) => ({ ...prev, [favItem.image]: true }))
     );
-  }, [favorites]);
+  }, [cartItems, favorites]);
 
   const handleFavorites = (sneakersPair) => {
     HandleCardService.manageItem(

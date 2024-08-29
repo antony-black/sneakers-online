@@ -13,9 +13,6 @@ export default function GlobalState({ children }) {
   const [isCartOpened, setCartOpen] = useState(false);
   const [isOrderCompleted, setOrderCompleted] = useState(false);
 
-  const [isAdded, setAdded] = useState({});
-  // const [isFavorite, setIsFavorite] = useState({});
-
   const {
     data: cartSneakers,
     pending: cartPending,
@@ -35,9 +32,6 @@ export default function GlobalState({ children }) {
   useEffect(() => {
     if (!!cartSneakers) {
       setCartItems(cartSneakers);
-      cartItems.forEach((cartItem) =>
-        setAdded((prev) => ({ ...prev, [cartItem.image]: true }))
-      );
     }
 
     if (!!favSneakers) {
@@ -64,8 +58,6 @@ export default function GlobalState({ children }) {
         setCartItems,
         cartItems,
         handleCart,
-        isAdded,
-        setAdded,
         favorites,
         setFavorites,
         isOrderCompleted,
