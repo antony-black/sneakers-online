@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import useGlobalState from "../../hooks/useGlobalState";
 import { HandleCardService } from "../../services/HandleCardService";
 import { API_URLS } from "../../config/config";
@@ -11,9 +12,14 @@ export default function Card({ sneakersPair }) {
     setCartItems,
     favorites,
     setFavorites,
-    setIsFavorite,
-    isFavorite,
   } = useGlobalState();
+  const [isFavorite, setIsFavorite] = useState({});
+
+  useEffect(() => {
+    favorites.forEach((favItem) =>
+      setIsFavorite((prev) => ({ ...prev, [favItem.image]: true }))
+    );
+  }, [favorites]);
 
   const handleFavorites = (sneakersPair) => {
     HandleCardService.manageItem(
@@ -43,8 +49,8 @@ export default function Card({ sneakersPair }) {
         <img
           src={
             !isFavorite[sneakersPair.image]
-              ? "../source/icons/heart.svg"
-              : "../source/icons/heart-active.svg"
+              ? "source/icons/heart.svg"
+              : "source/icons/heart-active.svg"
           }
           alt="heart"
         />

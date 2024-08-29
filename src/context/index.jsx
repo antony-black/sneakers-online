@@ -6,14 +6,15 @@ export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
   //* TO DO: refactor states
+  // !check the "Orders"
   const [originSneakers, setOriginSneakers] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
-
   const [isCartOpened, setCartOpen] = useState(false);
-  const [isAdded, setAdded] = useState({});
-  const [isFavorite, setIsFavorite] = useState({});
   const [isOrderCompleted, setOrderCompleted] = useState(false);
+
+  const [isAdded, setAdded] = useState({});
+  // const [isFavorite, setIsFavorite] = useState({});
 
   const {
     data: cartSneakers,
@@ -41,9 +42,6 @@ export default function GlobalState({ children }) {
 
     if (!!favSneakers) {
       setFavorites(favSneakers);
-      favorites.forEach((favItem) =>
-        setIsFavorite((prev) => ({ ...prev, [favItem.image]: true }))
-      );
     }
 
     if (!!sneakers) {
@@ -69,9 +67,7 @@ export default function GlobalState({ children }) {
         isAdded,
         setAdded,
         favorites,
-        isFavorite,
         setFavorites,
-        setIsFavorite,
         isOrderCompleted,
         setOrderCompleted,
       }}
