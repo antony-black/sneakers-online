@@ -53,4 +53,10 @@ export const HandleCardService = {
           setIsAdded
         );
   },
+
+  updateExistingItems(items, setItems) {
+    items.forEach((item) =>
+      setItems((prev) => ({ ...prev, [item.image]: true }))
+    );
+  },
 };

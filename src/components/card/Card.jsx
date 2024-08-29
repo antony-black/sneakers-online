@@ -10,13 +10,8 @@ export default function Card({ sneakersPair }) {
   const [isFavorite, setIsFavorite] = useState({});
 
   useEffect(() => {
-    cartItems.forEach((cartItem) =>
-      setAdded((prev) => ({ ...prev, [cartItem.image]: true }))
-    );
-
-    favorites.forEach((favItem) =>
-      setIsFavorite((prev) => ({ ...prev, [favItem.image]: true }))
-    );
+    HandleCardService.updateExistingItems(cartItems, setAdded);
+    HandleCardService.updateExistingItems(favorites, setIsFavorite);
   }, [cartItems, favorites]);
 
   const handleFavorites = (sneakersPair) => {
