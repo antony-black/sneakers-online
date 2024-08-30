@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sneakers-online/static/css/main.4ac49737.css",
+    "main.js": "/sneakers-online/static/js/main.bea9e1ae.js",
+    "index.html": "/sneakers-online/index.html",
+    "main.4ac49737.css.map": "/sneakers-online/static/css/main.4ac49737.css.map",
+    "main.bea9e1ae.js.map": "/sneakers-online/static/js/main.bea9e1ae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4ac49737.css",
+    "static/js/main.bea9e1ae.js"
+  ]
+}
