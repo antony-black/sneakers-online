@@ -40,7 +40,7 @@ export default function Orders() {
       {orders.length > 0 ? (
         orders.map((order) =>
           order.orderedItems.map((item) => (
-            <Card key={item.id} sneakersPair={item} />
+            <Card key={item.id} sneakersPair={item} showControl={false} />
           ))
         )
       ) : (
