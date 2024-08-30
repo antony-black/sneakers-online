@@ -17,6 +17,10 @@
     &:active {
       background-color: darken(#9DD458, 5%);
     }
+    &:disabled {
+      cursor: default;
+      background-color: #bebebe;
+    }
 }
 
 .arrow {

@@ -1,11 +1,17 @@
 
-  .sneakers {
-  margin-top: 50px;
-  padding: 5px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 40px;
+  .allSneakers {
+    margin-top: 50px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
 
+      .nothing {
+        margin: 0 auto;
+        margin-top: 20px;
+        font-size: 30px;
+        color: crimson;
+      }
 }
