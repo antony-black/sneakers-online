@@ -25,6 +25,7 @@ export default function Navbar() {
         <li className={styles.utilsItem}>
           <NavLink to={"/favorites"} className={styles.navLink}>
             <img
+              className={styles.utilImage}
               src={
                 favorites.length > 0
                   ? "source/icons/heart-active.svg"
@@ -32,7 +33,7 @@ export default function Navbar() {
               }
               alt="favorites"
             />
-            Favorites
+            <span>Favorites</span>
           </NavLink>
         </li>
         <li className={styles.utilsItem}>
