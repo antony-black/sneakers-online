@@ -2,11 +2,15 @@ import axios from "axios";
 import { FetchService } from "./FetchService";
 
 export const HandleCardService = {
-  async addTo(itemObject, url, setToItemsArray, setIsAdded) {
+  setIsAdded(setItems, itemObject, value) {
+    setItems((added) => ({ ...added, [itemObject.image]: value }));
+  },
+
+  async addTo(itemObject, url, setItems, setIsAdded) {
     try {
       const { data } = await axios.post(url, itemObject);
-      setToItemsArray((items) => [...items, data]);
-      setIsAdded((added) => ({ ...added, [itemObject.image]: true }));
+      setItems((items) => [...items, data]);
+      HandleCardService.setIsAdded(setIsAdded, itemObject, true);
     } catch (err) {
       console.log(
         err.message,
@@ -17,7 +21,7 @@ export const HandleCardService = {
     }
   },
 
-  async removeFrom(itemObject, url, setToItemsArray, setIsAdded) {
+  async removeFrom(itemObject, url, setItems, setIsAdded) {
     try {
       const { data: itemsList } = await axios.get(url);
       const itemToRemove = itemsList.find(
@@ -25,10 +29,8 @@ export const HandleCardService = {
       );
 
       await axios.delete(`${url}/${itemToRemove.id}`);
-      setToItemsArray((items) =>
-        items.filter((item) => item.id !== itemToRemove.id)
-      );
-      setIsAdded((added) => ({ ...added, [itemObject.image]: false }));
+      setItems((items) => items.filter((item) => item.id !== itemToRemove.id));
+      HandleCardService.setIsAdded(setIsAdded, itemObject, false);
     } catch (err) {
       console.log(
         err.message,
@@ -39,24 +41,17 @@ export const HandleCardService = {
     }
   },
 
-  manageItem(itemObject, items, url, setToItemsArray, setIsAdded) {
+  manageItem(itemObject, items, url, setItems, setIsAdded) {
     const isCartItemsAdded = !items.some(
       (cartItem) => cartItem.image === itemObject.image
     );
 
     isCartItemsAdded
-      ? HandleCardService.addTo(itemObject, url, setToItemsArray, setIsAdded)
-      : HandleCardService.removeFrom(
-          itemObject,
-          url,
-          setToItemsArray,
-          setIsAdded
-        );
+      ? HandleCardService.addTo(itemObject, url, setItems, setIsAdded)
+      : HandleCardService.removeFrom(itemObject, url, setItems, setIsAdded);
   },
 
   updateExistingItems(items, setItems) {
-    items.forEach((item) =>
-      setItems((prev) => ({ ...prev, [item.image]: true }))
-    );
+    items.forEach((item) => HandleCardService.setIsAdded(setItems, item, true));
   },
 };
