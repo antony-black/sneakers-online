@@ -29,8 +29,8 @@ export default function Card({ sneakersPair, showControl = true }) {
       setIsFavorite
     );
   };
-  //*TODO: rename
-  const handleCart = (sneakersPair) => {
+
+  const manageCartItem = (sneakersPair) => {
     HandleCardService.manageItem(
       sneakersPair,
       cartItems,
@@ -70,7 +70,7 @@ export default function Card({ sneakersPair, showControl = true }) {
           <p className={styles.sneakersItemPrice}>{sneakersPair.price}</p>
         </div>
         {showControl && (
-          <button className="plus" onClick={() => handleCart(sneakersPair)}>
+          <button className="plus" onClick={() => manageCartItem(sneakersPair)}>
             <img
               src={
                 isAdded[sneakersPair.image]
