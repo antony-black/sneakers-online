@@ -18,7 +18,7 @@ export default function Orders() {
     errorMsg: myOrdersErrorMsg,
   } = useFetch("https://66bd909f74dfc195586ce2f4.mockapi.io/orders", {});
 
-  //* !CHECK
+  //*TODO: CHECK
   // const parseOrderedItems = (orders) => {
   //   return orders.flatMap((order) =>
   //     order.orderedItems.map((item) => ({
@@ -48,7 +48,7 @@ export default function Orders() {
           className={styles.itemsInfo}
           title={"You have no orders."}
           text={"Make just one order."}
-          image={"/source/order_sad_emodzy.svg"}
+          image={"source/order_sad_emodzy.svg"}
           onClick={handleGoBackHome}
         />
       )}

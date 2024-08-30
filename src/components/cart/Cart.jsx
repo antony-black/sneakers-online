@@ -24,7 +24,7 @@ export default function Cart() {
   const calculateTax = () => {
     return (total / 100) * 5;
   };
-
+  //*TODO: make a refactoring
   const sendOrder = async () => {
     try {
       setOrderProcessing(true);
@@ -58,11 +58,7 @@ export default function Cart() {
     <div className={styles.cart}>
       <div className={styles.cartHeaderContainer}>
         <h2>Cart</h2>
-        <img
-          src="../../../source/icons/close.svg"
-          alt="close"
-          onClick={handleCart}
-        />
+        <img src="source/icons/close.svg" alt="close" onClick={handleCart} />
       </div>
       <div className={styles.cartItems}>
         {cartItems.map((item) => (
@@ -83,7 +79,7 @@ export default function Cart() {
                 )
               }
             >
-              <img src="../source/icons/remove-btn.svg" alt="remove" />
+              <img src="source/icons/remove-btn.svg" alt="remove" />
             </div>
           </div>
         ))}
@@ -118,8 +114,8 @@ export default function Cart() {
       }
       image={
         !isOrderCompleted
-          ? "/source/cart/box.svg"
-          : "/source/cart/order_is_processed.svg"
+          ? "source/cart/box.svg"
+          : "source/cart/order_is_processed.svg"
       }
       onClick={handleCart}
     />

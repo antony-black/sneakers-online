@@ -34,7 +34,7 @@ export default function Favorites() {
             className={styles.itemsInfo}
             title="No favorites."
             text="You nothing added yet"
-            image="/source/cart/fav_sad_emodzy.svg"
+            image="source/cart/fav_sad_emodzy.svg"
             onClick={handleGoBackHome}
           />
         )}
