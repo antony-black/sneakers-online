@@ -5,8 +5,14 @@ import { API_URLS } from "../../config/config";
 import styles from "./Card.module.scss";
 
 export default function Card({ sneakersPair }) {
-  const { cartItems, setCartItems, favorites, setFavorites } = useGlobalState();
-  const [isAdded, setAdded] = useState({});
+  const {
+    cartItems,
+    setCartItems,
+    favorites,
+    setFavorites,
+    isAdded,
+    setAdded,
+  } = useGlobalState();
   const [isFavorite, setIsFavorite] = useState({});
 
   useEffect(() => {
@@ -23,6 +29,7 @@ export default function Card({ sneakersPair }) {
       setIsFavorite
     );
   };
+  //*TODO: rename
   const handleCart = (sneakersPair) => {
     HandleCardService.manageItem(
       sneakersPair,
@@ -48,6 +55,7 @@ export default function Card({ sneakersPair }) {
           alt="heart"
         />
       </button>
+
       <img className={styles.item} src={sneakersPair.image} alt="sneakers" />
       <div className="sneakers-item-info">
         <a>

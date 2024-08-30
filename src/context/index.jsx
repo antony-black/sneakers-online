@@ -5,11 +5,10 @@ import { API_URLS } from "../config/config";
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
-  //* TO DO: refactor states
-  // !check the "Orders"
   const [originSneakers, setOriginSneakers] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [isAdded, setAdded] = useState({});
   const [isCartOpened, setCartOpen] = useState(false);
   const [isOrderCompleted, setOrderCompleted] = useState(false);
 
@@ -55,6 +54,8 @@ export default function GlobalState({ children }) {
         pendingSneakers,
         errorMsgSneakers,
         isCartOpened,
+        isAdded,
+        setAdded,
         setCartItems,
         cartItems,
         handleCart,
