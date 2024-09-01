@@ -6,6 +6,7 @@ import ItemsInfo from "../ItemsInfo/ItemsInfo";
 import GreenButton from "../greenButton/GreenButton";
 import { HandleCardService } from "../../services/HandleCardService";
 import { API_URLS } from "../../config/config";
+import { FetchService } from "../../services/FetchService";
 import styles from "./Cart.module.scss";
 
 export default function Cart() {
@@ -16,6 +17,8 @@ export default function Cart() {
     setAdded,
     isOrderCompleted,
     setOrderCompleted,
+    cartPending,
+    cartErrorMsg,
   } = useGlobalState();
   const [isOrderProcessing, setOrderProcessing] = useState(false);
   const [orderId, setOrderId] = useState(0);
@@ -61,28 +64,33 @@ export default function Cart() {
         <img src="source/icons/close.svg" alt="close" onClick={handleCart} />
       </div>
       <div className={styles.cartItems}>
-        {cartItems.map((item) => (
-          <div key={item.id} className={styles.cartItem}>
-            <img width={70} height={70} src={item.image} alt={item.title} />
-            <div className={styles.cartItemAbout}>
-              <p>{item.title}</p>
-              <p className={styles.cartItemPrice}>{item.price}$</p>
-            </div>
-            <div
-              className={styles.cartRemove}
-              onClick={() =>
-                HandleCardService.removeFrom(
-                  item,
-                  API_URLS.cart,
-                  setCartItems,
-                  setAdded
-                )
-              }
-            >
-              <img src="source/icons/remove-btn.svg" alt="remove" />
-            </div>
-          </div>
-        ))}
+        {cartErrorMsg ? (
+          <div className="error-msg">{`${cartErrorMsg}!!!`}</div>
+        ) : null}
+        {cartPending
+          ? FetchService.createLoadingShadow()
+          : cartItems.map((item) => (
+              <div key={item.id} className={styles.cartItem}>
+                <img width={70} height={70} src={item.image} alt={item.title} />
+                <div className={styles.cartItemAbout}>
+                  <p>{item.title}</p>
+                  <p className={styles.cartItemPrice}>{item.price}$</p>
+                </div>
+                <div
+                  className={styles.cartRemove}
+                  onClick={() =>
+                    HandleCardService.removeFrom(
+                      item,
+                      API_URLS.cart,
+                      setCartItems,
+                      setAdded
+                    )
+                  }
+                >
+                  <img src="source/icons/remove-btn.svg" alt="remove" />
+                </div>
+              </div>
+            ))}
       </div>
       <div className={styles.cartTotal}>
         <ul>

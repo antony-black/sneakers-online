@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import ItemsInfo from "../../components/ItemsInfo/ItemsInfo";
 import Card from "../../components/card/Card";
+import { FetchService } from "../../services/FetchService";
 import styles from "./Orders.module.scss";
 
 export default function Orders() {
@@ -29,7 +30,7 @@ export default function Orders() {
   // };
 
   useEffect(() => {
-    if (!!myOrders) {
+    if (myOrders) {
       console.log(myOrders);
       setOrders(myOrders);
     }
@@ -37,9 +38,14 @@ export default function Orders() {
 
   return (
     <>
+      {myOrdersErrorMsg ? (
+        <div className="error-msg">{`${myOrdersErrorMsg}!!!`}</div>
+      ) : null}
       {orders.length > 0 && <h1>Your orders:</h1>}
       <div className={styles.orders}>
-        {orders.length > 0 ? (
+        {myOrdersPending ? (
+          FetchService.createLoadingShadow()
+        ) : orders.length > 0 ? (
           orders.map((order) =>
             order.orderedItems.map((item) => (
               <Card key={item.id} sneakersPair={item} showControl={false} />
