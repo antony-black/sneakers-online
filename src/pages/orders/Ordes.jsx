@@ -36,22 +36,25 @@ export default function Orders() {
   }, [myOrders]);
 
   return (
-    <div className={styles.orders}>
-      {orders.length > 0 ? (
-        orders.map((order) =>
-          order.orderedItems.map((item) => (
-            <Card key={item.id} sneakersPair={item} showControl={false} />
-          ))
-        )
-      ) : (
-        <ItemsInfo
-          className={styles.itemsInfo}
-          title={"You have no orders."}
-          text={"Make just one order."}
-          image={"source/order_sad_emodzy.svg"}
-          onClick={handleGoBackHome}
-        />
-      )}
-    </div>
+    <>
+      {orders.length > 0 && <h1>Your orders:</h1>}
+      <div className={styles.orders}>
+        {orders.length > 0 ? (
+          orders.map((order) =>
+            order.orderedItems.map((item) => (
+              <Card key={item.id} sneakersPair={item} showControl={false} />
+            ))
+          )
+        ) : (
+          <ItemsInfo
+            className={styles.itemsInfo}
+            title={"You have no orders."}
+            text={"Make just one order."}
+            image={"source/order_sad_emodzy.svg"}
+            onClick={handleGoBackHome}
+          />
+        )}
+      </div>
+    </>
   );
 }
