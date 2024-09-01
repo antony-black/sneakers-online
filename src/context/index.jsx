@@ -59,8 +59,12 @@ export default function GlobalState({ children }) {
         setCartItems,
         cartItems,
         handleCart,
+        cartPending,
+        cartErrorMsg,
         favorites,
         setFavorites,
+        favPending,
+        favErrorMsg,
         isOrderCompleted,
         setOrderCompleted,
       }}
