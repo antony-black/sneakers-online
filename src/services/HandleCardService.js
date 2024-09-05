@@ -20,6 +20,48 @@ export const HandleCardService = {
       );
     }
   },
+  async addTo1(itemObject, url, setItems, setIsAdded) {
+    try {
+      const { data } = await axios.post(url, itemObject);
+      setItems((items) => [...items, data]);
+      HandleCardService.setIsAdded(setIsAdded, itemObject, true);
+    } catch (err) {
+      console.log(
+        err.message,
+        `The Error caused during adding to the ${FetchService.extractUrlPart(
+          url
+        )}`
+      );
+    }
+  },
+  async addTo2(itemObject, url, setItems, setIsAdded) {
+    try {
+      const { data } = await axios.post(url, itemObject);
+      setItems((items) => [...items, data]);
+      HandleCardService.setIsAdded(setIsAdded, itemObject, true);
+    } catch (err) {
+      console.log(
+        err.message,
+        `The Error caused during adding to the ${FetchService.extractUrlPart(
+          url
+        )}`
+      );
+    }
+  },
+  async addTo3(itemObject, url, setItems, setIsAdded) {
+    try {
+      const { data } = await axios.post(url, itemObject);
+      setItems((items) => [...items, data]);
+      HandleCardService.setIsAdded(setIsAdded, itemObject, true);
+    } catch (err) {
+      console.log(
+        err.message,
+        `The Error caused during adding to the ${FetchService.extractUrlPart(
+          url
+        )}`
+      );
+    }
+  },
 
   async removeFrom(itemObject, url, setItems, setIsAdded) {
     try {
