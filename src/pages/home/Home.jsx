@@ -11,27 +11,30 @@ export default function Home() {
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [selectedSort, setSelectedSort] = useState("");
 
-  // const sortByTitle = (sortPoint) => {};
+  const isString = (sortPoint) => {
+    return typeof sortPoint === "string";
+  };
 
-  // const isString = (sortPoint) => {
-  //   return typeof sortPoint === "string";
-  // };
+  const sortByTitle = (a, b, sortPoint) => {
+    return a[sortPoint].localeCompare(b[sortPoint]);
+  };
+
+  const sortByPrice = (a, b, sortPoint) => {
+    return a[sortPoint] - b[sortPoint];
+  };
+
+  const handleSorting = (sortPoint) => {
+    return [...filteredSneakers].sort((a, b) => {
+      return isString(a[sortPoint]) && isString(b[sortPoint])
+        ? sortByTitle(a, b, sortPoint)
+        : sortByPrice(a, b, sortPoint);
+    });
+  };
 
   const sortSneakers = (sortPoint) => {
     setSelectedSort(sortPoint);
-    console.log("SORT >>>>", sortPoint);
-    setFilteredSneakers(
-      [...filteredSneakers].sort((a, b) => {
-        if (
-          typeof a[sortPoint] === "string" &&
-          typeof b[sortPoint] === "string"
-        ) {
-          return a[sortPoint].localeCompare(b[sortPoint]);
-        } else {
-          return a[sortPoint] - b[sortPoint];
-        }
-      })
-    );
+    const sortedSneakers = handleSorting(sortPoint);
+    setFilteredSneakers(sortedSneakers);
   };
 
   return (
