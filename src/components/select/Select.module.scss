@@ -1,0 +1,17 @@
+.mySelect {
+  margin-top: 20px;
+  margin-right: 147px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+    .select {
+      max-width: 100px;
+      border: 1px solid #ffffff;
+      border-radius: 5px;
+
+        &:focus {
+          outline: none;
+        }
+    }
+}
