@@ -12,7 +12,7 @@ export default function ItemsInfo({ title, text, image, className, onClick }) {
       </div>
       <GreenButton className={style.arrowBack} onClick={onClick}>
         Go back
-        <img src="../source/icons/arrow-back.svg" alt="arrow" />
+        <img src="source/icons/arrow-back.svg" alt="arrow" />
       </GreenButton>
     </div>
   );

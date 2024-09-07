@@ -4,7 +4,7 @@ export default function Loader() {
   return (
     <img
       className={styles.loaderShadow}
-      src="../../../source/skeleton.jpg"
+      src="source/skeleton.jpg"
       alt="loader"
     />
   );
