@@ -8,6 +8,8 @@ export const HandleCardService = {
 
   async addTo(itemObject, url, setItems, setIsAdded) {
     try {
+      // setItems((items) => [...items, itemObject]);
+      // HandleCardService.setIsAdded(setIsAdded, itemObject, true);
       const { data } = await axios.post(url, itemObject);
       setItems((items) => [...items, data]);
       HandleCardService.setIsAdded(setIsAdded, itemObject, true);
@@ -27,10 +29,9 @@ export const HandleCardService = {
       const itemToRemove = itemsList.find(
         (item) => item.image === itemObject.image
       );
-
-      await axios.delete(`${url}/${itemToRemove.id}`);
       setItems((items) => items.filter((item) => item.id !== itemToRemove.id));
       HandleCardService.setIsAdded(setIsAdded, itemObject, false);
+      await axios.delete(`${url}/${itemToRemove.id}`);
     } catch (err) {
       console.log(
         err.message,

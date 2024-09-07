@@ -38,7 +38,7 @@ export default function Searching({ setFilteredSneakers }) {
           : "All sneakers"}
       </h1>
       <div className={styles.searchingContainer}>
-        <img src="../source/icons/search.svg" alt="search" />
+        <img src="source/icons/search.svg" alt="search" />
         <input
           value={searchingValue}
           onChange={handleSerchingValue}
@@ -47,7 +47,7 @@ export default function Searching({ setFilteredSneakers }) {
         />
         {!!searchingValue && (
           <img
-            src="../source/icons/close.svg"
+            src="source/icons/close.svg"
             alt="clean"
             onClick={cleanSearchingField}
           />
