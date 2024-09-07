@@ -17,11 +17,13 @@ export default function GlobalState({ children }) {
     pending: cartPending,
     errorMsg: cartErrorMsg,
   } = useFetch(API_URLS.cart, {});
+
   const {
     data: favSneakers,
     pending: favPending,
     errorMsg: favErrorMsg,
   } = useFetch(API_URLS.favorites, {});
+
   const {
     data: sneakers,
     pending: pendingSneakers,
