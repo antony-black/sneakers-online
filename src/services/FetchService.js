@@ -3,7 +3,7 @@ import Loader from "../components/loader/Loader";
 
 export const FetchService = {
   async getData(url, options) {
-    const data = await axios.get(url, { ...options });
+    const data = await axios.get(url, {params: options});
     return data;
   },
 

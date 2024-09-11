@@ -28,7 +28,7 @@ export default function GlobalState({ children }) {
     data: sneakers,
     pending: pendingSneakers,
     errorMsg: errorMsgSneakers,
-  } = useFetch(API_URLS.items, {});
+  } = useFetch(API_URLS.items, {limit: 12, page: 1});
 
   useEffect(() => {
     if (!!cartSneakers) {
