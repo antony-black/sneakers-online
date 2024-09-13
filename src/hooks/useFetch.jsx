@@ -15,7 +15,10 @@ export default function useFetch(url, options = {}) {
         const response = await FetchService.getPaginationData(url, options);
         setData(response.data);
         // TODO: separate from useFetch() (I guess, it'd be better to separate the pagination data)
-        const pageNumber = await PaginationService.getPageCount(url, options.limit);
+        const pageNumber = await PaginationService.getPageCount(
+          url,
+          options.limit
+        );
         setTotalPageNumber(pageNumber);
 
         setErrorMsg(null);
@@ -27,12 +30,12 @@ export default function useFetch(url, options = {}) {
     };
 
     fetchData();
-  }, [url]);
+  }, [url, options.page]);
 
-  return { 
-    data, 
-    totalPageNumber, 
-    pending, 
-    errorMsg 
+  return {
+    data,
+    totalPageNumber,
+    pending,
+    errorMsg,
   };
 }

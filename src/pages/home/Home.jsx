@@ -48,10 +48,9 @@ export default function Home() {
     setFilteredSneakers(sortedSneakers);
   };
 
-  // const handlePagination = (limit, pageNumber) => {
-  //   setLimit(limit);
-  //   setPage(pageNumber + 1);
-  // };
+  const handlePagination = (pageNumber) => {
+    setPage(pageNumber);
+  };
 
   return (
     <>
@@ -88,7 +87,7 @@ export default function Home() {
                 ? `${styles.page} ${styles.currentPage}`
                 : styles.page
             }
-            onClick={() => setPage(pageNumber)}
+            onClick={() => handlePagination(pageNumber)}
           >
             {pageNumber}
           </button>
