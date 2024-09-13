@@ -2,8 +2,13 @@ import axios from "axios";
 import Loader from "../components/loader/Loader";
 
 export const FetchService = {
-  async getData(url, options) {
+  async getPaginationData(url, options) {
     const data = await axios.get(url, {params: options});
+    return data;
+  },
+
+  async getAllData(url) {
+    const data = await axios.get(url);
     return data;
   },
 
