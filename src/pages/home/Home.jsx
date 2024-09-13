@@ -1,25 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useGlobalState from "../../hooks/useGlobalState";
 import Card from "../../components/card/Card";
 import Searching from "../../components/searching/Searching";
 import Select from "../../components/select/Select";
 import { FetchService } from "../../services/FetchService";
-import { PaginationService } from "../../services/PaginationService";
+import Pagination from "../../components/pagination/Pagination";
 import styles from "./Home.module.scss";
 
 export default function Home() {
-  const {
-    pendingSneakers,
-    errorMsgSneakers,
-    totalPageNumber,
-    setLimit,
-    setPage,
-    limit,
-    page,
-  } = useGlobalState();
+  const { pendingSneakers, errorMsgSneakers } = useGlobalState();
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [selectedSort, setSelectedSort] = useState("");
-  const pageNumbers = PaginationService.getPageNumbers(totalPageNumber);
 
   // TODO: create useSort() hook or service
   const isString = (sortPoint) => {
@@ -48,13 +39,10 @@ export default function Home() {
     setFilteredSneakers(sortedSneakers);
   };
 
-  const handlePagination = (pageNumber) => {
-    setPage(pageNumber);
-  };
-
   return (
     <>
       <Searching setFilteredSneakers={setFilteredSneakers} />
+
       <Select
         value={selectedSort}
         sortSneakers={sortSneakers}
@@ -78,21 +66,8 @@ export default function Home() {
           <div className={styles.nothing}>Nothing found.</div>
         )}
       </div>
-      <div className={styles.pages}>
-        {pageNumbers.map((pageNumber) => (
-          <button
-            key={pageNumber}
-            className={
-              page === pageNumber
-                ? `${styles.page} ${styles.currentPage}`
-                : styles.page
-            }
-            onClick={() => handlePagination(pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        ))}
-      </div>
+
+      <Pagination />
     </>
   );
 }
