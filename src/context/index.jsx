@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { API_URLS } from "../config/config";
+// import { PaginationService } from "../services/PaginationService";
 
 export const GlobalContext = createContext(null);
 
@@ -11,6 +12,8 @@ export default function GlobalState({ children }) {
   const [isAdded, setAdded] = useState({});
   const [isCartOpened, setCartOpen] = useState(false);
   const [isOrderCompleted, setOrderCompleted] = useState(false);
+  const [limit, setLimit] = useState(12);
+  const [page, setPage] = useState(1);
 
   const {
     data: cartSneakers,
@@ -26,9 +29,12 @@ export default function GlobalState({ children }) {
 
   const {
     data: sneakers,
+    totalPageNumber,
     pending: pendingSneakers,
     errorMsg: errorMsgSneakers,
-  } = useFetch(API_URLS.items, {limit: 12, page: 1});
+  } = useFetch(API_URLS.items, { limit, page });
+
+  // const pageNumbers = PaginationService.getPageNumbers(totalPageNumber);
 
   useEffect(() => {
     if (!!cartSneakers) {
@@ -55,6 +61,11 @@ export default function GlobalState({ children }) {
         originSneakers,
         pendingSneakers,
         errorMsgSneakers,
+        totalPageNumber,
+        setLimit,
+        setPage,
+        limit,
+        page,
         isCartOpened,
         isAdded,
         setAdded,
