@@ -4,13 +4,24 @@ import Card from "../../components/card/Card";
 import Searching from "../../components/searching/Searching";
 import Select from "../../components/select/Select";
 import { FetchService } from "../../services/FetchService";
+import { PaginationService } from "../../services/PaginationService";
 import styles from "./Home.module.scss";
 
 export default function Home() {
-  const { pendingSneakers, errorMsgSneakers } = useGlobalState();
+  const {
+    pendingSneakers,
+    errorMsgSneakers,
+    totalPageNumber,
+    setLimit,
+    setPage,
+    limit,
+    page,
+  } = useGlobalState();
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [selectedSort, setSelectedSort] = useState("");
+  const pageNumbers = PaginationService.getPageNumbers(totalPageNumber);
 
+  // TODO: create useSort() hook or service
   const isString = (sortPoint) => {
     return typeof sortPoint === "string";
   };
@@ -37,6 +48,11 @@ export default function Home() {
     setFilteredSneakers(sortedSneakers);
   };
 
+  // const handlePagination = (limit, pageNumber) => {
+  //   setLimit(limit);
+  //   setPage(pageNumber + 1);
+  // };
+
   return (
     <>
       <Searching setFilteredSneakers={setFilteredSneakers} />
@@ -62,6 +78,21 @@ export default function Home() {
         ) : (
           <div className={styles.nothing}>Nothing found.</div>
         )}
+      </div>
+      <div className={styles.pages}>
+        {pageNumbers.map((pageNumber) => (
+          <button
+            key={pageNumber}
+            className={
+              page === pageNumber
+                ? `${styles.page} ${styles.currentPage}`
+                : styles.page
+            }
+            onClick={() => setPage(pageNumber)}
+          >
+            {pageNumber}
+          </button>
+        ))}
       </div>
     </>
   );
