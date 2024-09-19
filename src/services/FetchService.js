@@ -2,11 +2,11 @@ import axios from "axios";
 import Loader from "../components/loader/Loader";
 
 export const FetchService = {
-  async getPaginationData(url, options) {
+  async getPaginatedData(url, options) {
     const data = await axios.get(url, {params: options});
     return data;
   },
-
+// TODO: try&catch
   async getAllData(url) {
     const data = await axios.get(url);
     return data;

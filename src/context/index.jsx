@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { API_URLS } from "../config/config";
-import { FetchService } from "../services/FetchService";
 
 export const GlobalContext = createContext(null);
 
@@ -14,8 +13,7 @@ export default function GlobalState({ children }) {
   const [isOrderCompleted, setOrderCompleted] = useState(false);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(1);
-  // TODO: maybe should be created usePagination() hook,
-  //to separate that functionality from the fetching data
+
   const {
     data: cartSneakers,
     pending: cartPending,
@@ -30,11 +28,10 @@ export default function GlobalState({ children }) {
 
   const {
     data: sneakers,
-    totalPageNumber,
     pending: pendingSneakers,
     errorMsg: errorMsgSneakers,
   } = useFetch(API_URLS.items, { limit, page });
-  //TODO: separate all components of this useEffect, to avoid rerendering
+
   useEffect(() => {
     if (!!cartSneakers) {
       setCartItems(cartSneakers);
@@ -60,7 +57,6 @@ export default function GlobalState({ children }) {
         originSneakers,
         pendingSneakers,
         errorMsgSneakers,
-        totalPageNumber,
         setLimit,
         setPage,
         limit,
