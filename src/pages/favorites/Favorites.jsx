@@ -28,7 +28,9 @@ export default function Favorites() {
           )}
 
        <div className={styles.favorites}>
-        {favorites?.length > 0 ? (
+        {favPending ? (
+          FetchService.createLoadingShadow()
+        ) : favorites?.length > 0 ? (
           favorites.map((favItem) => (
             <Card key={favItem.id} sneakersPair={favItem} />
           ))
