@@ -1,11 +1,49 @@
-.orders {
+.ordersContainer {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 48px;
+  flex-direction: column;
+  justify-content: center;
   padding: 20px 0;
   margin-top: 80px;
+
+
+  .turnBackContainer {
+    margin-bottom: 40px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+
+      .turnBack{
+        width: 35px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #F2F2F2;
+        border-radius: 10px;
+        background-color: #fff;
+        transition: background 0.2s ease-in-out;
+
+          &:hover {
+            background-color: rgb(239, 237, 237);
+          }
+      }
+
+      .turnBackTitle {
+        font-size: 32px;
+        font-weight: 700;
+      }
+  }
+
+  .orders {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+    width: 100%;
+  }
 
   .itemsInfo {
     margin: 0px auto;
@@ -14,4 +52,4 @@
         color: crimson;
       } 
   }
-}
+} 

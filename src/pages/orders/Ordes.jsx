@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import ItemsInfo from "../../components/ItemsInfo/ItemsInfo";
 import Card from "../../components/card/Card";
@@ -9,7 +9,7 @@ import styles from "./Orders.module.scss";
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-
+  // TODO: custom useNavigate() to use with onClick
   const handleGoBackHome = () => {
     navigate("/");
   };
@@ -37,11 +37,22 @@ export default function Orders() {
   }, [myOrders]);
 
   return (
-    <>
+    <div className={styles.ordersContainer}>
       {myOrdersErrorMsg ? (
         <div className="error-msg">{`${myOrdersErrorMsg}!!!`}</div>
       ) : null}
-      {orders.length > 0 && <h1>Your orders:</h1>}
+
+      {orders.length > 0 && (
+            <div className={styles.turnBackContainer}>
+              <NavLink to={"/"}>
+                <button className={styles.turnBack}>
+                  <img src="source/icons/arrow-back-page.svg" alt="turn-back" />
+                </button>
+              </NavLink>
+              <h2 className={styles.turnBackTitle}>Your orders</h2>
+            </div>
+          )}
+          
       <div className={styles.orders}>
         {myOrdersPending ? (
           FetchService.createLoadingShadow()
@@ -61,6 +72,6 @@ export default function Orders() {
           />
         )}
       </div>
-    </>
+    </div>
   );
 }
