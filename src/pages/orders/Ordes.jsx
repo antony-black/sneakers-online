@@ -29,7 +29,6 @@ export default function Orders() {
 
   useEffect(() => {
     if (myOrders) {
-      console.log(myOrders);
       setOrders(myOrders);
     }
   }, [myOrders]);
