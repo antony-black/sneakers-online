@@ -4,15 +4,13 @@ import useFetch from "../../hooks/useFetch";
 import ItemsInfo from "../../components/ItemsInfo/ItemsInfo";
 import Card from "../../components/card/Card";
 import { FetchService } from "../../services/FetchService";
+import { Utils } from "../../utils/Utils";
 import styles from "./Orders.module.scss";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-  // TODO: custom useNavigate() to use with onClick
-  const handleGoBackHome = () => {
-    navigate("/");
-  };
+  
   const {
     data: myOrders,
     pending: myOrdersPending,
@@ -68,7 +66,7 @@ export default function Orders() {
             title={"You have no orders."}
             text={"Make just one order."}
             image={"source/order_sad_emodzy.svg"}
-            onClick={handleGoBackHome}
+            onClick={() => Utils.handleBackHome(navigate)}
           />
         )}
       </div>
