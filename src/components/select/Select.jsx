@@ -1,5 +1,5 @@
 import styles from "./Select.module.scss";
-
+// TODO: remove sort functionality to backend
 export default function Select({ options, defaultValue, value, sortSneakers }) {
   return (
     <div className={styles.mySelect}>

@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import ItemsInfo from "../../components/ItemsInfo/ItemsInfo";
 import Card from "../../components/card/Card";
 import { FetchService } from "../../services/FetchService";
+import { Utils } from "../../utils/Utils";
 import styles from "./Orders.module.scss";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-
-  const handleGoBackHome = () => {
-    navigate("/");
-  };
+  
   const {
     data: myOrders,
     pending: myOrdersPending,
@@ -31,17 +29,27 @@ export default function Orders() {
 
   useEffect(() => {
     if (myOrders) {
-      console.log(myOrders);
       setOrders(myOrders);
     }
   }, [myOrders]);
 
   return (
-    <>
+    <div className={styles.ordersContainer}>
       {myOrdersErrorMsg ? (
         <div className="error-msg">{`${myOrdersErrorMsg}!!!`}</div>
       ) : null}
-      {orders.length > 0 && <h1>Your orders:</h1>}
+
+      {orders.length > 0 && (
+            <div className={styles.turnBackContainer}>
+              <NavLink to={"/"}>
+                <button className={styles.turnBack}>
+                  <img src="source/icons/arrow-back-page.svg" alt="turn-back" />
+                </button>
+              </NavLink>
+              <h2 className={styles.turnBackTitle}>Your orders</h2>
+            </div>
+          )}
+          
       <div className={styles.orders}>
         {myOrdersPending ? (
           FetchService.createLoadingShadow()
@@ -57,10 +65,10 @@ export default function Orders() {
             title={"You have no orders."}
             text={"Make just one order."}
             image={"source/order_sad_emodzy.svg"}
-            onClick={handleGoBackHome}
+            onClick={() => Utils.handleBackHome(navigate)}
           />
         )}
       </div>
-    </>
+    </div>
   );
 }

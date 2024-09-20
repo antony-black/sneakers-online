@@ -11,22 +11,26 @@ export default function GlobalState({ children }) {
   const [isAdded, setAdded] = useState({});
   const [isCartOpened, setCartOpen] = useState(false);
   const [isOrderCompleted, setOrderCompleted] = useState(false);
+  const [limit, setLimit] = useState(12);
+  const [page, setPage] = useState(1);
 
   const {
     data: cartSneakers,
     pending: cartPending,
     errorMsg: cartErrorMsg,
   } = useFetch(API_URLS.cart, {});
+
   const {
     data: favSneakers,
     pending: favPending,
     errorMsg: favErrorMsg,
   } = useFetch(API_URLS.favorites, {});
+
   const {
     data: sneakers,
     pending: pendingSneakers,
     errorMsg: errorMsgSneakers,
-  } = useFetch(API_URLS.items, {});
+  } = useFetch(API_URLS.items, { limit, page });
 
   useEffect(() => {
     if (!!cartSneakers) {
@@ -53,6 +57,10 @@ export default function GlobalState({ children }) {
         originSneakers,
         pendingSneakers,
         errorMsgSneakers,
+        setLimit,
+        setPage,
+        limit,
+        page,
         isCartOpened,
         isAdded,
         setAdded,

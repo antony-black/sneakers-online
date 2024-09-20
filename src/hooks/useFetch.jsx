@@ -10,8 +10,9 @@ export default function useFetch(url, options = {}) {
     const fetchData = async () => {
       setPending(true);
       try {
-        const response = await FetchService.getData(url, options);
+        const response = await FetchService.getPaginatedData(url, options);
         setData(response.data);
+
         setErrorMsg(null);
       } catch (error) {
         setErrorMsg(error.message || "An error occurred");
@@ -21,7 +22,11 @@ export default function useFetch(url, options = {}) {
     };
 
     fetchData();
-  }, [url]);
+  }, [url, options.page]);
 
-  return { data, pending, errorMsg };
+  return {
+    data,
+    pending,
+    errorMsg,
+  };
 }

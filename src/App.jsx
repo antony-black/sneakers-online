@@ -1,9 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Overlay from "./components/overlay/Overlay";
-import Home from "./pages/home/Home";
-import Favorites from "./pages/favorites/Favorites";
-import Orders from "./pages/orders/Ordes";
 import Navbar from "./components/navbar/Navbar";
+import { privateRoutes } from "./router";
 import "./index.css";
 
 function App() {
@@ -14,9 +12,14 @@ function App() {
       <Navbar />
       <div className="content">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/orders" element={<Orders />} />
+          {privateRoutes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<route.component />}
+              exact={route.exact}
+            />
+          ))}
         </Routes>
       </div>
     </div>
