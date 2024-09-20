@@ -1,4 +1,3 @@
-import { FetchService } from "./FetchService";
 // TODO: try&catch
 export const PaginationService = {
   getPageNumbers(totalPageNumber) {
