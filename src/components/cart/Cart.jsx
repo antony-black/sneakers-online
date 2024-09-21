@@ -5,8 +5,8 @@ import useTotal from "../../hooks/useTotal";
 import ItemsInfo from "../ItemsInfo/ItemsInfo";
 import GreenButton from "../greenButton/GreenButton";
 import { HandleCardService } from "../../services/HandleCardService";
-import { API_URLS } from "../../config/config";
 import { FetchService } from "../../services/FetchService";
+import { API_URLS } from "../../config/config";
 import styles from "./Cart.module.scss";
 
 export default function Cart() {
@@ -27,26 +27,29 @@ export default function Cart() {
   const calculateTax = () => {
     return (total / 100) * 5;
   };
-  //*TODO: make a refactoring
+
+  const postOrder = async () => {
+    const { data } = await axios.post(API_URLS.orders, {
+      orderedItems: cartItems,
+    });
+    setOrderId(data.id);
+  };
+
+  const removeFromCart = async (cartItems, url, setItems, setAdded) => {
+    HandleCardService.removeFrom(cartItems, url, setItems, setAdded);
+  };
+
+  const removeFromCartAfterOrdered = async (cartItems, url, setItems, setAdded) => {
+    for (const cartItem of cartItems) {
+      HandleCardService.removeFrom(cartItem, url, setItems, setAdded);
+    }
+  };
+
   const sendOrder = async () => {
     try {
       setOrderProcessing(true);
-      const { data } = await axios.post(
-        "https://66bd909f74dfc195586ce2f4.mockapi.io/orders",
-        {
-          orderedItems: cartItems,
-        }
-      );
-      setOrderId(data.id);
-
-      for (const cartItem of cartItems) {
-        const { id } = cartItem;
-        await axios.delete(
-          `https://66a114477053166bcabdec9c.mockapi.io/cart/${id}`
-        );
-        setCartItems((prev) => prev.filter((item) => item.id !== cartItem.id));
-        setAdded((prev) => ({ ...prev, [cartItem.image]: false }));
-      }
+      await postOrder();
+      await removeFromCartAfterOrdered(cartItems, API_URLS.cart, setCartItems, setAdded);
       setOrderCompleted(true);
     } catch (err) {
       console.error(
@@ -61,7 +64,11 @@ export default function Cart() {
     <div className={styles.cart}>
       <div className={styles.cartHeaderContainer}>
         <h2>Cart</h2>
-        <img src="source/icons/close.svg" alt="close" onClick={handleCartVisibility} />
+        <img
+          src="source/icons/close.svg"
+          alt="close"
+          onClick={handleCartVisibility}
+        />
       </div>
       <div className={styles.cartItems}>
         {cartErrorMsg ? (
@@ -79,12 +86,7 @@ export default function Cart() {
                 <div
                   className={styles.cartRemove}
                   onClick={() =>
-                    HandleCardService.removeFrom(
-                      item,
-                      API_URLS.cart,
-                      setCartItems,
-                      setAdded
-                    )
+                    removeFromCart(item, API_URLS.cart, setCartItems, setAdded)
                   }
                 >
                   <img src="source/icons/remove-btn.svg" alt="remove" />

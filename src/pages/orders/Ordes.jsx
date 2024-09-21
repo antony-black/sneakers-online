@@ -5,6 +5,7 @@ import ItemsInfo from "../../components/ItemsInfo/ItemsInfo";
 import Card from "../../components/card/Card";
 import { FetchService } from "../../services/FetchService";
 import { Utils } from "../../utils/Utils";
+import { API_URLS } from "../../config/config";
 import styles from "./Orders.module.scss";
 
 export default function Orders() {
@@ -15,7 +16,7 @@ export default function Orders() {
     data: myOrders,
     pending: myOrdersPending,
     errorMsg: myOrdersErrorMsg,
-  } = useFetch("https://66bd909f74dfc195586ce2f4.mockapi.io/orders", {});
+  } = useFetch( API_URLS.orders, {});
 
   //*TODO: CHECK
   // const parseOrderedItems = (orders) => {
