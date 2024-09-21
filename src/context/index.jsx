@@ -5,6 +5,7 @@ import { API_URLS } from "../config/config";
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
+    // TODO: maybe it would be better define this atate, "originSneakers" at the Searching component
   const [originSneakers, setOriginSneakers] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -46,7 +47,7 @@ export default function GlobalState({ children }) {
     }
   }, [cartSneakers, favSneakers, sneakers]);
 
-  const handleCart = () => {
+  const handleCartVisibility = () => {
     setCartOpen(!isCartOpened);
     setOrderCompleted(false);
   };
@@ -66,7 +67,7 @@ export default function GlobalState({ children }) {
         setAdded,
         setCartItems,
         cartItems,
-        handleCart,
+        handleCartVisibility,
         cartPending,
         cartErrorMsg,
         favorites,

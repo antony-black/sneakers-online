@@ -11,7 +11,7 @@ import styles from "./Cart.module.scss";
 
 export default function Cart() {
   const {
-    handleCart,
+    handleCartVisibility,
     cartItems,
     setCartItems,
     setAdded,
@@ -61,7 +61,7 @@ export default function Cart() {
     <div className={styles.cart}>
       <div className={styles.cartHeaderContainer}>
         <h2>Cart</h2>
-        <img src="source/icons/close.svg" alt="close" onClick={handleCart} />
+        <img src="source/icons/close.svg" alt="close" onClick={handleCartVisibility} />
       </div>
       <div className={styles.cartItems}>
         {cartErrorMsg ? (

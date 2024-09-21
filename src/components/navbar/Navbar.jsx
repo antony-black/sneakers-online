@@ -4,7 +4,7 @@ import useTotal from "../../hooks/useTotal";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
-  const { handleCart, favorites } = useGlobalState();
+  const { handleCartVisibility, favorites } = useGlobalState();
   const [total] = useTotal();
   return (
     <nav>
@@ -18,7 +18,7 @@ export default function Navbar() {
         </NavLink>
       </div>
       <ul className={styles.utils}>
-        <li className={styles.utilsItem} onClick={handleCart}>
+        <li className={styles.utilsItem} onClick={handleCartVisibility}>
           <img src="source/icons/cart.svg" alt="cart" />
           <span>{total}$</span>
         </li>
