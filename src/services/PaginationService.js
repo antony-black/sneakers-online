@@ -17,6 +17,7 @@ export const PaginationService = {
       return pages;
     } catch (error) {
       console.error("Error in getPageNumbers:", error.message);
+      return [];
     }
   },
 };
