@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import useGlobalState from "../../hooks/useGlobalState";
 import useTotal from "../../hooks/useTotal";
@@ -6,6 +5,7 @@ import ItemsInfo from "../ItemsInfo/ItemsInfo";
 import GreenButton from "../greenButton/GreenButton";
 import { HandleCardService } from "../../services/HandleCardService";
 import { FetchService } from "../../services/FetchService";
+import { OrderService } from "../../services/OrderService";
 import { API_URLS } from "../../config/config";
 import styles from "./Cart.module.scss";
 
@@ -20,46 +20,17 @@ export default function Cart() {
     cartPending,
     cartErrorMsg,
   } = useGlobalState();
-  const [isOrderProcessing, setOrderProcessing] = useState(false);
   const [orderId, setOrderId] = useState(0);
   const [total] = useTotal();
 
   const calculateTax = () => {
     return (total / 100) * 5;
   };
-
-  const postOrder = async () => {
-    const { data } = await axios.post(API_URLS.orders, {
-      orderedItems: cartItems,
-    });
-    setOrderId(data.id);
+// TODO: move to the Utils or add the CartService
+  const removeFromCart = async (cartItems, url, setCartItems, setAdded) => {
+    HandleCardService.removeFrom(cartItems, url, setCartItems, setAdded);
   };
 
-  const removeFromCart = async (cartItems, url, setItems, setAdded) => {
-    HandleCardService.removeFrom(cartItems, url, setItems, setAdded);
-  };
-
-  const removeFromCartAfterOrdered = async (cartItems, url, setItems, setAdded) => {
-    for (const cartItem of cartItems) {
-      HandleCardService.removeFrom(cartItem, url, setItems, setAdded);
-    }
-  };
-
-  const sendOrder = async () => {
-    try {
-      setOrderProcessing(true);
-      await postOrder();
-      await removeFromCartAfterOrdered(cartItems, API_URLS.cart, setCartItems, setAdded);
-      setOrderCompleted(true);
-    } catch (err) {
-      console.error(
-        err.message,
-        "There is an issue with the processing of your order!"
-      );
-    } finally {
-      setOrderProcessing(false);
-    }
-  };
   return cartItems.length > 0 ? (
     <div className={styles.cart}>
       <div className={styles.cartHeaderContainer}>
@@ -77,20 +48,22 @@ export default function Cart() {
         {cartPending
           ? FetchService.createLoadingShadow()
           : cartItems.map((item) => (
+            // TODO: create a separate component
               <div key={item.id} className={styles.cartItem}>
                 <img width={70} height={70} src={item.image} alt={item.title} />
                 <div className={styles.cartItemAbout}>
                   <p>{item.title}</p>
                   <p className={styles.cartItemPrice}>{item.price}$</p>
                 </div>
-                <div
+                <button
+                  disabled={isOrderCompleted}
                   className={styles.cartRemove}
                   onClick={() =>
                     removeFromCart(item, API_URLS.cart, setCartItems, setAdded)
                   }
                 >
                   <img src="source/icons/remove-btn.svg" alt="remove" />
-                </div>
+                </button>
               </div>
             ))}
       </div>
@@ -107,7 +80,20 @@ export default function Cart() {
             <b>{calculateTax()}$</b>
           </li>
         </ul>
-        <GreenButton disabling={isOrderProcessing} onClick={sendOrder}>
+        <GreenButton
+          disabling={isOrderCompleted}
+          onClick={() =>
+            OrderService.placeOrder(
+              API_URLS.orders,
+              cartItems,
+              setOrderId,
+              API_URLS.cart,
+              setCartItems,
+              setAdded,
+              setOrderCompleted,
+            )
+          }
+        >
           Place an order
         </GreenButton>
       </div>
@@ -115,12 +101,12 @@ export default function Cart() {
   ) : (
     <ItemsInfo
       title={
-        !isOrderCompleted ? "Your cart is empty" : "Your order is complete."
+        !isOrderCompleted ? "Your cart is empty" : "Your order is completed."
       }
       text={
         !isOrderCompleted
           ? "Add some items to your cart to start shopping!"
-          : `The order number is ${orderId}.It's rushing be passed to the post-service!`
+          : `The order number is ${orderId}. It's rushing be passed to the post-service!`
       }
       image={
         !isOrderCompleted

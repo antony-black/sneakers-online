@@ -49,6 +49,7 @@ export default function GlobalState({ children }) {
 
   const handleCartVisibility = () => {
     setCartOpen(!isCartOpened);
+    // TODO: create toggle
     setOrderCompleted(false);
   };
 
