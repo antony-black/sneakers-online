@@ -13,14 +13,15 @@ export const OrderService = {
     }
   },
 
-  async removeFromCartAfterOrdered(cartItems, urlCart, setCartItems, setAdded) {
+  async removeFromCartAfterOrdered(cartItems, urlCart, setCartItems, setAdded, value) {
     try {
       for (const cartItem of cartItems) {
-        await HandleCardService.removeFrom(
+        await HandleCardService.removeItem(
           cartItem,
           urlCart,
           setCartItems,
-          setAdded
+          setAdded,
+          value
         );
       }
     } catch (error) {
@@ -36,11 +37,18 @@ export const OrderService = {
     setCartItems,
     setAdded,
     setOrderCompleted,
+    value
   ) {
     try {
       setOrderCompleted(true);
       await OrderService.postOrder(urlOrders, cartItems, setOrderId);
-      await OrderService.removeFromCartAfterOrdered(cartItems, urlCart, setCartItems, setAdded);
+      await OrderService.removeFromCartAfterOrdered(
+        cartItems,
+        urlCart,
+        setCartItems,
+        setAdded,
+        value
+      );
     } catch (err) {
       console.error(
         err.message,

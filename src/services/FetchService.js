@@ -17,7 +17,7 @@ export const FetchService = {
       const data = await axios.get(url);
       return data;
     } catch (error) {
-      console.error("Error in getAllData:", error);
+      console.error("Error in getAllData:", error.message);
       throw error;
     }
   },

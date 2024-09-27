@@ -15,6 +15,7 @@ export default function Cart() {
     cartItems,
     setCartItems,
     setAdded,
+    isAdded,
     isOrderCompleted,
     setOrderCompleted,
     cartPending,
@@ -26,9 +27,9 @@ export default function Cart() {
   const calculateTax = () => {
     return (total / 100) * 5;
   };
-// TODO: move to the Utils or add the CartService
-  const removeFromCart = async (cartItems, url, setCartItems, setAdded) => {
-    HandleCardService.removeFrom(cartItems, url, setCartItems, setAdded);
+  // TODO: move to the Utils or add the CartService
+  const removeFromCart = async (cartItems, url, setCartItems, setAdded, value) => {
+    HandleCardService.removeItem(cartItems, url, setCartItems, setAdded, value);
   };
 
   return cartItems.length > 0 ? (
@@ -48,7 +49,7 @@ export default function Cart() {
         {cartPending
           ? FetchService.createLoadingShadow()
           : cartItems.map((item) => (
-            // TODO: create a separate component
+              // TODO: create a separate component
               <div key={item.id} className={styles.cartItem}>
                 <img width={70} height={70} src={item.image} alt={item.title} />
                 <div className={styles.cartItemAbout}>
@@ -59,7 +60,7 @@ export default function Cart() {
                   disabled={isOrderCompleted}
                   className={styles.cartRemove}
                   onClick={() =>
-                    removeFromCart(item, API_URLS.cart, setCartItems, setAdded)
+                    removeFromCart(item, API_URLS.cart, setCartItems, setAdded, isAdded)
                   }
                 >
                   <img src="source/icons/remove-btn.svg" alt="remove" />
@@ -90,7 +91,7 @@ export default function Cart() {
               API_URLS.cart,
               setCartItems,
               setAdded,
-              setOrderCompleted,
+              setOrderCompleted
             )
           }
         >

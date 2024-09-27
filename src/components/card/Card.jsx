@@ -22,21 +22,21 @@ export default function Card({ sneakersPair, showControl = true }) {
 
   const handleFavorites = (sneakersPair) => {
     HandleCardService.manageItem(
-      sneakersPair,
       favorites,
+      sneakersPair,
       API_URLS.favorites,
       setFavorites,
-      setIsFavorite
+      setIsFavorite,
     );
   };
 
-  const manageCartItem = (sneakersPair) => {
+  const handleCartItem = (sneakersPair) => {
     HandleCardService.manageItem(
-      sneakersPair,
       cartItems,
+      sneakersPair,
       API_URLS.cart,
       setCartItems,
-      setAdded
+      setAdded,
     );
   };
 
@@ -70,7 +70,7 @@ export default function Card({ sneakersPair, showControl = true }) {
           <p className={styles.sneakersItemPrice}>{sneakersPair.price}</p>
         </div>
         {showControl && (
-          <button className="plus" onClick={() => manageCartItem(sneakersPair)}>
+          <button className="plus" onClick={() => handleCartItem(sneakersPair)}>
             <img
               src={
                 isAdded[sneakersPair.image]
