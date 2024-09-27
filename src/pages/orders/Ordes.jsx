@@ -18,7 +18,7 @@ export default function Orders() {
     errorMsg: myOrdersErrorMsg,
   } = useFetch( API_URLS.orders, {});
 
-  //*TODO: CHECK
+  //*TODO: CHECK/TEST
   // const parseOrderedItems = (orders) => {
   //   return orders.flatMap((order) =>
   //     order.orderedItems.map((item) => ({

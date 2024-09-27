@@ -1,36 +1,20 @@
 import { useState } from "react";
 import useGlobalState from "../../hooks/useGlobalState";
-import useTotal from "../../hooks/useTotal";
+import CartCard from "./cart-card/CartCard";
+import Total from "./total/Total";
 import ItemsInfo from "../ItemsInfo/ItemsInfo";
-import GreenButton from "../greenButton/GreenButton";
-import { HandleCardService } from "../../services/HandleCardService";
 import { FetchService } from "../../services/FetchService";
-import { OrderService } from "../../services/OrderService";
-import { API_URLS } from "../../config/config";
 import styles from "./Cart.module.scss";
 
 export default function Cart() {
   const {
     handleCartVisibility,
     cartItems,
-    setCartItems,
-    setAdded,
-    isAdded,
     isOrderCompleted,
-    setOrderCompleted,
     cartPending,
     cartErrorMsg,
   } = useGlobalState();
   const [orderId, setOrderId] = useState(0);
-  const [total] = useTotal();
-
-  const calculateTax = () => {
-    return (total / 100) * 5;
-  };
-  // TODO: move to the Utils or add the CartService
-  const removeFromCart = async (cartItems, url, setCartItems, setAdded, value) => {
-    HandleCardService.removeItem(cartItems, url, setCartItems, setAdded, value);
-  };
 
   return cartItems.length > 0 ? (
     <div className={styles.cart}>
@@ -48,56 +32,9 @@ export default function Cart() {
         ) : null}
         {cartPending
           ? FetchService.createLoadingShadow()
-          : cartItems.map((item) => (
-              // TODO: create a separate component
-              <div key={item.id} className={styles.cartItem}>
-                <img width={70} height={70} src={item.image} alt={item.title} />
-                <div className={styles.cartItemAbout}>
-                  <p>{item.title}</p>
-                  <p className={styles.cartItemPrice}>{item.price}$</p>
-                </div>
-                <button
-                  disabled={isOrderCompleted}
-                  className={styles.cartRemove}
-                  onClick={() =>
-                    removeFromCart(item, API_URLS.cart, setCartItems, setAdded, isAdded)
-                  }
-                >
-                  <img src="source/icons/remove-btn.svg" alt="remove" />
-                </button>
-              </div>
-            ))}
+          : cartItems.map((item) => <CartCard key={item.id} item={item} />)}
       </div>
-      <div className={styles.cartTotal}>
-        <ul>
-          <li className={styles.cartTotalItem}>
-            <span>Total:</span>
-            <div className={styles.dash}></div>
-            <b>{total}$</b>
-          </li>
-          <li className={styles.cartTotalItem}>
-            <span>Tax 5%:</span>
-            <div className={styles.dash}></div>
-            <b>{calculateTax()}$</b>
-          </li>
-        </ul>
-        <GreenButton
-          disabling={isOrderCompleted}
-          onClick={() =>
-            OrderService.placeOrder(
-              API_URLS.orders,
-              cartItems,
-              setOrderId,
-              API_URLS.cart,
-              setCartItems,
-              setAdded,
-              setOrderCompleted
-            )
-          }
-        >
-          Place an order
-        </GreenButton>
-      </div>
+          <Total setOrderId={setOrderId}/>
     </div>
   ) : (
     <ItemsInfo

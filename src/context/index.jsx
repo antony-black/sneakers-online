@@ -5,7 +5,7 @@ import { API_URLS } from "../config/config";
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
-    // TODO: maybe it would be better define this atate, "originSneakers" at the Searching component
+    // TODO: maybe it would be better define this state, "originSneakers" at the Searching component
   const [originSneakers, setOriginSneakers] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
