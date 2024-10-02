@@ -14,6 +14,7 @@ export default function GlobalState({ children }) {
   const [isOrderCompleted, setOrderCompleted] = useState(false);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(1);
+  // const [totalPageNumber, setTotalPageNumber] = useState(0);
 
   const {
     data: cartSneakers,
@@ -47,6 +48,15 @@ export default function GlobalState({ children }) {
     }
   }, [cartSneakers, favSneakers, sneakers]);
 
+  // useEffect(() => {
+  //   const getTotalPageNumber = async () => {
+  //     const totalPagesNumber = await FetchService.fetchTotalPageNumber(API_URLS.items, limit);
+  //     setTotalPageNumber(totalPagesNumber);
+  //   };
+
+  //   getTotalPageNumber();
+  // }, []);
+
   const handleCartVisibility = () => {
     setCartOpen(!isCartOpened);
     // TODO: create toggle
@@ -56,12 +66,13 @@ export default function GlobalState({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        // totalPageNumber, setTotalPageNumber,
         originSneakers,
         pendingSneakers,
         errorMsgSneakers,
         setLimit,
-        setPage,
         limit,
+        setPage,
         page,
         isCartOpened,
         isAdded,
