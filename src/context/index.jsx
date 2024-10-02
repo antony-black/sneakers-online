@@ -5,6 +5,7 @@ import { API_URLS } from "../config/config";
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
+    // TODO: maybe it would be better define this state, "originSneakers" at the Searching component
   const [originSneakers, setOriginSneakers] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -13,6 +14,7 @@ export default function GlobalState({ children }) {
   const [isOrderCompleted, setOrderCompleted] = useState(false);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(1);
+  // const [totalPageNumber, setTotalPageNumber] = useState(0);
 
   const {
     data: cartSneakers,
@@ -46,27 +48,38 @@ export default function GlobalState({ children }) {
     }
   }, [cartSneakers, favSneakers, sneakers]);
 
-  const handleCart = () => {
+  // useEffect(() => {
+  //   const getTotalPageNumber = async () => {
+  //     const totalPagesNumber = await FetchService.fetchTotalPageNumber(API_URLS.items, limit);
+  //     setTotalPageNumber(totalPagesNumber);
+  //   };
+
+  //   getTotalPageNumber();
+  // }, []);
+
+  const handleCartVisibility = () => {
     setCartOpen(!isCartOpened);
+    // TODO: create toggle
     setOrderCompleted(false);
   };
 
   return (
     <GlobalContext.Provider
       value={{
+        // totalPageNumber, setTotalPageNumber,
         originSneakers,
         pendingSneakers,
         errorMsgSneakers,
         setLimit,
-        setPage,
         limit,
+        setPage,
         page,
         isCartOpened,
         isAdded,
         setAdded,
         setCartItems,
         cartItems,
-        handleCart,
+        handleCartVisibility,
         cartPending,
         cartErrorMsg,
         favorites,

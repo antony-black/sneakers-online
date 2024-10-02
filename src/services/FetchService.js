@@ -2,10 +2,13 @@ import axios from "axios";
 import Loader from "../components/loader/Loader";
 
 export const FetchService = {
-  // TODO: try&catch
   async getPaginatedData(url, options) {
+   try {
     const data = await axios.get(url, { params: options });
     return data;
+   } catch(error) {
+    console.error("Error in getPaginatedData:", error.message);
+   }
   },
 
   async getAllData(url) {
@@ -14,17 +17,8 @@ export const FetchService = {
       const data = await axios.get(url);
       return data;
     } catch (error) {
-      console.error("Error in getAllData:", error);
+      console.error("Error in getAllData:", error.message);
       throw error;
-    }
-  },
-
-  async fetchTotalPageNumber(url, limit) {
-    try {
-      const totalCount = await FetchService.getAllData(url);
-      return Math.ceil(totalCount.data.length / limit);
-    } catch (error) {
-      console.error("Failed to fetch total page number", error);
     }
   },
 

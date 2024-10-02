@@ -22,7 +22,7 @@ export default function useFetch(url, options = {}) {
     };
 
     fetchData();
-  }, [url, options.page]);
+  }, [url, options.page, options.limit]);
 
   return {
     data,
