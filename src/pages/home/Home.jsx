@@ -9,7 +9,7 @@ import Pagination from "../../components/pagination/Pagination";
 import styles from "./Home.module.scss";
 
 export default function Home() {
-  const { pendingSneakers, errorMsgSneakers, limit, setLimit} = useGlobalState();
+  const { pendingSneakers, errorMsgSneakers, limit, setLimit,setPage} = useGlobalState();
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [selectedSort, setSelectedSort] = useState("");
   // const lastElement = useRef();
@@ -23,6 +23,11 @@ export default function Home() {
       sortPoint
     );
     setFilteredSneakers(sortedSneakers);
+  };
+
+  const handleLimitChange = (newLimit) => {
+    setLimit(newLimit);
+    setPage(1);
   };
 
   // useEffect(() => {
@@ -56,7 +61,7 @@ export default function Home() {
       />
       <Select
         value={limit}
-        sortSneakers={value => setLimit(value)}
+        sortSneakers={value => handleLimitChange(value)}
         defaultValue="amount for viewing"
         options={[
           { value: 4, name: "4" },
@@ -81,7 +86,7 @@ export default function Home() {
       </div>
       {/* <div ref={lastElement} style={{ height: 20, background: "red" }}></div> */}
 
-      <Pagination />
+      {limit !== -1 && <Pagination />}
     </>
   );
 }

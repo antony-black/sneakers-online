@@ -22,15 +22,6 @@ export const FetchService = {
     }
   },
 
-  async fetchTotalPageNumber(url, limit) {
-    try {
-      const totalCount = await FetchService.getAllData(url);
-      return Math.ceil(totalCount.data.length / limit);
-    } catch (error) {
-      console.error("Failed to fetch total page number", error);
-    }
-  },
-
   extractUrlPart(url) {
     const pageNamePart = url.split("/");
     return pageNamePart[pageNamePart.length - 1];

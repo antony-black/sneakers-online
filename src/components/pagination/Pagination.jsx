@@ -18,17 +18,21 @@ export default function Pagination() {
   //TODO: should be rerendered after change the data length
   useEffect(() => {
     const getTotalPageNumber = async () => {
-      const totalPagesNumber = await FetchService.fetchTotalPageNumber(API_URLS.items, limit);
+      const totalPagesNumber = await PaginationService.fetchTotalPageNumber(API_URLS.items, limit);
       setTotalPageNumber(totalPagesNumber);
     };
 
     getTotalPageNumber();
-  }, []);
+  }, [limit]);
 // TODO: maybe it had be better to create usePagination() hook
-  useEffect(() => {
+useEffect(() => {
+  if (totalPageNumber > 1) {
     const pages = PaginationService.getPageNumbers(totalPageNumber);
     setPageNumbers(pages);
-  },[totalPageNumber]);
+  } else {
+    setPageNumbers([]);
+  }
+}, [totalPageNumber]);
 
   // TODO: fix rerendering all pages
   // console.log("page >>>>", page);
