@@ -18,16 +18,6 @@ export default function Orders() {
     errorMsg: myOrdersErrorMsg,
   } = useFetch( API_URLS.orders, {});
 
-  //*TODO: CHECK/TEST
-  // const parseOrderedItems = (orders) => {
-  //   return orders.flatMap((order) =>
-  //     order.orderedItems.map((item) => ({
-  //       ...item,
-  //       orderId: order.id,
-  //     }))
-  //   );
-  // };
-
   useEffect(() => {
     if (myOrders) {
       setOrders(myOrders);

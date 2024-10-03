@@ -1,20 +1,35 @@
-import { useState, useRef, useEffect } from "react";
-import useGlobalState from "../../hooks/useGlobalState";
+import { useState, useEffect } from "react";
 import Card from "../../components/card/Card";
 import Searching from "../../components/searching/Searching";
 import Select from "../../components/select/Select";
+import Pagination from "../../components/pagination/Pagination";
+import useFetch from "../../hooks/useFetch";
 import { FetchService } from "../../services/FetchService";
 import { SortService } from "../../services/SortService";
-import Pagination from "../../components/pagination/Pagination";
+import { API_URLS } from "../../config/config";
 import styles from "./Home.module.scss";
 
 export default function Home() {
-  const { pendingSneakers, errorMsgSneakers, limit, setLimit,setPage} = useGlobalState();
+  const [originSneakers, setOriginSneakers] = useState([]);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [selectedSort, setSelectedSort] = useState("");
+  const [limit, setLimit] = useState(12);
+  const [page, setPage] = useState(1);
   // const lastElement = useRef();
   // const observer = useRef();
   // console.log('lastElement >>>>', lastElement);
+
+  const {
+    data: sneakers,
+    pending: pendingSneakers,
+    errorMsg: errorMsgSneakers,
+  } = useFetch(API_URLS.items, { limit, page });
+
+  useEffect(() => {
+    if (sneakers) {
+      setOriginSneakers(sneakers);
+    }
+  }, [sneakers]);
 
   const sortSneakers = (sortPoint) => {
     setSelectedSort(sortPoint);
@@ -48,7 +63,11 @@ export default function Home() {
 
   return (
     <>
-      <Searching setFilteredSneakers={setFilteredSneakers} />
+    {/* //TODO: the sorting state should be saved during pagination */}
+      <Searching
+        setFilteredSneakers={setFilteredSneakers}
+        originSneakers={originSneakers}
+      />
 
       <Select
         value={selectedSort}
@@ -61,7 +80,7 @@ export default function Home() {
       />
       <Select
         value={limit}
-        sortSneakers={value => handleLimitChange(value)}
+        sortSneakers={(value) => handleLimitChange(value)}
         defaultValue="amount for viewing"
         options={[
           { value: 4, name: "4" },
@@ -76,17 +95,15 @@ export default function Home() {
         ) : null}
         {pendingSneakers ? (
           FetchService.createLoadingShadow()
-        ) : filteredSneakers?.length > 0 ? (
+        ) : 
           filteredSneakers.map((sneakersPair) => (
             <Card key={sneakersPair.id} sneakersPair={sneakersPair} added />
           ))
-        ) : (
-          <div className={styles.nothing}>Nothing found.</div>
-        )}
+        }
       </div>
       {/* <div ref={lastElement} style={{ height: 20, background: "red" }}></div> */}
 
-      {limit !== -1 && <Pagination />}
+      {limit !== -1 && <Pagination limit={limit} page={page} setPage={setPage}/>}
     </>
   );
 }

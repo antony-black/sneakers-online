@@ -5,15 +5,13 @@ import { API_URLS } from "../config/config";
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
-    // TODO: maybe it would be better define this state, "originSneakers" at the Searching component
-  const [originSneakers, setOriginSneakers] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [isAdded, setAdded] = useState({});
   const [isCartOpened, setCartOpen] = useState(false);
   const [isOrderCompleted, setOrderCompleted] = useState(false);
-  const [limit, setLimit] = useState(12);
-  const [page, setPage] = useState(1);
+  // const [limit, setLimit] = useState(12);
+  // const [page, setPage] = useState(1);
   // const [totalPageNumber, setTotalPageNumber] = useState(0);
 
   const {
@@ -28,25 +26,16 @@ export default function GlobalState({ children }) {
     errorMsg: favErrorMsg,
   } = useFetch(API_URLS.favorites, {});
 
-  const {
-    data: sneakers,
-    pending: pendingSneakers,
-    errorMsg: errorMsgSneakers,
-  } = useFetch(API_URLS.items, { limit, page });
-
   useEffect(() => {
-    if (!!cartSneakers) {
+    if (cartSneakers) {
       setCartItems(cartSneakers);
     }
 
-    if (!!favSneakers) {
+    if (favSneakers) {
       setFavorites(favSneakers);
     }
 
-    if (!!sneakers) {
-      setOriginSneakers(sneakers);
-    }
-  }, [cartSneakers, favSneakers, sneakers]);
+  }, [cartSneakers, favSneakers]);
 
   // useEffect(() => {
   //   const getTotalPageNumber = async () => {
@@ -59,7 +48,6 @@ export default function GlobalState({ children }) {
 
   const handleCartVisibility = () => {
     setCartOpen(!isCartOpened);
-    // TODO: create toggle
     setOrderCompleted(false);
   };
 
@@ -67,13 +55,10 @@ export default function GlobalState({ children }) {
     <GlobalContext.Provider
       value={{
         // totalPageNumber, setTotalPageNumber,
-        originSneakers,
-        pendingSneakers,
-        errorMsgSneakers,
-        setLimit,
-        limit,
-        setPage,
-        page,
+        // setLimit,
+        // limit,
+        // setPage,
+        // page,
         isCartOpened,
         isAdded,
         setAdded,
