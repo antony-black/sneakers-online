@@ -10,8 +10,6 @@ export default function GlobalState({ children }) {
   const [isAdded, setAdded] = useState({});
   const [isCartOpened, setCartOpen] = useState(false);
   const [isOrderCompleted, setOrderCompleted] = useState(false);
-  // const [limit, setLimit] = useState(12);
-  // const [page, setPage] = useState(1);
   // const [totalPageNumber, setTotalPageNumber] = useState(0);
 
   const {
@@ -54,11 +52,6 @@ export default function GlobalState({ children }) {
   return (
     <GlobalContext.Provider
       value={{
-        // totalPageNumber, setTotalPageNumber,
-        // setLimit,
-        // limit,
-        // setPage,
-        // page,
         isCartOpened,
         isAdded,
         setAdded,
