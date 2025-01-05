@@ -26,42 +26,44 @@ nav {
   }
 }
 
-.utils {
-  display: flex;
-  align-items: center;
-
-  .utilsItem {
-    display: flex;
-    align-items: center;
-    
-    &:first-child {
-      margin-right: 32px;
-    }
-    &:not(:last-child) {
-      margin-right: 32px;
-    }
-
-    img {
-      width: 18px;
-      height: 18px;
-      margin-right: 10px;
-    }
-
-    span {
-      margin-left: 5px;
-    }
+  .test {
+      .utils {
+        display: flex;
+        align-items: center;
+      
+        .utilsItem {
+          display: flex;
+          align-items: center;
+          
+          &:first-child {
+            margin-right: 32px;
+          }
+          &:not(:last-child) {
+            margin-right: 32px;
+          }
+      
+          img {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+          }
+      
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+      
+        .utils * {
+          cursor: pointer;
+        }
   }
+
 }
 
-  .utils * {
-    cursor: pointer;
-  }
-
-  .navLink {
-          text-decoration: none;
-          &:visited {
-              color: inherit;
-            }
-      }
-
+.navLink {
+  text-decoration: none;
+  &:visited {
+      color: inherit;
+    }
 }

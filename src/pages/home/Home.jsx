@@ -6,6 +6,7 @@ import Pagination from "../../components/pagination/Pagination";
 import useFetch from "../../hooks/useFetch";
 import { FetchService } from "../../services/FetchService";
 import { SortService } from "../../services/SortService";
+import UserService from "../../services/UserService";
 import { API_URLS } from "../../config/config";
 import styles from "./Home.module.scss";
 
@@ -15,6 +16,7 @@ export default function Home() {
   const [selectedSort, setSelectedSort] = useState("");
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(1);
+  const [users, setUsers] = useState([]);
   // const lastElement = useRef();
   // const observer = useRef();
   // console.log('lastElement >>>>', lastElement);
@@ -45,6 +47,15 @@ export default function Home() {
     setPage(1);
   };
 
+  const getUsers = async () => {
+    try {
+      const response = await UserService.fetchUsers();
+      setUsers(response.data);
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   // useEffect(() => {
   //   if (pendingSneakers) return;
   //   if (observer.current) observer.current.disconnect();
@@ -62,13 +73,13 @@ export default function Home() {
   // }, [pendingSneakers]);
 
   return (
-    <>
+    <div className={styles.home}>
     {/* //TODO: the sorting state should be saved during pagination */}
       <Searching
         setFilteredSneakers={setFilteredSneakers}
         originSneakers={originSneakers}
       />
-
+//TODO: create Sort component
       <Select
         value={selectedSort}
         sortSneakers={sortSneakers}
@@ -78,6 +89,8 @@ export default function Home() {
           { value: "price", name: "price" },
         ]}
       />
+      
+//TODO: create Limit component
       <Select
         value={limit}
         sortSneakers={(value) => handleLimitChange(value)}
@@ -89,6 +102,13 @@ export default function Home() {
           { value: -1, name: "show all" },
         ]}
       />
+
+      <button onClick={getUsers} className={styles.usersButton}>Get Users</button>
+
+        {users.length > 0 && users.map(user => (
+          <ol key={user.email}>{user.email}</ol>
+        ))}
+
       <div className={styles.allSneakers}>
         {errorMsgSneakers ? (
           <div className="error-msg">{`${errorMsgSneakers}!!!`}</div>
@@ -104,6 +124,6 @@ export default function Home() {
       {/* <div ref={lastElement} style={{ height: 20, background: "red" }}></div> */}
 
       {limit !== -1 && <Pagination limit={limit} page={page} setPage={setPage}/>}
-    </>
+    </div>
   );
 }

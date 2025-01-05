@@ -1,10 +1,14 @@
+import Store from "../store/store";
 import { createContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { API_URLS } from "../config/config";
 
+const store = new Store();
+
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
+  // const store = new Store();
   const [cartItems, setCartItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [isAdded, setAdded] = useState({});
@@ -52,6 +56,7 @@ export default function GlobalState({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        store,
         isCartOpened,
         isAdded,
         setAdded,
